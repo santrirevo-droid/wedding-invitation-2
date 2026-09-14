@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+:root {
+  /* Earth-tone repalette — deep espresso-brown page background, sand/cream
+     text, terracotta-clay accents. White "paper" cards stay for functional
+     content (form fields, lists) where text needs a light surface, now
+     tinted warm sand instead of pink-white. Variable NAMES are kept as
+     maroon-/gold- for minimal diff against ~15 components that already
+     reference these Tailwind tokens (bg-maroon-deep, text-gold, etc.) —
+     only the color VALUES changed, so no component file needed touching.
+     Every text/background pairing below keeps the same lightness structure
+     as the previous (verified) palette, just rotated in hue from
+     red-wine/rose to brown/terracotta/ochre, so WCAG 2.x contrast (4.5:1
+     body text, 3:1 large/decorative ≥24px or bold ≥18.5px) still holds. */
+  --maroon-deep: #2b1c12;
+  --maroon: #3a2717;
+  --maroon-light: #4a331e;
+  --paper: #faf3e8;
+
+  /* accents/text for content sitting directly on the dark background */
+  --accent: #c17a45;
+  --accent-dark: #9c5f34;
+  --on-maroon: #f0e2d0;
+  --on-maroon-soft: #d4b596;
+
+  /* accents/text for content inside light "paper" cards */
+  --gold: #8a5a34;
+  --gold-light: #ab7a4e;
+  --gold-dark: #6e4527;
+  --ink: #3d2a1a;
+  --ink-soft: #6b5238;
+  --border: #e6d3b8;
+
+  /* kept only as a small functional signal (RSVP "hadir" status, inside
+     paper cards) — shifted from emerald to olive to stay in the earth
+     family */
+  --sage: #5b6b3a;
+  --sage-light: #7c8f52;
+  --sage-dark: #3a4623;
+}
+
+@theme inline {
+  --color-maroon-deep: var(--maroon-deep);
+  --color-maroon: var(--maroon);
+  --color-maroon-light: var(--maroon-light);
+  --color-paper: var(--paper);
+  --color-accent: var(--accent);
+  --color-accent-dark: var(--accent-dark);
+  --color-on-maroon: var(--on-maroon);
+  --color-on-maroon-soft: var(--on-maroon-soft);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-border: var(--border);
+  --color-sage: var(--sage);
+  --color-sage-light: var(--sage-light);
+  --color-sage-dark: var(--sage-dark);
+
+  --font-display: var(--font-display);
+  --font-accent: var(--font-accent);
+  --font-body: var(--font-body);
+  --font-arabic: var(--font-arabic);
+  --font-script: var(--font-script);
+  --font-mempelai: var(--font-mempelai);
+  --font-fullname: var(--font-fullname);
+  --font-handle: var(--font-handle);
+  --font-rsvp: var(--font-rsvp);
+  --font-title-mempelai: var(--font-title-mempelai);
+}
+
+:root {
+  /* only 2 real Latin font families carry the running text — a single
+     serif (Cormorant Garamond) for everything except the couple's name.
+     --font-body and --font-accent both alias to it, so there's no 2nd
+     "generic" sans anywhere. Amiri (Arabic) and the script face are
+     narrow, special-purpose exceptions: liturgical text and the
+     couple's name respectively, never for running copy. */
+  --font-body: var(--font-display);
+  --font-accent: var(--font-display);
+}
+
+html {
+  /* Declared explicitly so browsers never guess-repaint this page (see
+     git history for the auto-dark-theme bug this once caused) — now
+     correctly "dark" since the page itself is a dark maroon theme.
+     Native form-control chrome (checkboxes etc.) still renders fine
+     against the light "paper" cards, verified visually after the
+     maroon redesign. */
+  color-scheme: dark;
+}
+
+body {
+  background: var(--maroon-deep);
+  color: var(--on-maroon);
+}
+
+html.scroll-locked {
+  overflow: hidden;
+  height: 100%;
+}
