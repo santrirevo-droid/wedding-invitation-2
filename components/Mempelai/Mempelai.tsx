@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import FloralLayer from "@/components/FloralLayer";
+import Ornament from "@/components/Ornament";
 import SectionHeading from "@/components/SectionHeading";
 import { useFloralParallax } from "@/hooks/useFloralParallax";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
@@ -9,18 +10,38 @@ import { couple, type CoupleRole } from "@/lib/weddingData";
 
 type Person = {
   name: string;
+  shortName: string;
   father: string;
   mother: string;
   instagram: string;
 };
 
+/**
+ * Each half of the couple, introduced under an arched plate carrying their
+ * initial. The arch stands in for the portrait this invitation doesn't have
+ * yet — an empty frame drawn on purpose reads far better than a gap, and it
+ * can be swapped for a real photo later without touching the layout.
+ */
 function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
   return (
     <div data-reveal className="flex flex-col items-center text-center">
-      <h3 className="font-fullname text-2xl text-on-maroon">{person.name}</h3>
+      <div className="relative flex h-[7.5rem] w-[6.5rem] items-center justify-center rounded-t-full border border-accent/25 bg-white/[0.02]">
+        <span className="absolute inset-[5px] rounded-t-full border border-accent/15" />
+        <span className="text-gilded font-script text-[3.4rem] leading-none">
+          {person.shortName.charAt(0)}
+        </span>
+      </div>
 
-      <p className="mt-2 max-w-xs font-mempelai text-[15px] leading-[1.6] text-on-maroon-soft">
-        {role === "putra" ? "Putra" : "Putri"} dari {person.father}
+      <h3 className="text-gilded mt-7 font-display text-[30px] font-light leading-tight">
+        {person.name}
+      </h3>
+
+      <p className="mt-3 font-accent text-[9px] font-light uppercase tracking-[0.38em] text-accent/65">
+        {role === "putra" ? "Putra" : "Putri"} dari
+      </p>
+
+      <p className="mt-3 max-w-[18rem] font-display text-[18px] font-light italic leading-[1.75] text-on-maroon-soft">
+        {person.father}
         <br />
         &amp; {person.mother}
       </p>
@@ -30,9 +51,17 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
           href={`https://instagram.com/${person.instagram.replace(/^@/, "")}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 inline-flex items-center gap-2 font-handle text-xs font-medium lowercase tracking-[0.2em] text-accent transition-colors hover:text-on-maroon"
+          className="mt-5 inline-flex items-center gap-2 border border-accent/20 px-4 py-2 font-handle text-[10px] font-light lowercase tracking-[0.22em] text-accent/85 transition-colors hover:border-accent/50 hover:text-accent"
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            aria-hidden="true"
+          >
             <rect x="3" y="3" width="18" height="18" rx="5" />
             <circle cx="12" cy="12" r="4" />
             <circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none" />
@@ -47,44 +76,58 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
 export default function Mempelai() {
   const sectionRef = useRef<HTMLElement>(null);
   const sprayRef = useRef<HTMLImageElement>(null);
-  useRevealOnScroll(sectionRef);
+  useRevealOnScroll(sectionRef, { stagger: 0.12, y: 26 });
   useFloralParallax(sectionRef, sprayRef);
 
   return (
     <section
       id="mempelai"
       ref={sectionRef}
-      className="relative overflow-hidden px-6 py-24"
+      className="relative overflow-hidden px-8 py-28"
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute right-0 top-0 w-24 select-none sm:w-32"
+        className="pointer-events-none absolute -right-20 top-24 w-[20rem] select-none opacity-[0.06] blur-[1.5px] sm:-right-12 sm:w-[26rem]"
       >
         <FloralLayer
           ref={sprayRef}
           src="/floral/floral-wc-spray-b.png"
           width={1000}
           height={753}
-          sizes="(min-width: 640px) 128px, 96px"
+          sizes="(min-width: 640px) 416px, 320px"
           className="h-auto w-full -scale-x-100"
         />
       </div>
 
       <div className="relative mx-auto max-w-md text-center">
-        <SectionHeading eyebrow="Mempelai" titleClassName="font-title-mempelai font-medium" />
+        <SectionHeading eyebrow="Mempelai" title="Kedua Mempelai" />
 
-        <p data-reveal className="mx-auto mt-4 max-w-sm font-mempelai text-[15px] leading-[1.6] text-on-maroon-soft">
-          Dengan memohon rahmat Allah SWT, kami bermaksud menyelenggarakan
-          pernikahan putra-putri kami:
+        <p
+          data-reveal
+          className="mx-auto mt-7 max-w-sm font-display text-[18px] font-light italic leading-[1.75] text-on-maroon-soft"
+        >
+          Dengan memohon rahmat dan ridha Allah SWT, kami bermaksud
+          menyelenggarakan pernikahan putra-putri kami:
         </p>
 
-        <div className="mt-10 flex flex-col items-center gap-8">
+        <div className="mt-14 flex flex-col items-center gap-12">
           <PersonBlock person={couple.bride} role="putri" />
-          <span data-reveal className="font-display text-3xl italic text-accent">
-            &amp;
-          </span>
+
+          <div data-reveal className="flex items-center gap-5">
+            <span className="rule-gild w-12" />
+            <span className="text-gilded font-script text-[3.2rem] leading-none">
+              &amp;
+            </span>
+            <span className="rule-gild w-12" />
+          </div>
+
           <PersonBlock person={couple.groom} role="putra" />
         </div>
+
+        <Ornament
+          variant="flourish"
+          className="mx-auto mt-16 w-44 text-accent/35"
+        />
       </div>
     </section>
   );

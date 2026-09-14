@@ -1,17 +1,14 @@
 "use client";
 
 import { useRef, useState } from "react";
-import FloralLayer from "@/components/FloralLayer";
+import Ornament from "@/components/Ornament";
 import SectionHeading from "@/components/SectionHeading";
-import { useFloralParallax } from "@/hooks/useFloralParallax";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { bankAccounts, giftAddress } from "@/lib/weddingData";
 
 export default function Gift() {
   const sectionRef = useRef<HTMLElement>(null);
-  const sprayRef = useRef<HTMLImageElement>(null);
-  useRevealOnScroll(sectionRef, { stagger: 0.15 });
-  useFloralParallax(sectionRef, sprayRef);
+  useRevealOnScroll(sectionRef, { stagger: 0.12, y: 26 });
 
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
@@ -25,55 +22,57 @@ export default function Gift() {
     setTimeout(() => setCopiedKey((cur) => (cur === key ? null : cur)), 1800);
   }
 
+  const copyButtonClass =
+    "mt-6 inline-flex min-h-11 cursor-pointer items-center justify-center border px-7 py-3 font-accent text-[9.5px] font-medium uppercase tracking-[0.3em] transition-colors duration-300";
+
   return (
     <section
       id="tanda-kasih"
       ref={sectionRef}
-      className="relative overflow-hidden px-6 py-24 text-center"
+      className="relative overflow-hidden px-8 py-28 text-center"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute right-0 top-0 w-20 select-none sm:w-28"
-      >
-        <FloralLayer
-          ref={sprayRef}
-          src="/floral/floral-wc-spray-a.png"
-          width={571}
-          height={1000}
-          sizes="(min-width: 640px) 112px, 80px"
-          className="h-auto w-full -scale-x-100"
-        />
-      </div>
-
       <div className="relative mx-auto max-w-md">
-        <SectionHeading eyebrow="Gift" title="Tanda Kasih" />
-        <p data-reveal className="mt-4 font-body text-[15px] leading-[1.6] text-on-maroon-soft">
-          Kehadiran &amp; doa restu Anda sudah lebih dari cukup. Bila ingin
-          memberi tanda kasih, kami sediakan pilihan berikut.
+        <SectionHeading eyebrow="Tanda Kasih" title="Amplop Digital" />
+
+        <p
+          data-reveal
+          className="mt-7 font-display text-[19px] font-light italic leading-[1.75] text-on-maroon-soft"
+        >
+          Kehadiran dan doa restu Anda sudah lebih dari cukup bagi kami.
+          Bila berkenan memberi tanda kasih, kami sediakan pilihan berikut.
         </p>
 
-        <div className="mt-8 flex flex-col gap-5">
+        <div className="mt-11 flex flex-col gap-6">
           {bankAccounts.map((account) => (
             <div
               key={account.bank}
               data-reveal
-              className="rounded-2xl border border-border/90 bg-gradient-to-b from-paper to-[#f1e4cd] px-6 py-7 shadow-[0_14px_36px_-22px_rgba(61,42,26,0.22)] ring-1 ring-inset ring-accent/10"
+              className="card-stock rounded-[3px] px-7 py-9"
             >
-              <div className="font-display text-xl font-medium text-ink">{account.bank}</div>
-              <div className="mt-2 font-mono text-lg font-semibold tabular-nums tracking-[0.16em] text-gold">
+              <p className="font-accent text-[9px] font-light uppercase tracking-[0.4em] text-ink-soft/75">
+                Transfer Bank
+              </p>
+              <div className="mt-3 font-display text-[26px] font-light leading-tight text-ink">
+                {account.bank}
+              </div>
+
+              <Ornament variant="flourish" className="mx-auto my-5 w-28 text-gold/40" />
+
+              <div className="font-display text-[24px] font-normal tabular-nums tracking-[0.18em] text-gold-dark">
                 {account.number}
               </div>
-              <div className="mt-1 font-body text-sm text-ink-soft">
+              <div className="mt-2 font-display text-[16px] font-light italic text-ink-soft">
                 a.n. {account.holder}
               </div>
+
               <button
                 type="button"
                 onClick={() => handleCopy(account.number, account.bank)}
                 className={[
-                  "mt-4 min-h-11 cursor-pointer rounded-full border px-6 py-2.5 text-xs font-medium uppercase tracking-[0.18em] transition-colors",
+                  copyButtonClass,
                   copiedKey === account.bank
                     ? "border-sage-dark bg-sage-dark text-paper"
-                    : "border-border bg-paper text-ink-soft hover:border-gold-dark",
+                    : "border-gold-dark/45 text-gold-dark hover:border-gold-dark hover:bg-gold-dark/5",
                 ].join(" ")}
               >
                 {copiedKey === account.bank ? "Tersalin ✓" : "Salin Nomor"}
@@ -81,25 +80,31 @@ export default function Gift() {
             </div>
           ))}
 
-          <div
-            data-reveal
-            className="rounded-2xl border border-border/90 bg-gradient-to-b from-paper to-[#f1e4cd] px-6 py-7 shadow-[0_14px_36px_-22px_rgba(61,42,26,0.22)] ring-1 ring-inset ring-accent/10"
-          >
-            <div className="font-display text-xl font-medium text-ink">Alamat Pengiriman Kado</div>
-            <div className="mt-2 font-mono text-base leading-[1.6] tracking-wide text-gold">
+          <div data-reveal className="card-stock rounded-[3px] px-7 py-9">
+            <p className="font-accent text-[9px] font-light uppercase tracking-[0.4em] text-ink-soft/75">
+              Kirim Hadiah
+            </p>
+            <div className="mt-3 font-display text-[26px] font-light leading-tight text-ink">
+              Alamat Pengiriman
+            </div>
+
+            <Ornament variant="flourish" className="mx-auto my-5 w-28 text-gold/40" />
+
+            <div className="mx-auto max-w-[19rem] font-display text-[17px] font-light leading-[1.65] text-gold">
               {giftAddress.address}
             </div>
-            <div className="mt-1 font-body text-sm text-ink-soft">
+            <div className="mt-2 font-display text-[16px] font-light italic text-ink-soft">
               a.n. {giftAddress.recipient}
             </div>
+
             <button
               type="button"
               onClick={() => handleCopy(giftAddress.address, "address")}
               className={[
-                "mt-4 min-h-11 cursor-pointer rounded-full border px-6 py-2.5 text-xs font-medium uppercase tracking-[0.18em] transition-colors",
+                copyButtonClass,
                 copiedKey === "address"
                   ? "border-sage-dark bg-sage-dark text-paper"
-                  : "border-border bg-paper text-ink-soft hover:border-gold-dark",
+                  : "border-gold-dark/45 text-gold-dark hover:border-gold-dark hover:bg-gold-dark/5",
               ].join(" ")}
             >
               {copiedKey === "address" ? "Tersalin ✓" : "Salin Alamat"}

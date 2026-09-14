@@ -2,7 +2,7 @@ Undangan pernikahan digital — Next.js. Diduplikat dari template undangan sebel
 
 ## Checklist sebelum dipakai
 
-- [ ] `lib/weddingData.ts` — nama pasangan, orang tua, Instagram, tanggal & jam acara, venue, rekening, alamat kado. Tanggal juga ter-hardcode di 2 tempat (`components/Hero/Hero.tsx` & `components/Acara/Acara.tsx`, ditandai TODO) — samakan.
+- [ ] `lib/weddingData.ts` — nama pasangan, orang tua, Instagram, tanggal & jam acara, venue, rekening, alamat kado. Ini satu-satunya file data yang perlu disentuh; tanggal di Hero/Acara ikut otomatis lewat `lib/weddingDate.ts`.
 - [ ] `lib/families.ts` — label `guestListFamily` (judul halaman `/daftar-tamu`); default "Daftar Tamu" biasanya sudah pas.
 - [ ] `components/Persiapan/defaultData.ts` — isi awal dashboard `/persiapan` (checklist, rundown, budget) masih generik; sunting atau langsung edit dari halaman setelah deploy.
 - [ ] `public/music/` — tambahkan file lagu sendiri sebagai `wedding-song.m4a` (dihapus dari duplikat ini karena berhak cipta/personal ke pasangan asal).
@@ -12,15 +12,30 @@ Undangan pernikahan digital — Next.js. Diduplikat dari template undangan sebel
 - [ ] Password edit `/persiapan/itinerary` masih default `"0000"` (lihat `components/Persiapan/Itinerary.tsx`) — ganti bila perlu keamanan lebih.
 - [ ] Backend (Redis/KV untuk fitur Wishes & Daftar Tamu) belum disambungkan — lihat bagian **Environment variables** di bawah.
 
-## Tampilan (earth-tone repalette)
+## Tampilan ("gilded nocturne")
 
-- Palet warna & seluruh font diganti total ke tema earth-tone (espresso,
-  terracotta, sand) — lihat komentar di `app/globals.css` dan
-  `app/layout.tsx`. Nama variabel CSS (`--maroon-deep`, `--gold`, dst.)
-  sengaja dipertahankan supaya class Tailwind di ~15 komponen tidak perlu
-  diubah; hanya nilai warnanya yang berganti.
-- Monogram Hero sekarang inisial pasangan (mis. "M & I") yang diambil dari
-  `lib/weddingData.ts`, bukan gambar ampersand generik.
+- **Warna** — ground nyaris hitam hangat + emas champagne + ivory, lihat
+  `app/globals.css`. Nama variabel CSS (`--maroon-deep`, `--gold`, dst.)
+  sengaja dipertahankan dari tema lama supaya class Tailwind di belasan
+  komponen tidak perlu diubah; baca `maroon-*` sebagai "ground gelap",
+  `accent` sebagai "emas di atas gelap", `gold-*` sebagai "tinta emas di
+  atas kertas terang".
+- **Kedalaman** — `components/BackgroundPattern` menumpuk gradasi dasar, dua
+  wash emas, grain film, lalu vignette. Grain + vignette inilah yang bikin
+  ground gelapnya tidak terbaca sebagai warna rata.
+- **Emas bergradasi** — `.text-gilded` (+ `.text-gilded-drift`) meng-clip
+  gradasi foil ke glyph; dipakai terbatas untuk judul section dan nama
+  mempelai saja. `.rule-gild` untuk garis rambut, `.card-stock` untuk kartu
+  kertas gading bergaris emas di dalam, `.gild-sweep` untuk tombol cover.
+- **Font** — hanya 4 keluarga yang benar-benar dimuat (Cormorant Garamond,
+  Italianno, Jost, Amiri); token `--font-*` lain adalah alias, lihat
+  `app/globals.css`.
+- **Ornamen** — `components/Ornament` (flourish / corner / crest), SVG
+  bikinan sendiri, bukan clipart. Aset watercolor di `public/floral` masih
+  dipakai tapi besar & sangat samar sebagai tekstur latar.
+- **Tanggal** — `lib/weddingDate.ts` menurunkan semua bentuk tampilan
+  tanggal dari `WEDDING_DATE_ISO`, jadi tidak ada lagi tanggal yang
+  ditulis ulang manual di Hero/Acara.
 
 ## Getting Started
 

@@ -1,42 +1,52 @@
 @import "tailwindcss";
 
 :root {
-  /* Earth-tone repalette — deep espresso-brown page background, sand/cream
-     text, terracotta-clay accents. White "paper" cards stay for functional
-     content (form fields, lists) where text needs a light surface, now
-     tinted warm sand instead of pink-white. Variable NAMES are kept as
-     maroon-/gold- for minimal diff against ~15 components that already
-     reference these Tailwind tokens (bg-maroon-deep, text-gold, etc.) —
-     only the color VALUES changed, so no component file needed touching.
-     Every text/background pairing below keeps the same lightness structure
-     as the previous (verified) palette, just rotated in hue from
-     red-wine/rose to brown/terracotta/ochre, so WCAG 2.x contrast (4.5:1
-     body text, 3:1 large/decorative ≥24px or bold ≥18.5px) still holds. */
-  --maroon-deep: #2b1c12;
-  --maroon: #3a2717;
-  --maroon-light: #4a331e;
-  --paper: #faf3e8;
+  /* ── "Gilded nocturne" ────────────────────────────────────────────────
+     A near-black warm ink ground, champagne gold, ivory text. The depth
+     comes from layering (radial washes + grain + vignette in
+     BackgroundPattern), not from the flat fills themselves — a single flat
+     brown is what made the old palette read cheap.
 
-  /* accents/text for content sitting directly on the dark background */
-  --accent: #c17a45;
-  --accent-dark: #9c5f34;
-  --on-maroon: #f0e2d0;
-  --on-maroon-soft: #d4b596;
+     Variable NAMES are inherited from the original maroon/gold theme and
+     kept deliberately: ~15 components already reference these Tailwind
+     tokens (bg-maroon-deep, text-accent, text-gold …), so a repalette only
+     touches values here. Read "maroon-*" as "the dark ground", "accent" as
+     "champagne gold on dark", "gold-*" as "gold ink on light paper". */
 
-  /* accents/text for content inside light "paper" cards */
-  --gold: #8a5a34;
-  --gold-light: #ab7a4e;
-  --gold-dark: #6e4527;
-  --ink: #3d2a1a;
-  --ink-soft: #6b5238;
-  --border: #e6d3b8;
+  /* the dark ground, deepest first */
+  --maroon-deep: #0c0a08;
+  --maroon: #141010;
+  --maroon-light: #1e1813;
 
-  /* kept only as a small functional signal (RSVP "hadir" status, inside
-     paper cards) — shifted from emerald to olive to stay in the earth
-     family */
-  --sage: #5b6b3a;
-  --sage-light: #7c8f52;
-  --sage-dark: #3a4623;
+  /* ivory card stock for functional surfaces (forms, lists, event card) */
+  --paper: #f8f3e9;
+
+  /* gold + text ON the dark ground */
+  --accent: #d9bc82;
+  --accent-dark: #a8873f;
+  --on-maroon: #f2e9da;
+  --on-maroon-soft: #b4a48d;
+
+  /* gold + ink INSIDE light paper surfaces */
+  --gold: #8a6a33;
+  --gold-light: #ad8c4d;
+  --gold-dark: #6b5124;
+  --ink: #2a2118;
+  --ink-soft: #5d4f3e;
+  --border: #e2d4b9;
+
+  /* gradient stops for gilded type/rules — the signature "foil" effect.
+     --gild-3 is the metal's shadow: dark enough to read as a turn in the
+     surface, light enough not to leave a muddy band across long words
+     (it did at #8d6c2c, most visibly mid-name on the Mempelai headings). */
+  --gild-1: #f6e8c6;
+  --gild-2: #cba85f;
+  --gild-3: #ab8740;
+
+  /* functional signal only (RSVP "hadir"), inside paper cards */
+  --sage: #55693b;
+  --sage-light: #7a9155;
+  --sage-dark: #33401f;
 }
 
 @theme inline {
@@ -57,6 +67,9 @@
   --color-sage: var(--sage);
   --color-sage-light: var(--sage-light);
   --color-sage-dark: var(--sage-dark);
+  --color-gild-1: var(--gild-1);
+  --color-gild-2: var(--gild-2);
+  --color-gild-3: var(--gild-3);
 
   --font-display: var(--font-display);
   --font-accent: var(--font-accent);
@@ -71,32 +84,137 @@
 }
 
 :root {
-  /* only 2 real Latin font families carry the running text — a single
-     serif (Cormorant Garamond) for everything except the couple's name.
-     --font-body and --font-accent both alias to it, so there's no 2nd
-     "generic" sans anywhere. Amiri (Arabic) and the script face are
-     narrow, special-purpose exceptions: liturgical text and the
-     couple's name respectively, never for running copy. */
+  /* Only FOUR families are actually loaded (see app/layout.tsx):
+       --font-display  Cormorant Garamond — every heading and all running copy
+       --font-script   Italianno          — the couple's names, nothing else
+       --font-meta     Jost               — tiny tracked labels, IG handles
+       --font-arabic   Amiri              — the Qur'anic passage
+     Every other token below is an alias, so components can keep their
+     existing font-* classes while the type system stays this small. */
   --font-body: var(--font-display);
-  --font-accent: var(--font-display);
+  --font-accent: var(--font-meta);
+  --font-mempelai: var(--font-display);
+  --font-fullname: var(--font-display);
+  --font-title-mempelai: var(--font-display);
+  --font-handle: var(--font-meta);
+  --font-rsvp: var(--font-script);
 }
 
 html {
-  /* Declared explicitly so browsers never guess-repaint this page (see
-     git history for the auto-dark-theme bug this once caused) — now
-     correctly "dark" since the page itself is a dark maroon theme.
-     Native form-control chrome (checkboxes etc.) still renders fine
-     against the light "paper" cards, verified visually after the
-     maroon redesign. */
   color-scheme: dark;
+  scroll-behavior: auto; /* Lenis drives scrolling; native smooth fights it */
 }
 
 body {
   background: var(--maroon-deep);
   color: var(--on-maroon);
+  /* serif running copy at invitation sizes benefits from the extra optical
+     polish; harmless where unsupported */
+  text-rendering: optimizeLegibility;
 }
 
 html.scroll-locked {
   overflow: hidden;
   height: 100%;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--accent) 35%, transparent);
+  color: var(--on-maroon);
+}
+
+/* ── Gilded type ────────────────────────────────────────────────────────
+   Foil-like gradient clipped to the glyphs. Used for display headings and
+   the couple's names — the single strongest "this cost money" signal on
+   the page, so it stays reserved for those. */
+.text-gilded {
+  background-image: linear-gradient(
+    100deg,
+    var(--gild-2) 0%,
+    var(--gild-1) 20%,
+    var(--gild-3) 42%,
+    var(--gild-1) 64%,
+    var(--gild-2) 100%
+  );
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* slow foil drift — only on the few hero-scale moments that opt in */
+.text-gilded-drift {
+  animation: gild-drift 9s ease-in-out infinite alternate;
+}
+
+@keyframes gild-drift {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+/* ── Hairline rules ─────────────────────────────────────────────────────
+   A 1px line that fades out at both ends, so it reads as engraved rather
+   than drawn. */
+.rule-gild {
+  height: 1px;
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--accent) 65%, transparent) 22%,
+    color-mix(in oklab, var(--accent) 80%, transparent) 50%,
+    color-mix(in oklab, var(--accent) 65%, transparent) 78%,
+    transparent
+  );
+}
+
+/* ── Paper surfaces ─────────────────────────────────────────────────────
+   Ivory stock with a gold hairline inset a couple of px from the edge —
+   the classic printed-stationery border, far more expensive-looking than
+   a drop shadow. */
+.card-stock {
+  position: relative;
+  background-image: linear-gradient(
+    180deg,
+    var(--paper) 0%,
+    color-mix(in oklab, var(--paper) 88%, var(--border)) 100%
+  );
+  box-shadow:
+    0 24px 60px -32px rgba(0, 0, 0, 0.75),
+    0 2px 10px -6px rgba(0, 0, 0, 0.35);
+}
+
+.card-stock::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid color-mix(in oklab, var(--gold) 26%, transparent);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* ── Shimmer sweep (the "Buka Undangan" button) ─────────────────────── */
+.gild-sweep {
+  background-image: linear-gradient(
+    100deg,
+    var(--gild-3) 0%,
+    var(--gild-2) 30%,
+    var(--gild-1) 50%,
+    var(--gild-2) 70%,
+    var(--gild-3) 100%
+  );
+  background-size: 200% 100%;
+  animation: gild-drift 5.5s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-gilded-drift,
+  .gild-sweep {
+    animation: none;
+  }
 }

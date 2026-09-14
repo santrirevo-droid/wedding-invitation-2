@@ -1,5 +1,4 @@
 import Acara from "@/components/Acara";
-import Divider from "@/components/Divider";
 import Footer from "@/components/Footer";
 import Gift from "@/components/Gift";
 import Hero from "@/components/Hero";
@@ -8,22 +7,22 @@ import OpeningQuote from "@/components/OpeningQuote";
 import RSVP from "@/components/RSVP";
 import Wishes from "@/components/Wishes";
 
+/**
+ * No separators between sections: every section now opens with its own
+ * drawn flourish under the heading, so the standalone dividers the template
+ * used to stack between them just doubled the ornament. The rhythm comes
+ * from the shared py-28 and the repeated masthead instead.
+ */
 export default function Home() {
   return (
     <main className="flex-1">
       <Hero />
       <OpeningQuote />
-      <Divider className="py-2" />
       <Mempelai />
-      <Divider className="py-2" />
       <Acara />
-      <Divider className="py-2" />
       <RSVP />
-      <Divider className="py-2" />
       <Gift />
-      <Divider className="py-2" />
       <Wishes />
-      <Divider className="py-2" />
       <Footer />
     </main>
   );

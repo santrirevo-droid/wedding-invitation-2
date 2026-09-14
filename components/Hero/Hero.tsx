@@ -1,15 +1,16 @@
 "use client";
 
 import { Suspense } from "react";
-import FloralLayer from "@/components/FloralLayer";
 import GuestGreeting, { GuestGreetingFallback } from "@/components/GuestGreeting";
 import InvitationButton from "@/components/InvitationButton";
 import MusicPlayer from "@/components/MusicPlayer";
+import Ornament from "@/components/Ornament";
 import { useCoverRefs } from "@/hooks/useCoverRefs";
 import { useIdleMotion } from "@/hooks/useIdleMotion";
 import { useOpenInvitation } from "@/hooks/useOpenInvitation";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { couple } from "@/lib/weddingData";
+import { weddingDay, weddingMonth, weddingYear } from "@/lib/weddingDate";
 
 export default function Hero() {
   const refs = useCoverRefs();
@@ -26,126 +27,106 @@ export default function Hero() {
       className="relative min-h-svh w-full overflow-hidden bg-maroon-deep"
     >
       <div ref={coverInner} className="absolute inset-0">
-        {/* background */}
+        {/* local wash — brighter behind the names, so the type sits in its
+            own pool of light instead of on an even field */}
         <div
           ref={background}
-          className="absolute inset-0 bg-gradient-to-b from-maroon via-maroon-deep to-maroon-light"
-        />
-
-        {/* paper texture */}
-        <div
-          className="absolute inset-0 opacity-[0.04] mix-blend-multiply"
+          className="absolute inset-0"
           style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+            background:
+              "radial-gradient(78% 52% at 50% 38%, #221a14 0%, #130f0c 55%, #0a0806 100%)",
           }}
         />
 
-        {/* a couple of loose, scattered leaves instead of a symmetric frame —
-            matches the reference's organic (not boxed-in) feel */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute right-8 top-8 w-9 rotate-[18deg] sm:right-12 sm:top-10 sm:w-11"
-        >
-          <FloralLayer
-            src="/floral/floral-wc-spray-e.png"
-            width={1000}
-            height={1000}
-            sizes="44px"
-            className="h-auto w-full"
+        {/* engraved frame */}
+        <div className="pointer-events-none absolute inset-3 sm:inset-5">
+          <Ornament
+            variant="corner"
+            className="absolute left-0 top-0 w-16 text-accent/45 sm:w-20"
           />
-        </div>
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute bottom-24 left-6 w-8 -rotate-[24deg] sm:left-10 sm:w-10"
-        >
-          <FloralLayer
-            src="/floral/floral-wc-spray-e.png"
-            width={1000}
-            height={1000}
-            sizes="40px"
-            className="h-auto w-full -scale-x-100"
+          <Ornament
+            variant="corner"
+            className="absolute right-0 top-0 w-16 rotate-90 text-accent/45 sm:w-20"
+          />
+          <Ornament
+            variant="corner"
+            className="absolute bottom-0 right-0 w-16 rotate-180 text-accent/45 sm:w-20"
+          />
+          <Ornament
+            variant="corner"
+            className="absolute bottom-0 left-0 w-16 -rotate-90 text-accent/45 sm:w-20"
           />
         </div>
 
-        {/* ambient light — breathes idly, blooms warm on open */}
+        {/* bloom on open */}
         <div
           ref={glow}
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 opacity-10"
+          className="pointer-events-none absolute inset-0 opacity-0"
           style={{
             background:
-              "radial-gradient(circle at 50% 32%, rgba(217,169,78,0.35), transparent 62%)",
+              "radial-gradient(circle at 50% 36%, rgba(217,188,130,0.42), transparent 62%)",
           }}
         />
 
-        {/* content column */}
-        <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-md flex-col items-center justify-center gap-6 px-6 py-20 text-center">
-          <div ref={content} className="flex flex-col items-center gap-5">
+        <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-md flex-col items-center justify-center gap-8 px-8 py-20 text-center">
+          <div ref={content} className="flex flex-col items-center">
             <p
               dir="rtl"
               lang="ar"
-              className="font-arabic text-2xl leading-relaxed text-accent"
+              className="font-arabic text-xl leading-relaxed text-accent/85"
             >
               بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
             </p>
 
-            <p className="font-accent text-sm font-medium tracking-[0.12em] text-on-maroon-soft [font-variant-caps:small-caps]">
+            <p className="mt-7 font-accent text-[10px] font-light uppercase tracking-[0.5em] text-on-maroon-soft">
               The Wedding Of
             </p>
 
-            {/* monogram — couple's initials instead of a generic ampersand
-                crest image, so it always matches whoever's data is loaded */}
-            <div aria-hidden="true" className="flex items-center justify-center gap-3 sm:gap-4">
-              <span className="h-px w-6 bg-accent/40 sm:w-8" />
-              <span className="font-script text-[clamp(2.75rem,14vw,4rem)] leading-none text-accent">
-                {couple.groom.shortName.charAt(0)}
-              </span>
-              <span className="font-display text-lg italic leading-none text-on-maroon-soft sm:text-xl">
-                &amp;
-              </span>
-              <span className="font-script text-[clamp(2.75rem,14vw,4rem)] leading-none text-accent">
-                {couple.bride.shortName.charAt(0)}
-              </span>
-              <span className="h-px w-6 bg-accent/40 sm:w-8" />
-            </div>
+            <Ornament variant="crest" className="mt-6 w-16 text-accent/70" />
 
-            <h1
-              ref={title}
-              className="flex flex-wrap items-baseline justify-center gap-x-2 leading-none text-on-maroon"
-            >
-              <span className="font-script text-[clamp(2.25rem,11vw,3.25rem)] leading-none">
+            {/* the couple's names — the one place the script face appears at
+                full scale, gilded and slowly drifting */}
+            <h1 ref={title} className="mt-3 flex flex-col items-center leading-none">
+              <span className="text-gilded text-gilded-drift font-script text-[clamp(3.2rem,20vw,5.5rem)] leading-[0.95]">
                 {couple.groom.shortName}
               </span>
-              <span className="font-script text-[clamp(1.5rem,7vw,2.25rem)] leading-none text-accent">
+              <span className="my-1 font-display text-2xl font-light italic text-accent/80">
                 &amp;
               </span>
-              <span className="font-script text-[clamp(2.25rem,11vw,3.25rem)] leading-none">
+              <span className="text-gilded text-gilded-drift font-script text-[clamp(3.2rem,20vw,5.5rem)] leading-[0.95]">
                 {couple.bride.shortName}
               </span>
             </h1>
 
-            <div className="flex items-center gap-3">
-              <span className="h-px w-8 bg-accent/40" />
-              <p className="font-display text-lg font-semibold tracking-wide text-accent">
-                01 · 01 · 2027 {/* TODO: samakan dengan tanggal di lib/weddingData.ts */}
+            {/* date, set as three tracked numerals between hairlines */}
+            <div className="mt-7 flex items-center gap-4">
+              <span className="rule-gild w-10 sm:w-14" />
+              <p className="flex items-baseline gap-2.5 font-display text-lg font-light tracking-[0.18em] text-on-maroon">
+                <span>{weddingDay}</span>
+                <span className="text-accent/60">·</span>
+                <span>{weddingMonth}</span>
+                <span className="text-accent/60">·</span>
+                <span>{weddingYear}</span>
               </p>
-              <span className="h-px w-8 bg-accent/40" />
+              <span className="rule-gild w-10 sm:w-14" />
             </div>
 
-            <Suspense fallback={<GuestGreetingFallback />}>
-              <GuestGreeting />
-            </Suspense>
+            <div className="mt-9">
+              <Suspense fallback={<GuestGreetingFallback />}>
+                <GuestGreeting />
+              </Suspense>
+            </div>
           </div>
 
-          <div ref={button} className="flex flex-col items-center gap-3">
+          <div ref={button} className="flex flex-col items-center gap-4">
             <InvitationButton
               onClick={() => {
                 idle.stop();
                 open();
               }}
             />
-            <p className="font-accent text-[11px] tracking-[0.25em] text-on-maroon-soft [font-variant-caps:small-caps]">
+            <p className="font-accent text-[9px] font-light uppercase tracking-[0.4em] text-on-maroon-soft/70">
               Ketuk untuk membuka
             </p>
           </div>

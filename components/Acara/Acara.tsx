@@ -2,11 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import FloralLayer from "@/components/FloralLayer";
+import Ornament from "@/components/Ornament";
 import SectionHeading from "@/components/SectionHeading";
 import { useFloralParallax } from "@/hooks/useFloralParallax";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { CALENDAR_GOOGLE_URL } from "@/lib/calendar";
 import { WEDDING_DATE_ISO, events, venue } from "@/lib/weddingData";
+import { weddingDateLong } from "@/lib/weddingDate";
 
 const [akad, resepsi] = events;
 
@@ -25,10 +27,40 @@ function getTimeLeft() {
   };
 }
 
+function EventBlock({
+  title,
+  time,
+  date,
+  emphasis = false,
+}: {
+  title: string;
+  time: string;
+  date: string;
+  emphasis?: boolean;
+}) {
+  return (
+    <div>
+      <h3
+        className={`font-display font-light text-ink ${
+          emphasis ? "text-[28px]" : "text-[24px]"
+        } leading-tight`}
+      >
+        {title}
+      </h3>
+      <p className="mt-3 font-accent text-[15px] font-normal tracking-[0.08em] text-gold">
+        {time}
+      </p>
+      <p className="mt-1.5 font-display text-[15px] font-light italic text-ink-soft">
+        {date}
+      </p>
+    </div>
+  );
+}
+
 export default function Acara() {
   const sectionRef = useRef<HTMLElement>(null);
   const sprayRef = useRef<HTMLImageElement>(null);
-  useRevealOnScroll(sectionRef);
+  useRevealOnScroll(sectionRef, { stagger: 0.1, y: 26 });
   useFloralParallax(sectionRef, sprayRef);
 
   // lazy init so the first paint already shows real numbers instead of
@@ -52,94 +84,98 @@ export default function Acara() {
     <section
       id="acara"
       ref={sectionRef}
-      className="relative overflow-hidden px-6 py-24 text-center"
+      className="relative overflow-hidden px-8 py-28 text-center"
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute right-0 top-0 w-24 select-none sm:w-32"
+        className="pointer-events-none absolute -left-24 bottom-16 w-[20rem] select-none opacity-[0.06] blur-[1.5px] sm:-left-16 sm:w-[25rem]"
       >
         <FloralLayer
           ref={sprayRef}
           src="/floral/floral-wc-spray-c.png"
           width={1000}
           height={1000}
-          sizes="(min-width: 640px) 128px, 96px"
-          className="h-auto w-full -scale-x-100"
+          sizes="(min-width: 640px) 400px, 320px"
+          className="h-auto w-full"
         />
       </div>
 
-      <div className="mx-auto max-w-md">
-        <SectionHeading eyebrow="Acara" />
+      <div className="relative mx-auto max-w-md">
+        <SectionHeading eyebrow="Acara" title="Waktu & Tempat" />
 
         <p
           data-reveal
-          className="mt-3 inline-block rounded-full border border-accent/40 bg-accent/10 px-6 py-2 font-display text-2xl font-semibold tracking-wide text-accent"
+          className="mt-7 font-display text-[22px] font-light tracking-[0.06em] text-on-maroon"
         >
-          {/* TODO: samakan dengan tanggal di lib/weddingData.ts */}
-          1 Januari 2027
+          {weddingDateLong}
         </p>
 
-        <div data-reveal className="mt-8 grid grid-cols-4 gap-3">
+        {/* countdown — hairline plates on the dark ground, so the ivory card
+            below stays the one bright object in the section */}
+        <div data-reveal className="mt-9 grid grid-cols-4 gap-2.5">
           {cells.map((cell) => (
             <div
               key={cell.label}
-              className="rounded-2xl border border-border/90 bg-gradient-to-b from-paper to-[#f1e4cd] px-2 py-6 shadow-[0_10px_28px_-16px_rgba(61,42,26,0.18)] ring-1 ring-inset ring-accent/10"
+              className="border border-accent/20 bg-white/[0.025] px-1 py-5"
             >
               <div
                 suppressHydrationWarning
-                className="font-display text-[32px] font-semibold text-gold tabular-nums"
+                className="text-gilded font-display text-[32px] font-light leading-none tabular-nums"
               >
                 {String(cell.value).padStart(2, "0")}
               </div>
-              <div className="mt-2 font-accent text-[10.5px] uppercase tracking-[0.3em] text-ink-soft opacity-70">
+              <div className="mt-2.5 font-accent text-[8.5px] font-light uppercase tracking-[0.3em] text-on-maroon-soft/75">
                 {cell.label}
               </div>
             </div>
           ))}
         </div>
 
-        {/* One card for both events — the date's already shown once above,
-            so only time (and, for Resepsi, venue/actions) repeats here */}
+        {/* the invitation card itself */}
         <div
           data-reveal
-          className="mt-6 rounded-2xl border border-border/90 bg-gradient-to-b from-paper to-[#f1e4cd] px-6 py-8 shadow-[0_14px_32px_-20px_rgba(61,42,26,0.22)] ring-1 ring-inset ring-accent/10"
+          className="card-stock mt-12 rounded-[3px] px-7 py-11 sm:px-10"
         >
-          <h3 className="font-display text-lg font-medium text-ink">{akad.title}</h3>
-          <div className="mx-auto mt-2 h-px w-8 bg-gold" />
-          <p className="mt-3 font-body text-sm font-semibold text-gold">{akad.time}</p>
-          <p className="mt-1 font-body text-xs text-ink-soft">{akad.date}</p>
+          <EventBlock title={akad.title} time={akad.time} date={akad.date} />
 
-          <div className="mx-auto my-6 h-px w-16 bg-border" />
+          <Ornament
+            variant="flourish"
+            className="mx-auto my-9 w-36 text-gold/45"
+          />
 
-          <h3 className="font-display text-2xl font-semibold text-ink">{resepsi.title}</h3>
-          <div className="mx-auto mt-2 h-px w-10 bg-gold" />
-          <p className="mt-3 font-body text-lg font-semibold text-gold">{resepsi.time}</p>
-          <p className="mt-1 font-body text-xs text-ink-soft">{resepsi.date}</p>
+          <EventBlock
+            title={resepsi.title}
+            time={resepsi.time}
+            date={resepsi.date}
+            emphasis
+          />
 
-          <p className="mt-5 font-accent text-sm font-medium tracking-[0.12em] text-ink-soft [font-variant-caps:small-caps]">
+          <p className="mt-10 font-accent text-[9px] font-light uppercase tracking-[0.4em] text-ink-soft/75">
             Bertempat di
           </p>
-          <h4 className="mt-2 font-display text-xl font-medium text-ink">{venue.name}</h4>
-          <p className="mt-1 font-body text-[15px] text-ink-soft">{venue.location}</p>
+          <h4 className="mt-3 font-display text-[25px] font-light leading-tight text-ink">
+            {venue.name}
+          </h4>
+          <p className="mx-auto mt-2.5 max-w-[19rem] font-display text-[16px] font-light italic leading-[1.6] text-ink-soft">
+            {venue.location}
+          </p>
 
-          <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+          <div className="mt-9 flex flex-col items-stretch gap-3">
             <a
               href={venue.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-gold-dark px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-paper shadow-[0_10px_26px_-10px_rgba(110,69,39,0.55)] transition-[filter] hover:brightness-90"
+              className="inline-flex min-h-11 items-center justify-center bg-gold-dark px-7 py-3.5 font-accent text-[10px] font-medium uppercase tracking-[0.32em] text-paper transition-[filter] duration-300 hover:brightness-110"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-paper" />
               Lihat Lokasi
             </a>
-
             <a
               href={CALENDAR_GOOGLE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center gap-2 rounded-full border border-gold-dark px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-gold-dark transition-[filter] hover:brightness-90"
+              className="inline-flex min-h-11 items-center justify-center border border-gold-dark/45 px-7 py-3.5 font-accent text-[10px] font-medium uppercase tracking-[0.32em] text-gold-dark transition-colors duration-300 hover:border-gold-dark hover:bg-gold-dark/5"
             >
-              Simpan ke Google Calendar
+              Simpan ke Kalender
             </a>
           </div>
         </div>

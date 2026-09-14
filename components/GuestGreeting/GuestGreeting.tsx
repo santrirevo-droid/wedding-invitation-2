@@ -4,11 +4,21 @@ import { useGuestName } from "@/hooks/useGuestName";
 
 function GreetingCardShell({ guestName }: { guestName: string }) {
   return (
-    <div className="w-full max-w-xs rounded-2xl border border-border/90 bg-gradient-to-b from-paper to-[#f1e4cd] px-6 py-5 text-center shadow-[0_10px_28px_-18px_rgba(61,42,26,0.3)] ring-1 ring-inset ring-accent/10">
-      <p className="font-body text-base leading-tight text-ink-soft">Kepada Yth.</p>
-      <p className="font-body text-base leading-tight text-ink-soft">Bapak/Ibu/Saudara/i</p>
+    <div className="w-full max-w-[17rem] border border-accent/20 bg-white/[0.025] px-7 py-5 text-center backdrop-blur-[2px]">
+      <p className="font-accent text-[9px] font-light uppercase tracking-[0.36em] text-on-maroon-soft">
+        Kepada Yth.
+      </p>
+      <p className="mt-1.5 font-accent text-[9px] font-light uppercase tracking-[0.26em] text-on-maroon-soft/65">
+        Bapak / Ibu / Saudara&#47;i
+      </p>
+
       {guestName && (
-        <p className="mt-1.5 font-body text-2xl font-semibold leading-tight text-ink">{guestName}</p>
+        <>
+          <span className="rule-gild mx-auto mt-4 block w-12" />
+          <p className="mt-3.5 font-display text-[26px] font-light leading-tight text-on-maroon">
+            {guestName}
+          </p>
+        </>
       )}
     </div>
   );

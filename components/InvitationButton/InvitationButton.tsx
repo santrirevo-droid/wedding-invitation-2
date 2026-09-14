@@ -6,6 +6,11 @@ type InvitationButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   label?: string;
 };
 
+/**
+ * The cover's single call to action: a solid gold pill whose foil gradient
+ * drifts slowly (`.gild-sweep`), lifting on hover. It's the only filled
+ * button on the dark ground, so nothing competes with it.
+ */
 const InvitationButton = forwardRef<HTMLButtonElement, InvitationButtonProps>(
   ({ label = "Buka Undangan", className = "", ...props }, ref) => {
     return (
@@ -13,19 +18,18 @@ const InvitationButton = forwardRef<HTMLButtonElement, InvitationButtonProps>(
         ref={ref}
         type="button"
         className={[
-          "group relative inline-flex min-h-11 items-center gap-3 rounded-full",
-          "bg-accent px-10 py-3.5",
-          "font-body text-xs font-semibold uppercase tracking-[0.28em] text-maroon-deep",
-          "shadow-[0_14px_34px_-10px_rgba(0,0,0,0.45)]",
-          "transition-[filter] duration-300 hover:brightness-95",
-          "cursor-pointer",
+          "gild-sweep group relative inline-flex min-h-12 cursor-pointer items-center gap-3.5 rounded-full px-11 py-4",
+          "font-accent text-[10px] font-medium uppercase tracking-[0.38em] text-maroon-deep",
+          "shadow-[0_20px_44px_-18px_rgba(217,188,130,0.55)]",
+          "transition-transform duration-300 hover:-translate-y-0.5",
           className,
         ].join(" ")}
         {...props}
       >
-        <span className="relative flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full rotate-45 bg-maroon-deep" />
-        </span>
+        <span
+          aria-hidden="true"
+          className="h-1.5 w-1.5 rotate-45 bg-maroon-deep/75 transition-transform duration-300 group-hover:rotate-[135deg]"
+        />
         {label}
       </button>
     );

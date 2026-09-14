@@ -3,9 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import FloralLayer from "@/components/FloralLayer";
 import SectionHeading from "@/components/SectionHeading";
-import { useFloralParallax } from "@/hooks/useFloralParallax";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { useWishes } from "@/hooks/useWishes";
 
@@ -14,9 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Wishes() {
   const sectionRef = useRef<HTMLElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
-  const sprayRef = useRef<HTMLImageElement>(null);
-  useRevealOnScroll(sectionRef);
-  useFloralParallax(sectionRef, sprayRef);
+  useRevealOnScroll(sectionRef, { stagger: 0.1, y: 24 });
   const { wishes } = useWishes();
 
   // re-run whenever the wish count changes, so newly-submitted or
@@ -31,7 +27,7 @@ export default function Wishes() {
     const ctx = gsap.context(() => {
       const cards = gsap.utils.toArray<HTMLElement>("[data-wish-card]");
       if (!cards.length) return;
-      gsap.set(cards, { opacity: 0, y: 28 });
+      gsap.set(cards, { opacity: 0, y: 26 });
       ScrollTrigger.create({
         trigger: section,
         start: "top 78%",
@@ -40,7 +36,7 @@ export default function Wishes() {
           gsap.to(cards, {
             opacity: 1,
             y: 0,
-            duration: 0.7,
+            duration: 0.75,
             stagger: 0.1,
             ease: "power3.out",
           });
@@ -55,50 +51,38 @@ export default function Wishes() {
     <section
       id="ucapan"
       ref={sectionRef}
-      className="relative overflow-hidden px-6 pt-24 pb-24 text-center"
+      className="relative overflow-hidden px-8 py-28 text-center"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-0 top-0 w-24 select-none sm:w-32"
-      >
-        <FloralLayer
-          ref={sprayRef}
-          src="/floral/floral-wc-spray-b.png"
-          width={1000}
-          height={753}
-          sizes="(min-width: 640px) 128px, 96px"
-          className="h-auto w-full"
-        />
-      </div>
-
-      <div className="mx-auto max-w-md">
+      <div className="relative mx-auto max-w-md">
         <SectionHeading eyebrow="Guestbook" title="Ucapan & Doa" />
 
-        <div ref={listRef} className="mt-10">
+        <div ref={listRef} className="mt-11">
           {wishes.length === 0 ? (
-            <p data-reveal className="font-body text-base text-on-maroon-soft">
+            <p className="font-display text-[19px] font-light italic text-on-maroon-soft/80">
               Jadilah yang pertama mengirimkan ucapan &amp; doa.
             </p>
           ) : (
-            <div className="flex max-h-[26rem] flex-col gap-3 overflow-y-auto pr-1 text-left">
+            <div className="flex max-h-[28rem] flex-col gap-3.5 overflow-y-auto pr-1.5 text-left">
               {wishes.map((wish) => (
                 <div
                   key={wish.id}
                   data-wish-card
-                  className="rounded-2xl border border-border/90 bg-gradient-to-b from-paper to-[#f1e4cd] px-5 py-4 shadow-[0_10px_24px_-18px_rgba(61,42,26,0.2)] ring-1 ring-inset ring-accent/10"
+                  className="border border-accent/15 bg-white/[0.025] px-6 py-5"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold font-display text-base font-semibold text-paper">
+                  <div className="flex items-center gap-3.5">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-accent/30 font-display text-lg font-light text-accent">
                       {wish.name.trim().charAt(0).toUpperCase() || "?"}
                     </span>
                     <div className="min-w-0">
-                      <div className="truncate font-body text-sm font-medium text-ink">
+                      <div className="truncate font-display text-[18px] font-light text-on-maroon">
                         {wish.name}
                       </div>
                       <div
                         className={[
-                          "text-xs tracking-wide",
-                          wish.attend === "hadir" ? "text-sage-dark" : "text-red-700",
+                          "font-accent text-[8.5px] uppercase tracking-[0.26em]",
+                          wish.attend === "hadir"
+                            ? "text-sage-light"
+                            : "text-on-maroon-soft/65",
                         ].join(" ")}
                       >
                         {wish.attend === "hadir"
@@ -110,7 +94,7 @@ export default function Wishes() {
                     </div>
                   </div>
                   {wish.message && (
-                    <p className="mt-3 font-body text-[15px] leading-[1.6] text-ink-soft">
+                    <p className="mt-4 font-display text-[16.5px] font-light italic leading-[1.7] text-on-maroon-soft">
                       {wish.message}
                     </p>
                   )}
