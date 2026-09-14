@@ -1,8 +1,9 @@
 "use client";
 
 import { useRef } from "react";
+import { SectionFloral } from "@/components/Botanical";
+import Crest from "@/components/Crest";
 import FloralLayer from "@/components/FloralLayer";
-import Ornament from "@/components/Ornament";
 import { useFloralParallax } from "@/hooks/useFloralParallax";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 
@@ -34,8 +35,10 @@ export default function OpeningQuote() {
         />
       </div>
 
+      <SectionFloral />
+
       <div className="relative max-w-md">
-        <Ornament variant="crest" className="mx-auto w-10 text-accent/60" />
+        <Crest className="mx-auto w-10 text-accent/60" />
 
         <p className="mt-5 font-accent text-[10px] font-light uppercase tracking-[0.45em] text-accent/75">
           Ayat Pembuka

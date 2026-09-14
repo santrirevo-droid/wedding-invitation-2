@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Ornament from "@/components/Ornament";
+import Botanical, { SectionFloral } from "@/components/Botanical";
 import SectionHeading from "@/components/SectionHeading";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { bankAccounts, giftAddress } from "@/lib/weddingData";
@@ -31,6 +31,8 @@ export default function Gift() {
       ref={sectionRef}
       className="relative overflow-hidden px-8 py-28 text-center"
     >
+      <SectionFloral />
+
       <div className="relative mx-auto max-w-md">
         <SectionHeading eyebrow="Tanda Kasih" title="Amplop Digital" />
 
@@ -56,7 +58,7 @@ export default function Gift() {
                 {account.bank}
               </div>
 
-              <Ornament variant="flourish" className="mx-auto my-5 w-28 text-gold/40" />
+              <Botanical variant="garland" className="mx-auto my-5 w-36 text-gold/45" />
 
               <div className="font-display text-[24px] font-normal tabular-nums tracking-[0.18em] text-gold-dark">
                 {account.number}
@@ -88,7 +90,7 @@ export default function Gift() {
               Alamat Pengiriman
             </div>
 
-            <Ornament variant="flourish" className="mx-auto my-5 w-28 text-gold/40" />
+            <Botanical variant="garland" className="mx-auto my-5 w-36 text-gold/45" />
 
             <div className="mx-auto max-w-[19rem] font-display text-[17px] font-light leading-[1.65] text-gold">
               {giftAddress.address}

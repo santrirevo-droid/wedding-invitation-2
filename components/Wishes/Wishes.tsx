@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SectionFloral } from "@/components/Botanical";
 import SectionHeading from "@/components/SectionHeading";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { useWishes } from "@/hooks/useWishes";
@@ -53,6 +54,8 @@ export default function Wishes() {
       ref={sectionRef}
       className="relative overflow-hidden px-8 py-28 text-center"
     >
+      <SectionFloral />
+
       <div className="relative mx-auto max-w-md">
         <SectionHeading eyebrow="Guestbook" title="Ucapan & Doa" />
 

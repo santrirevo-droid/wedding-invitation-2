@@ -1,4 +1,4 @@
-import Ornament from "@/components/Ornament";
+import Botanical from "@/components/Botanical";
 
 type SectionHeadingProps = {
   eyebrow: string;
@@ -15,7 +15,7 @@ type SectionHeadingProps = {
 
 /**
  * Every section opens the same way: a hairline-tracked kicker, an oversized
- * gilded serif title, then a drawn flourish. The repetition is the point —
+ * gilded serif title, then a floral garland. The repetition is the point —
  * it's the page's masthead, and a consistent one is most of what separates
  * an art-directed invitation from a template.
  */
@@ -48,9 +48,9 @@ export default function SectionHeading({
         </h2>
       )}
 
-      <Ornament
-        variant="flourish"
-        className={`${kickerOnly ? "mt-4" : "mt-5"} w-40 text-accent/55 sm:w-48`}
+      <Botanical
+        variant="garland"
+        className={`${kickerOnly ? "mt-3" : "mt-4"} w-56 text-accent/50 sm:w-64`}
       />
     </div>
   );

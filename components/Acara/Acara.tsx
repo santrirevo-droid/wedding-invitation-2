@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Botanical, { SectionFloral } from "@/components/Botanical";
 import FloralLayer from "@/components/FloralLayer";
-import Ornament from "@/components/Ornament";
 import SectionHeading from "@/components/SectionHeading";
 import { useFloralParallax } from "@/hooks/useFloralParallax";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
@@ -100,6 +100,8 @@ export default function Acara() {
         />
       </div>
 
+      <SectionFloral />
+
       <div className="relative mx-auto max-w-md">
         <SectionHeading eyebrow="Acara" title="Waktu & Tempat" />
 
@@ -134,13 +136,18 @@ export default function Acara() {
         {/* the invitation card itself */}
         <div
           data-reveal
-          className="card-stock mt-12 rounded-[3px] px-7 py-11 sm:px-10"
+          className="card-stock relative mt-12 overflow-hidden rounded-[3px] px-7 py-11 sm:px-10"
         >
+          <Botanical
+            variant="garland"
+            className="mx-auto mb-8 w-44 text-gold/45"
+          />
+
           <EventBlock title={akad.title} time={akad.time} date={akad.date} />
 
-          <Ornament
-            variant="flourish"
-            className="mx-auto my-9 w-36 text-gold/45"
+          <Botanical
+            variant="garland"
+            className="mx-auto my-9 w-40 -scale-y-100 text-gold/45"
           />
 
           <EventBlock

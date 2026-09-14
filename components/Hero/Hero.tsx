@@ -1,10 +1,12 @@
 "use client";
 
 import { Suspense } from "react";
+import Botanical from "@/components/Botanical";
+import Crest from "@/components/Crest";
+import FloralLayer from "@/components/FloralLayer";
 import GuestGreeting, { GuestGreetingFallback } from "@/components/GuestGreeting";
 import InvitationButton from "@/components/InvitationButton";
 import MusicPlayer from "@/components/MusicPlayer";
-import Ornament from "@/components/Ornament";
 import { useCoverRefs } from "@/hooks/useCoverRefs";
 import { useIdleMotion } from "@/hooks/useIdleMotion";
 import { useOpenInvitation } from "@/hooks/useOpenInvitation";
@@ -38,24 +40,69 @@ export default function Hero() {
           }}
         />
 
-        {/* engraved frame */}
-        <div className="pointer-events-none absolute inset-3 sm:inset-5">
-          <Ornament
-            variant="corner"
-            className="absolute left-0 top-0 w-16 text-accent/45 sm:w-20"
+        {/* watercolour atmosphere, far behind everything */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-24 -top-16 w-[26rem] select-none opacity-[0.1] blur-[2px]"
+        >
+          <FloralLayer
+            src="/floral/floral-wc-spray-b.png"
+            width={1000}
+            height={753}
+            sizes="416px"
+            priority
+            className="h-auto w-full"
           />
-          <Ornament
-            variant="corner"
-            className="absolute right-0 top-0 w-16 rotate-90 text-accent/45 sm:w-20"
+        </div>
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-20 -right-24 w-[22rem] select-none opacity-[0.09] blur-[2px]"
+        >
+          <FloralLayer
+            src="/floral/floral-wc-spray-a.png"
+            width={571}
+            height={1000}
+            sizes="352px"
+            className="h-auto w-full"
           />
-          <Ornament
-            variant="corner"
-            className="absolute bottom-0 right-0 w-16 rotate-180 text-accent/45 sm:w-20"
-          />
-          <Ornament
-            variant="corner"
-            className="absolute bottom-0 left-0 w-16 -rotate-90 text-accent/45 sm:w-20"
-          />
+        </div>
+
+        {/* a wreath sits behind the names — the densest floral moment on the
+            page, kept legible by living entirely behind the type */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 top-[46%] w-[23rem] -translate-x-1/2 -translate-y-1/2 text-accent/[0.13] sm:w-[26rem]"
+        >
+          <Botanical variant="wreath" className="w-full" />
+        </div>
+
+        {/* hairline frame, with floral clusters bursting over its corners.
+            These four carry data-cover-floral so useOpenInvitation can part
+            them outward when the invitation is opened. */}
+        <div className="pointer-events-none absolute inset-4 border border-accent/15 sm:inset-6" />
+
+        <div className="pointer-events-none absolute inset-2 sm:inset-4">
+          <div data-cover-floral="tl" className="absolute left-0 top-0 w-28 text-accent/55 sm:w-36">
+            <Botanical variant="cluster" className="w-full" />
+          </div>
+          <div
+            data-cover-floral="tr"
+            className="absolute right-0 top-0 w-28 -scale-x-100 text-accent/55 sm:w-36"
+          >
+            <Botanical variant="cluster" className="w-full" />
+          </div>
+          <div
+            data-cover-floral="bl"
+            className="absolute bottom-0 left-0 w-28 -scale-y-100 text-accent/55 sm:w-36"
+          >
+            <Botanical variant="cluster" className="w-full" />
+          </div>
+          <div
+            data-cover-floral="br"
+            className="absolute bottom-0 right-0 w-28 -scale-100 text-accent/55 sm:w-36"
+          >
+            <Botanical variant="cluster" className="w-full" />
+          </div>
         </div>
 
         {/* bloom on open */}
@@ -83,7 +130,7 @@ export default function Hero() {
               The Wedding Of
             </p>
 
-            <Ornament variant="crest" className="mt-6 w-16 text-accent/70" />
+            <Crest className="mt-6 w-16 text-accent/70" />
 
             {/* the couple's names — the one place the script face appears at
                 full scale, gilded and slowly drifting */}

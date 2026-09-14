@@ -107,6 +107,25 @@ export function useOpenInvitation(refs: CoverRefs) {
     document.documentElement.classList.add("scroll-locked");
     refs.music.current?.play();
 
+    // "Tersingkap": the floral frame parts outward from the centre, like
+    // drawing back a curtain of flowers. Each corner is pushed along its
+    // own diagonal, read off data-cover-floral ("tl" | "tr" | "bl" | "br"),
+    // so one tween covers all four without four separate refs.
+    const section = refs.section.current;
+    if (section) {
+      const corners = section.querySelectorAll<HTMLElement>("[data-cover-floral]");
+      gsap.to(corners, {
+        x: (_i, el: HTMLElement) =>
+          (el.dataset.coverFloral ?? "").includes("l") ? -88 : 88,
+        y: (_i, el: HTMLElement) =>
+          (el.dataset.coverFloral ?? "").includes("t") ? -66 : 66,
+        scale: 1.12,
+        opacity: 0.55,
+        duration: 1.5,
+        ease: "power2.inOut",
+      });
+    }
+
     gsap
       .timeline({
         defaults: { ease: "power3.out" },

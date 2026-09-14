@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense, useRef, useState, type FormEvent } from "react";
+import { SectionFloral } from "@/components/Botanical";
 import FloralLayer from "@/components/FloralLayer";
 import { GuestNameAutofill } from "@/components/GuestGreeting";
 import SectionHeading from "@/components/SectionHeading";
@@ -82,6 +83,8 @@ export default function RSVP() {
           className="h-auto w-full"
         />
       </div>
+
+      <SectionFloral />
 
       <div className="relative mx-auto max-w-md">
         <SectionHeading

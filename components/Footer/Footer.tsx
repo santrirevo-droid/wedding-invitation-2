@@ -1,7 +1,8 @@
 "use client";
 
 import { useRef } from "react";
-import Ornament from "@/components/Ornament";
+import Botanical, { SectionFloral } from "@/components/Botanical";
+import Crest from "@/components/Crest";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { couple } from "@/lib/weddingData";
 import { weddingDateLong } from "@/lib/weddingDate";
@@ -21,6 +22,8 @@ export default function Footer() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-maroon-deep/60 to-maroon-deep"
       />
+
+      <SectionFloral />
 
       <div className="relative mx-auto max-w-md">
         <p
@@ -47,10 +50,7 @@ export default function Footer() {
           terima kasih yang sebesar-besarnya.
         </p>
 
-        <Ornament
-          variant="crest"
-          className="mx-auto mt-14 w-11 text-accent/65"
-        />
+        <Crest className="mx-auto mt-14 w-11 text-accent/65" />
 
         <p
           data-reveal
@@ -59,7 +59,12 @@ export default function Footer() {
           Kami Yang Berbahagia
         </p>
 
-        <h2 data-reveal className="mt-5 flex flex-col items-center leading-none">
+        <Botanical
+          variant="garland"
+          className="mx-auto mt-6 w-60 text-accent/45"
+        />
+
+        <h2 data-reveal className="mt-6 flex flex-col items-center leading-none">
           <span className="text-gilded text-gilded-drift font-script text-[clamp(3.4rem,21vw,6rem)] leading-[0.95]">
             {couple.groom.shortName}
           </span>

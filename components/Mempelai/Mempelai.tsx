@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef } from "react";
+import Botanical, { SectionFloral } from "@/components/Botanical";
 import FloralLayer from "@/components/FloralLayer";
-import Ornament from "@/components/Ornament";
 import SectionHeading from "@/components/SectionHeading";
 import { useFloralParallax } from "@/hooks/useFloralParallax";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
@@ -25,11 +25,20 @@ type Person = {
 function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
   return (
     <div data-reveal className="flex flex-col items-center text-center">
-      <div className="relative flex h-[7.5rem] w-[6.5rem] items-center justify-center rounded-t-full border border-accent/25 bg-white/[0.02]">
-        <span className="absolute inset-[5px] rounded-t-full border border-accent/15" />
-        <span className="text-gilded font-script text-[3.4rem] leading-none">
-          {person.shortName.charAt(0)}
-        </span>
+      <div className="relative flex items-center justify-center">
+        {/* a wreath rings the arch — the flower-heavy frame a printed
+            invitation would put around a portrait */}
+        <Botanical
+          variant="wreath"
+          className="pointer-events-none absolute w-[13.5rem] text-accent/30"
+        />
+
+        <div className="relative flex h-[7.5rem] w-[6.5rem] items-center justify-center rounded-t-full border border-accent/25 bg-white/[0.02]">
+          <span className="absolute inset-[5px] rounded-t-full border border-accent/15" />
+          <span className="text-gilded font-script text-[3.4rem] leading-none">
+            {person.shortName.charAt(0)}
+          </span>
+        </div>
       </div>
 
       <h3 className="text-gilded mt-7 font-display text-[30px] font-light leading-tight">
@@ -99,6 +108,8 @@ export default function Mempelai() {
         />
       </div>
 
+      <SectionFloral />
+
       <div className="relative mx-auto max-w-md text-center">
         <SectionHeading eyebrow="Mempelai" title="Kedua Mempelai" />
 
@@ -124,9 +135,9 @@ export default function Mempelai() {
           <PersonBlock person={couple.groom} role="putra" />
         </div>
 
-        <Ornament
-          variant="flourish"
-          className="mx-auto mt-16 w-44 text-accent/35"
+        <Botanical
+          variant="garland"
+          className="mx-auto mt-16 w-60 -scale-y-100 text-accent/40"
         />
       </div>
     </section>
