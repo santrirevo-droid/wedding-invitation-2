@@ -1,5 +1,4 @@
-// TODO: ganti seluruh data di bawah ini sesuai pasangan & acara yang sebenarnya.
-export const WEDDING_DATE_ISO = "2027-01-01T08:00:00+07:00";
+export const WEDDING_DATE_ISO = "2026-11-01T08:00:00+07:00";
 
 export type CoupleRole = "putra" | "putri";
 
@@ -36,26 +35,28 @@ export const events = [
   {
     title: "Akad Nikah",
     time: "08.00 WIB — Selesai",
-    date: "Jumat, 1 Januari 2027",
+    date: "Minggu, 01 November 2026",
   },
   {
     title: "Resepsi",
-    time: "12.00 WIB — 17.00 WIB",
-    date: "Jumat, 1 Januari 2027",
+    time: "10.00 WIB — Selesai",
+    date: "Minggu, 01 November 2026",
   },
 ];
 
 export const venue = {
-  name: "Nama Gedung / Venue",
-  location: "Kota, Provinsi",
-  mapsUrl: "https://maps.app.goo.gl/",
+  name: "Kediaman Mempelai Wanita",
+  location:
+    "Rumah samping Masjid Kp. Talaga, Jl. Talaga, Karaton, Kabupaten Pandeglang, Banten, Indonesia",
+  mapsUrl: "https://maps.app.goo.gl/bebzMQ4xbJHFx1DZ9",
 };
 
 export const bankAccounts = [
-  { bank: "Nama Bank", number: "0000000000", holder: "Nama Pemilik Rekening" },
+  { bank: "BCA", number: "0891378342", holder: "Saiful Amri Tanjung" },
 ];
 
 export const giftAddress = {
-  recipient: "Nama Penerima",
-  address: "Alamat lengkap penerima hadiah",
+  recipient: "Saiful Amri Tanjung",
+  address:
+    "Rumah samping Masjid Kp. Talaga, Jl. Talaga, Karaton, Kabupaten Pandeglang, Banten, Indonesia",
 };
