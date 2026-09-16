@@ -15,7 +15,7 @@ export const couple: Record<
 > = {
   groom: {
     name: "Saiful Amri Tanjung",
-    shortName: "Saiful",
+    shortName: "Amri",
     role: "putra",
     father: "Bapak Mahmuddin Tanjung",
     mother: "Ibu Rahimah Dalimunthe",
