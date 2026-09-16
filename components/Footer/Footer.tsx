@@ -28,14 +28,14 @@ export default function Footer() {
       <div className="relative mx-auto max-w-md">
         <p
           data-reveal
-          className="font-accent text-[9.5px] font-light uppercase leading-[2] tracking-[0.36em] text-accent-dark"
+          className="font-accent text-[11px] font-normal uppercase leading-[2] tracking-[0.36em] text-accent-dark"
         >
           Assalamu&apos;alaikum Warahmatullahi Wabarakatuh
         </p>
 
         <p
           data-reveal
-          className="mt-8 font-display text-[19px] font-light italic leading-[1.8] text-on-maroon-soft"
+          className="mt-8 font-display text-[19px] font-normal italic leading-[1.8] text-on-maroon-soft"
         >
           Merupakan suatu kebahagiaan dan kehormatan bagi kami apabila
           Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu
@@ -44,7 +44,7 @@ export default function Footer() {
 
         <p
           data-reveal
-          className="mt-5 font-display text-[19px] font-light italic leading-[1.8] text-on-maroon-soft"
+          className="mt-5 font-display text-[19px] font-normal italic leading-[1.8] text-on-maroon-soft"
         >
           Atas kehadiran serta doa restunya, kami sekeluarga mengucapkan
           terima kasih yang sebesar-besarnya.
@@ -54,7 +54,7 @@ export default function Footer() {
 
         <p
           data-reveal
-          className="mt-6 font-accent text-[9px] font-light uppercase tracking-[0.42em] text-on-maroon-soft"
+          className="mt-6 font-accent text-[11px] font-normal uppercase tracking-[0.42em] text-on-maroon-soft"
         >
           Kami Yang Berbahagia
         </p>
@@ -78,7 +78,7 @@ export default function Footer() {
 
         <div data-reveal className="mt-10 flex items-center justify-center gap-4">
           <span className="rule-gild w-10" />
-          <p className="font-accent text-[9px] font-light uppercase tracking-[0.34em] text-on-maroon-soft">
+          <p className="font-accent text-[11px] font-normal uppercase tracking-[0.34em] text-on-maroon-soft">
             {weddingDateLong}
           </p>
           <span className="rule-gild w-10" />

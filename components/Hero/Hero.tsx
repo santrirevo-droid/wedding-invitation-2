@@ -126,7 +126,7 @@ export default function Hero() {
               بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
             </p>
 
-            <p className="mt-7 font-accent text-[10px] font-light uppercase tracking-[0.5em] text-on-maroon-soft">
+            <p className="mt-7 font-accent text-[11px] font-normal uppercase tracking-[0.5em] text-on-maroon-soft">
               The Wedding Of
             </p>
 
@@ -149,11 +149,11 @@ export default function Hero() {
             {/* date, set as three tracked numerals between hairlines */}
             <div className="mt-7 flex items-center gap-4">
               <span className="rule-gild w-10 sm:w-14" />
-              <p className="flex items-baseline gap-2.5 font-display text-lg font-light tracking-[0.18em] text-on-maroon">
+              <p className="flex items-baseline gap-2.5 font-display text-lg font-normal tracking-[0.18em] text-on-maroon">
                 <span>{weddingDay}</span>
-                <span className="text-accent/60">·</span>
+                <span className="text-accent-dark">·</span>
                 <span>{weddingMonth}</span>
-                <span className="text-accent/60">·</span>
+                <span className="text-accent-dark">·</span>
                 <span>{weddingYear}</span>
               </p>
               <span className="rule-gild w-10 sm:w-14" />
@@ -173,7 +173,7 @@ export default function Hero() {
                 open();
               }}
             />
-            <p className="font-accent text-[9px] font-light uppercase tracking-[0.4em] text-on-maroon-soft">
+            <p className="font-accent text-[11px] font-normal uppercase tracking-[0.4em] text-on-maroon-soft">
               Ketuk untuk membuka
             </p>
           </div>

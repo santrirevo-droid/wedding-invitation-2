@@ -39,3 +39,9 @@ export const weddingYear = year;
 export const weddingMonthName = MONTHS_ID[Number(month) - 1] ?? "";
 /** "20 September 2026" */
 export const weddingDateLong = `${Number(day)} ${weddingMonthName} ${year}`;
+
+const DAYS_ID = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+/** "Minggu" — Date.UTC on the authored Y/M/D, so the WIB date's weekday is
+ * what comes out (the ISO's own UTC instant can fall on the day before). */
+export const weddingDayName =
+  DAYS_ID[new Date(Date.UTC(Number(year), Number(month) - 1, Number(day))).getUTCDay()] ?? "";

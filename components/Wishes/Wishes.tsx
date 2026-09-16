@@ -61,7 +61,7 @@ export default function Wishes() {
 
         <div ref={listRef} className="mt-11">
           {wishes.length === 0 ? (
-            <p className="font-display text-[19px] font-light italic text-on-maroon-soft">
+            <p className="font-display text-[19px] font-normal italic text-on-maroon-soft">
               Jadilah yang pertama mengirimkan ucapan &amp; doa.
             </p>
           ) : (
@@ -73,16 +73,16 @@ export default function Wishes() {
                   className="border-y border-r border-accent/25 border-l-2 border-l-accent/60 bg-paper/70 px-6 py-5"
                 >
                   <div className="flex items-center gap-3.5">
-                    <span className="flex h-11 w-9 shrink-0 items-center justify-center rounded-t-full border border-accent/42 font-display text-lg font-light text-accent">
+                    <span className="flex h-11 w-9 shrink-0 items-center justify-center rounded-t-full border border-accent/42 font-display text-lg font-normal text-accent">
                       {wish.name.trim().charAt(0).toUpperCase() || "?"}
                     </span>
                     <div className="min-w-0">
-                      <div className="truncate font-display text-[18px] font-light text-on-maroon">
+                      <div className="truncate font-display text-[18px] font-normal text-on-maroon">
                         {wish.name}
                       </div>
                       <div
                         className={[
-                          "font-accent text-[8.5px] uppercase tracking-[0.26em]",
+                          "font-accent text-[11px] uppercase tracking-[0.26em]",
                           wish.attend === "hadir"
                             ? "text-sage-light"
                             : "text-on-maroon-soft",
@@ -97,7 +97,7 @@ export default function Wishes() {
                     </div>
                   </div>
                   {wish.message && (
-                    <p className="mt-4 font-display text-[16.5px] font-light italic leading-[1.7] text-on-maroon-soft">
+                    <p className="mt-4 font-display text-[16.5px] font-normal italic leading-[1.7] text-on-maroon-soft">
                       {wish.message}
                     </p>
                   )}

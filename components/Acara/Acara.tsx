@@ -8,7 +8,7 @@ import { useFloralParallax } from "@/hooks/useFloralParallax";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { CALENDAR_GOOGLE_URL } from "@/lib/calendar";
 import { WEDDING_DATE_ISO, events, venue } from "@/lib/weddingData";
-import { weddingDateLong } from "@/lib/weddingDate";
+import { weddingDateLong, weddingDayName } from "@/lib/weddingDate";
 
 const [akad, resepsi] = events;
 
@@ -50,7 +50,7 @@ function EventBlock({
       <p className="mt-3 font-accent text-[15px] font-normal tracking-[0.08em] text-gold">
         {time}
       </p>
-      <p className="mt-1.5 font-display text-[15px] font-light italic text-ink-soft">
+      <p className="mt-1.5 font-display text-[15px] font-normal italic text-ink-soft">
         {date}
       </p>
     </div>
@@ -105,28 +105,35 @@ export default function Acara() {
       <div className="relative mx-auto max-w-md">
         <SectionHeading eyebrow="Acara" title="Waktu & Tempat" />
 
+        {/* save the date — the date is the section's second voice after the
+            title, and must outrank the countdown digits beneath it */}
         <p
           data-reveal
-          className="mt-7 font-display text-[22px] font-light tracking-[0.06em] text-on-maroon"
+          className="mt-8 font-accent text-[11px] font-normal uppercase tracking-[0.45em] text-accent-dark"
+        >
+          Save the Date · {weddingDayName}
+        </p>
+        <p
+          data-reveal
+          className="text-gilded mt-3 font-display text-[clamp(1.9rem,8vw,2.4rem)] font-normal leading-tight tracking-[0.02em]"
         >
           {weddingDateLong}
         </p>
 
-        {/* countdown — hairline plates on the dark ground, so the ivory card
-            below stays the one bright object in the section */}
-        <div data-reveal className="mt-9 grid grid-cols-4 gap-2.5">
+        {/* countdown — quieter than the date above it */}
+        <div data-reveal className="mt-8 grid grid-cols-4 gap-2.5">
           {cells.map((cell) => (
             <div
               key={cell.label}
-              className="rounded-t-full border border-accent/32 bg-paper/70 px-1 pb-4 pt-7"
+              className="rounded-t-full border border-accent/32 bg-paper/70 px-1 pb-4 pt-6"
             >
               <div
                 suppressHydrationWarning
-                className="text-gilded font-display text-[32px] font-light leading-none tabular-nums"
+                className="text-gilded font-display text-[24px] font-normal leading-none tabular-nums"
               >
                 {String(cell.value).padStart(2, "0")}
               </div>
-              <div className="mt-2.5 font-accent text-[8.5px] font-light uppercase tracking-[0.3em] text-on-maroon-soft">
+              <div className="mt-2.5 font-accent text-[11px] font-normal uppercase tracking-[0.3em] text-on-maroon-soft">
                 {cell.label}
               </div>
             </div>
@@ -157,13 +164,13 @@ export default function Acara() {
             emphasis
           />
 
-          <p className="mt-10 font-accent text-[9px] font-light uppercase tracking-[0.4em] text-ink-soft">
+          <p className="mt-10 font-accent text-[11px] font-normal uppercase tracking-[0.4em] text-ink-soft">
             Bertempat di
           </p>
           <h4 className="mt-3 font-display text-[25px] font-light leading-tight text-ink">
             {venue.name}
           </h4>
-          <p className="mx-auto mt-2.5 max-w-[19rem] font-display text-[16px] font-light italic leading-[1.6] text-ink-soft">
+          <p className="mx-auto mt-2.5 max-w-[19rem] font-display text-[16px] font-normal italic leading-[1.6] text-ink-soft">
             {venue.location}
           </p>
 
@@ -172,7 +179,7 @@ export default function Acara() {
               href={venue.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center justify-center bg-gold-dark px-7 py-3.5 font-accent text-[10px] font-medium uppercase tracking-[0.32em] text-paper transition-[filter] duration-300 hover:brightness-110"
+              className="inline-flex min-h-11 items-center justify-center bg-gold-dark px-7 py-3.5 font-accent text-[11px] font-medium uppercase tracking-[0.32em] text-paper transition-[filter] duration-300 hover:brightness-110"
             >
               Lihat Lokasi
             </a>
@@ -180,7 +187,7 @@ export default function Acara() {
               href={CALENDAR_GOOGLE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center justify-center border border-gold-dark/45 px-7 py-3.5 font-accent text-[10px] font-medium uppercase tracking-[0.32em] text-gold-dark transition-colors duration-300 hover:border-gold-dark hover:bg-gold-dark/5"
+              className="inline-flex min-h-11 items-center justify-center border border-gold-dark/45 px-7 py-3.5 font-accent text-[11px] font-medium uppercase tracking-[0.32em] text-gold-dark transition-colors duration-300 hover:border-gold-dark hover:bg-gold-dark/5"
             >
               Simpan ke Kalender
             </a>

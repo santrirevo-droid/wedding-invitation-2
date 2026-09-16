@@ -61,7 +61,7 @@ export default function Gift() {
   const cardClass =
     "card-stock relative overflow-hidden rounded-[4px] px-7 pb-9 pt-[6.75rem]";
   const copyButtonClass =
-    "mt-6 inline-flex min-h-11 cursor-pointer items-center justify-center border px-7 py-3 font-accent text-[9.5px] font-medium uppercase tracking-[0.3em] transition-colors duration-300";
+    "mt-6 inline-flex min-h-11 cursor-pointer items-center justify-center border px-7 py-3 font-accent text-[11px] font-medium uppercase tracking-[0.3em] transition-colors duration-300";
 
   return (
     <section
@@ -76,7 +76,7 @@ export default function Gift() {
 
         <p
           data-reveal
-          className="mt-7 font-display text-[19px] font-light italic leading-[1.75] text-on-maroon-soft"
+          className="mt-7 font-display text-[19px] font-normal italic leading-[1.75] text-on-maroon-soft"
         >
           Kehadiran dan doa restu Anda sudah lebih dari cukup bagi kami.
           Bila berkenan memberi tanda kasih, kami sediakan pilihan berikut.
@@ -87,7 +87,7 @@ export default function Gift() {
             <div key={account.bank} data-reveal className={cardClass}>
               <EnvelopeFlap />
 
-              <p className="font-accent text-[9px] font-light uppercase tracking-[0.4em] text-ink-soft">
+              <p className="font-accent text-[11px] font-normal uppercase tracking-[0.4em] text-ink-soft">
                 Transfer Bank
               </p>
               <div className="mt-3 font-display text-[26px] font-light leading-tight text-ink">
@@ -99,7 +99,7 @@ export default function Gift() {
               <div className="font-display text-[24px] font-normal tabular-nums tracking-[0.18em] text-gold-dark">
                 {account.number}
               </div>
-              <div className="mt-2 font-display text-[16px] font-light italic text-ink-soft">
+              <div className="mt-2 font-display text-[16px] font-normal italic text-ink-soft">
                 a.n. {account.holder}
               </div>
 
@@ -121,7 +121,7 @@ export default function Gift() {
           <div data-reveal className={cardClass}>
             <EnvelopeFlap />
 
-            <p className="font-accent text-[9px] font-light uppercase tracking-[0.4em] text-ink-soft">
+            <p className="font-accent text-[11px] font-normal uppercase tracking-[0.4em] text-ink-soft">
               Kirim Hadiah
             </p>
             <div className="mt-3 font-display text-[26px] font-light leading-tight text-ink">
@@ -130,10 +130,10 @@ export default function Gift() {
 
             <Botanical variant="garland" className="mx-auto my-5 w-36 text-gold/60" />
 
-            <div className="mx-auto max-w-[19rem] font-display text-[17px] font-light leading-[1.65] text-gold-dark">
+            <div className="mx-auto max-w-[19rem] font-display text-[17px] font-normal leading-[1.65] text-gold-dark">
               {giftAddress.address}
             </div>
-            <div className="mt-2 font-display text-[16px] font-light italic text-ink-soft">
+            <div className="mt-2 font-display text-[16px] font-normal italic text-ink-soft">
               a.n. {giftAddress.recipient}
             </div>
 

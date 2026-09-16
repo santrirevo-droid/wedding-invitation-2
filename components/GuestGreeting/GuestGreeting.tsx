@@ -12,10 +12,10 @@ function GreetingCardShell({ guestName }: { guestName: string }) {
       <span aria-hidden="true" className="absolute bottom-0 left-0 h-3.5 w-3.5 border-b border-l border-accent/55" />
       <span aria-hidden="true" className="absolute bottom-0 right-0 h-3.5 w-3.5 border-b border-r border-accent/55" />
 
-      <p className="font-accent text-[9px] font-light uppercase tracking-[0.36em] text-on-maroon-soft">
+      <p className="font-accent text-[11px] font-normal uppercase tracking-[0.36em] text-on-maroon-soft">
         Kepada Yth.
       </p>
-      <p className="mt-1.5 font-accent text-[9px] font-light uppercase tracking-[0.26em] text-on-maroon-soft">
+      <p className="mt-1.5 font-accent text-[11px] font-normal uppercase tracking-[0.26em] text-on-maroon-soft">
         Bapak / Ibu / Saudara&#47;i
       </p>
 

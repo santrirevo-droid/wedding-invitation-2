@@ -31,7 +31,7 @@
   --on-maroon-soft: #6b584a;
 
   /* gold + ink INSIDE card surfaces */
-  --gold: #9c7340;
+  --gold: #946b3c;
   --gold-light: #be9560;
   --gold-dark: #7a5a2e;
   --ink: #3f332a;
@@ -40,13 +40,13 @@
 
   /* foil gradient stops — bronze-weighted so gilded type reads as metal
      against ivory rather than washing out */
-  --gild-1: #bd9450;
+  --gild-1: #997842;
   --gild-2: #8f6a33;
   --gild-3: #63461e;
 
   /* functional signal only (RSVP "hadir") */
   --sage: #4a6337;
-  --sage-light: #5f7a45;
+  --sage-light: #5d7643;
   --sage-dark: #33472a;
 }
 
@@ -211,7 +211,7 @@ html.scroll-locked {
     100deg,
     var(--gild-3) 0%,
     var(--accent-dark) 28%,
-    var(--gold) 50%,
+    var(--gold-dark) 50%,
     var(--accent-dark) 72%,
     var(--gild-3) 100%
   );

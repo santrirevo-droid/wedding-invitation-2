@@ -40,7 +40,7 @@ export default function OpeningQuote() {
       <div className="relative max-w-md">
         <Crest className="mx-auto w-10 text-accent/60" />
 
-        <p className="mt-5 font-accent text-[10px] font-light uppercase tracking-[0.45em] text-accent-dark">
+        <p className="mt-5 font-accent text-[11px] font-normal uppercase tracking-[0.45em] text-accent-dark">
           Ayat Pembuka
         </p>
 
@@ -59,7 +59,7 @@ export default function OpeningQuote() {
 
         <p
           data-reveal
-          className="mt-8 font-display text-[21px] font-light italic leading-[1.75] text-on-maroon-soft"
+          className="mt-8 font-display text-[21px] font-normal italic leading-[1.75] text-on-maroon-soft"
         >
           &ldquo;Dan di antara tanda-tanda kekuasaan-Nya ialah Dia
           menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar
@@ -70,7 +70,7 @@ export default function OpeningQuote() {
 
         <p
           data-reveal
-          className="mt-7 font-accent text-[10px] font-light uppercase tracking-[0.42em] text-accent-dark"
+          className="mt-7 font-accent text-[11px] font-normal uppercase tracking-[0.42em] text-accent-dark"
         >
           Q.S. Ar-Rum : 21
         </p>

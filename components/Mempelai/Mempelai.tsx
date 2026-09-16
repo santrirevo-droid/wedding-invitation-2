@@ -45,11 +45,11 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
         {person.name}
       </h3>
 
-      <p className="mt-3 font-accent text-[9px] font-light uppercase tracking-[0.38em] text-accent-dark">
+      <p className="mt-3 font-accent text-[11px] font-normal uppercase tracking-[0.38em] text-accent-dark">
         {role === "putra" ? "Putra" : "Putri"} dari
       </p>
 
-      <p className="mt-3 max-w-[18rem] font-display text-[18px] font-light italic leading-[1.75] text-on-maroon-soft">
+      <p className="mt-3 max-w-[18rem] font-display text-[18px] font-normal italic leading-[1.75] text-on-maroon-soft">
         {person.father}
         <br />
         &amp; {person.mother}
@@ -60,7 +60,7 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
           href={`https://instagram.com/${person.instagram.replace(/^@/, "")}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-5 inline-flex items-center gap-2 border border-accent/32 px-4 py-2 font-handle text-[10px] font-light lowercase tracking-[0.22em] text-accent-dark transition-colors hover:border-accent/50 hover:text-accent"
+          className="mt-5 inline-flex items-center gap-2 border border-accent/32 px-4 py-2 font-handle text-[11px] font-normal lowercase tracking-[0.22em] text-accent-dark transition-colors hover:border-accent-dark hover:text-on-maroon"
         >
           <svg
             width="12"
@@ -115,7 +115,7 @@ export default function Mempelai() {
 
         <p
           data-reveal
-          className="mx-auto mt-7 max-w-sm font-display text-[18px] font-light italic leading-[1.75] text-on-maroon-soft"
+          className="mx-auto mt-7 max-w-sm font-display text-[18px] font-normal italic leading-[1.75] text-on-maroon-soft"
         >
           Dengan memohon rahmat dan ridha Allah SWT, kami bermaksud
           menyelenggarakan pernikahan putra-putri kami:

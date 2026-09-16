@@ -17,9 +17,9 @@ type SentWish = {
 };
 
 const fieldClass =
-  "min-h-12 w-full border border-accent/32 bg-paper/75 px-4 py-3.5 font-display text-[17px] font-light text-on-maroon outline-none transition-colors placeholder:text-on-maroon-soft/55 focus:border-accent/75";
+  "min-h-12 w-full border border-accent/32 bg-paper/75 px-4 py-3.5 font-display text-[17px] font-normal text-on-maroon outline-none transition-colors placeholder:text-on-maroon-soft/55 focus:border-accent/75";
 const labelClass =
-  "mb-2.5 block font-accent text-[9px] font-light uppercase tracking-[0.38em] text-accent-dark";
+  "mb-2.5 block font-accent text-[11px] font-normal uppercase tracking-[0.38em] text-accent-dark";
 
 export default function RSVP() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -95,7 +95,7 @@ export default function RSVP() {
 
         <p
           data-reveal
-          className="mt-7 font-display text-[19px] font-light italic leading-[1.75] text-on-maroon-soft"
+          className="mt-7 font-display text-[19px] font-normal italic leading-[1.75] text-on-maroon-soft"
         >
           Merupakan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i
           berkenan hadir dan memberikan doa restu.
@@ -132,7 +132,7 @@ export default function RSVP() {
                   type="button"
                   onClick={() => setAttend(value)}
                   className={[
-                    "min-h-12 flex-1 cursor-pointer border px-3 py-3.5 font-accent text-[10px] font-medium uppercase tracking-[0.24em] transition-colors duration-300",
+                    "min-h-12 flex-1 cursor-pointer border px-3 py-3.5 font-accent text-[11px] font-medium uppercase tracking-[0.24em] transition-colors duration-300",
                     attend === value
                       ? "border-accent-dark bg-accent-dark text-paper"
                       : "border-accent/32 bg-paper/70 text-on-maroon-soft hover:border-accent/65",
@@ -185,7 +185,7 @@ export default function RSVP() {
             data-reveal
             type="submit"
             disabled={isSubmitting}
-            className="mt-1 min-h-12 cursor-pointer bg-accent-dark py-4 font-accent text-[10px] font-medium uppercase tracking-[0.36em] text-paper transition-[filter] duration-300 hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-55"
+            className="mt-1 min-h-12 cursor-pointer bg-accent-dark py-4 font-accent text-[11px] font-medium uppercase tracking-[0.36em] text-paper transition-[filter] duration-300 hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-55"
           >
             {isSubmitting ? "Mengirim…" : "Kirim Konfirmasi"}
           </button>
@@ -196,20 +196,20 @@ export default function RSVP() {
             data-reveal
             className="mt-7 border-y border-r border-accent/28 border-l-2 border-l-accent/65 bg-paper/75 px-6 py-5 text-left"
           >
-            <p className="font-accent text-[9px] font-light uppercase tracking-[0.38em] text-accent-dark">
+            <p className="font-accent text-[11px] font-normal uppercase tracking-[0.38em] text-accent-dark">
               Ucapan Terkirim
             </p>
             <div className="mt-4 flex items-center gap-3.5">
-              <span className="flex h-11 w-9 shrink-0 items-center justify-center rounded-t-full border border-accent/45 font-display text-lg font-light text-accent">
+              <span className="flex h-11 w-9 shrink-0 items-center justify-center rounded-t-full border border-accent/45 font-display text-lg font-normal text-accent">
                 {sentWish.name.trim().charAt(0).toUpperCase() || "?"}
               </span>
               <div className="min-w-0">
-                <div className="truncate font-display text-[18px] font-light text-on-maroon">
+                <div className="truncate font-display text-[18px] font-normal text-on-maroon">
                   {sentWish.name}
                 </div>
                 <div
                   className={[
-                    "font-accent text-[9px] uppercase tracking-[0.24em]",
+                    "font-accent text-[11px] uppercase tracking-[0.24em]",
                     sentWish.attend === "hadir" ? "text-sage-light" : "text-on-maroon-soft",
                   ].join(" ")}
                 >
@@ -222,7 +222,7 @@ export default function RSVP() {
               </div>
             </div>
             {sentWish.message && (
-              <p className="mt-4 font-display text-[16px] font-light italic leading-[1.7] text-on-maroon-soft">
+              <p className="mt-4 font-display text-[16px] font-normal italic leading-[1.7] text-on-maroon-soft">
                 {sentWish.message}
               </p>
             )}
@@ -234,7 +234,7 @@ export default function RSVP() {
             <div className="text-gilded font-display text-[34px] font-light leading-none tabular-nums">
               {wishes.length}
             </div>
-            <div className="mt-2.5 font-accent text-[8.5px] font-light uppercase tracking-[0.3em] text-on-maroon-soft">
+            <div className="mt-2.5 font-accent text-[11px] font-normal uppercase tracking-[0.3em] text-on-maroon-soft">
               Ucapan
             </div>
           </div>
@@ -243,7 +243,7 @@ export default function RSVP() {
             <div className="text-gilded font-display text-[34px] font-light leading-none tabular-nums">
               {hadirCount}
             </div>
-            <div className="mt-2.5 font-accent text-[8.5px] font-light uppercase tracking-[0.3em] text-on-maroon-soft">
+            <div className="mt-2.5 font-accent text-[11px] font-normal uppercase tracking-[0.3em] text-on-maroon-soft">
               Hadir
             </div>
           </div>

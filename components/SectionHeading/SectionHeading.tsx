@@ -35,7 +35,7 @@ export default function SectionHeading({
       className={`flex flex-col items-center text-center ${className}`}
     >
       {showKicker && (
-        <p className="font-accent text-[10px] font-light uppercase tracking-[0.45em] text-accent-dark">
+        <p className="font-accent text-[11px] font-normal uppercase tracking-[0.45em] text-accent-dark">
           {eyebrow}
         </p>
       )}

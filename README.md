@@ -26,12 +26,26 @@ Undangan pernikahan digital — Next.js. Diduplikat dari template undangan sebel
   Grain-nya memakai `mix-blend-multiply`, bukan `overlay`: di atas ground
   terang, overlay mencerahkan sebanyak ia menggelapkan sehingga hanya jadi
   noise — di-multiply, tekstur yang sama terbaca sebagai serat kertas.
-- **Kontras yang perlu diingat saat mengubah warna** — di ground terang,
-  warna tipis memudar jauh lebih cepat daripada di ground gelap. Karena itu
-  label kecil memakai `accent-dark` (bukan `accent` beropasitas), dan
-  `.gild-sweep` (tombol cover) sengaja memakai rentang gradasi lebih
-  gelap/sempit daripada `.text-gilded`: gradasi foil penuh memuncak terlalu
-  terang sehingga label ivory di atasnya hilang di tengah sapuan.
+- **Aturan keterbacaan (diaudit terukur, jangan diturunkan)** —
+  - Kontras: semua pasangan teks/latar lolos WCAG AA (≥4,5:1 teks biasa,
+    ≥3:1 teks besar), dihitung terhadap ground *terburuk* yaitu di bawah
+    wash blush (`#f2dcd3`), bukan ground rata-rata. `accent` **bukan warna
+    teks** — 2,8:1 solid, 1,8:1 di 60% — hanya untuk ornamen SVG; teks
+    kecil memakai `accent-dark`. Stop paling terang `.text-gilded`
+    (`--gild-1`) dan `--gold`/`--sage-light` sengaja dipatok tepat di atas
+    ambang; menggesernya lebih terang akan gagal.
+  - Ukuran minimum **11px** untuk semua teks (label ber-tracking pun).
+    Sebelumnya ada 21 teks di 8,5–10px berbobot 300 — tidak terbaca di HP.
+  - Bobot **400** untuk teks di bawah 24px; `font-light` (300) hanya untuk
+    display besar. Cormorant & Jost 300 terlalu tipis di ukuran isi.
+  - `.gild-sweep` (tombol cover) memakai rentang gradasi lebih gelap/sempit
+    daripada `.text-gilded`: gradasi foil penuh memuncak terlalu terang
+    sehingga label ivory di atasnya hilang di tengah sapuan.
+- **Hierarki Acara** — judul section (38–54px) → tanggal (30–38px, gilded)
+  → angka countdown (24px) → label (11px). Tanggal harus mengalahkan
+  countdown; versi awal terbalik (22px vs 32px). Nama hari diturunkan di
+  `lib/weddingDate.ts` lewat `Date.UTC` pada Y/M/D yang ditulis, bukan dari
+  instan ISO-nya (offset +07:00 bisa menjatuhkan hari UTC ke hari sebelumnya).
 - **Emas bergradasi** — `.text-gilded` (+ `.text-gilded-drift`) meng-clip
   gradasi foil ke glyph; dipakai terbatas untuk judul section dan nama
   mempelai saja. Stop-nya berbobot perunggu agar tetap terbaca sebagai
