@@ -15,20 +15,20 @@ export const couple: Record<
   }
 > = {
   groom: {
-    name: "Morgan Alexander",
-    shortName: "Morgan",
+    name: "Saiful Amri Tanjung",
+    shortName: "Saiful",
     role: "putra",
-    father: "Bapak [Nama Ayah]",
-    mother: "Ibu [Nama Ibu]",
-    instagram: "@username",
+    father: "Bapak Mahmuddin Tanjung",
+    mother: "Ibu Rahimah Dalimunthe",
+    instagram: "@amri_tanjung03",
   },
   bride: {
-    name: "Samira Putri",
-    shortName: "Samira",
+    name: "Nufus Nurcholisoh",
+    shortName: "Nufus",
     role: "putri",
-    father: "Bapak [Nama Ayah]",
-    mother: "Ibu [Nama Ibu]",
-    instagram: "@username",
+    father: "Bapak Dudin S",
+    mother: "Ibu Resa Aryanti",
+    instagram: "@nufus.nch",
   },
 };
 
