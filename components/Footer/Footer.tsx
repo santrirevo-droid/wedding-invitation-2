@@ -28,7 +28,7 @@ export default function Footer() {
       <div className="relative mx-auto max-w-md">
         <p
           data-reveal
-          className="font-accent text-[9.5px] font-light uppercase leading-[2] tracking-[0.36em] text-accent/80"
+          className="font-accent text-[9.5px] font-light uppercase leading-[2] tracking-[0.36em] text-accent-dark"
         >
           Assalamu&apos;alaikum Warahmatullahi Wabarakatuh
         </p>
@@ -50,11 +50,11 @@ export default function Footer() {
           terima kasih yang sebesar-besarnya.
         </p>
 
-        <Crest className="mx-auto mt-14 w-11 text-accent/65" />
+        <Crest className="mx-auto mt-14 w-11 text-accent-dark" />
 
         <p
           data-reveal
-          className="mt-6 font-accent text-[9px] font-light uppercase tracking-[0.42em] text-on-maroon-soft/80"
+          className="mt-6 font-accent text-[9px] font-light uppercase tracking-[0.42em] text-on-maroon-soft"
         >
           Kami Yang Berbahagia
         </p>
@@ -68,7 +68,7 @@ export default function Footer() {
           <span className="text-gilded text-gilded-drift font-script text-[clamp(3.4rem,21vw,6rem)] leading-[0.95]">
             {couple.groom.shortName}
           </span>
-          <span className="my-1.5 font-display text-2xl font-light italic text-accent/80">
+          <span className="my-1.5 font-display text-2xl font-light italic text-accent-dark">
             &amp;
           </span>
           <span className="text-gilded text-gilded-drift font-script text-[clamp(3.4rem,21vw,6rem)] leading-[0.95]">
@@ -78,7 +78,7 @@ export default function Footer() {
 
         <div data-reveal className="mt-10 flex items-center justify-center gap-4">
           <span className="rule-gild w-10" />
-          <p className="font-accent text-[9px] font-light uppercase tracking-[0.34em] text-on-maroon-soft/70">
+          <p className="font-accent text-[9px] font-light uppercase tracking-[0.34em] text-on-maroon-soft">
             {weddingDateLong}
           </p>
           <span className="rule-gild w-10" />

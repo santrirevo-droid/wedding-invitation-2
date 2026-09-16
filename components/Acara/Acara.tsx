@@ -118,7 +118,7 @@ export default function Acara() {
           {cells.map((cell) => (
             <div
               key={cell.label}
-              className="rounded-t-full border border-accent/20 bg-white/[0.025] px-1 pb-4 pt-7"
+              className="rounded-t-full border border-accent/32 bg-paper/70 px-1 pb-4 pt-7"
             >
               <div
                 suppressHydrationWarning
@@ -126,7 +126,7 @@ export default function Acara() {
               >
                 {String(cell.value).padStart(2, "0")}
               </div>
-              <div className="mt-2.5 font-accent text-[8.5px] font-light uppercase tracking-[0.3em] text-on-maroon-soft/75">
+              <div className="mt-2.5 font-accent text-[8.5px] font-light uppercase tracking-[0.3em] text-on-maroon-soft">
                 {cell.label}
               </div>
             </div>
@@ -140,14 +140,14 @@ export default function Acara() {
         >
           <Botanical
             variant="garland"
-            className="mx-auto mb-8 w-44 text-gold/45"
+            className="mx-auto mb-8 w-44 text-gold/60"
           />
 
           <EventBlock title={akad.title} time={akad.time} date={akad.date} />
 
           <Botanical
             variant="garland"
-            className="mx-auto my-9 w-40 -scale-y-100 text-gold/45"
+            className="mx-auto my-9 w-40 -scale-y-100 text-gold/60"
           />
 
           <EventBlock
@@ -157,7 +157,7 @@ export default function Acara() {
             emphasis
           />
 
-          <p className="mt-10 font-accent text-[9px] font-light uppercase tracking-[0.4em] text-ink-soft/75">
+          <p className="mt-10 font-accent text-[9px] font-light uppercase tracking-[0.4em] text-ink-soft">
             Bertempat di
           </p>
           <h4 className="mt-3 font-display text-[25px] font-light leading-tight text-ink">

@@ -36,7 +36,7 @@ export default function Hero() {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(78% 52% at 50% 38%, #221a14 0%, #130f0c 55%, #0a0806 100%)",
+              "radial-gradient(78% 52% at 50% 38%, #fffdfa 0%, #fbf3ec 52%, #f2e5d9 100%)",
           }}
         />
 
@@ -71,7 +71,7 @@ export default function Hero() {
             page, kept legible by living entirely behind the type */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-[46%] w-[23rem] -translate-x-1/2 -translate-y-1/2 text-accent/[0.13] sm:w-[26rem]"
+          className="pointer-events-none absolute left-1/2 top-[46%] w-[23rem] -translate-x-1/2 -translate-y-1/2 text-accent/25 sm:w-[26rem]"
         >
           <Botanical variant="wreath" className="w-full" />
         </div>
@@ -79,27 +79,27 @@ export default function Hero() {
         {/* hairline frame, with floral clusters bursting over its corners.
             These four carry data-cover-floral so useOpenInvitation can part
             them outward when the invitation is opened. */}
-        <div className="pointer-events-none absolute inset-4 border border-accent/15 sm:inset-6" />
+        <div className="pointer-events-none absolute inset-4 border border-accent/28 sm:inset-6" />
 
         <div className="pointer-events-none absolute inset-2 sm:inset-4">
-          <div data-cover-floral="tl" className="absolute left-0 top-0 w-28 text-accent/55 sm:w-36">
+          <div data-cover-floral="tl" className="absolute left-0 top-0 w-28 text-accent/62 sm:w-36">
             <Botanical variant="cluster" className="w-full" />
           </div>
           <div
             data-cover-floral="tr"
-            className="absolute right-0 top-0 w-28 -scale-x-100 text-accent/55 sm:w-36"
+            className="absolute right-0 top-0 w-28 -scale-x-100 text-accent/62 sm:w-36"
           >
             <Botanical variant="cluster" className="w-full" />
           </div>
           <div
             data-cover-floral="bl"
-            className="absolute bottom-0 left-0 w-28 -scale-y-100 text-accent/55 sm:w-36"
+            className="absolute bottom-0 left-0 w-28 -scale-y-100 text-accent/62 sm:w-36"
           >
             <Botanical variant="cluster" className="w-full" />
           </div>
           <div
             data-cover-floral="br"
-            className="absolute bottom-0 right-0 w-28 -scale-100 text-accent/55 sm:w-36"
+            className="absolute bottom-0 right-0 w-28 -scale-100 text-accent/62 sm:w-36"
           >
             <Botanical variant="cluster" className="w-full" />
           </div>
@@ -112,7 +112,7 @@ export default function Hero() {
           className="pointer-events-none absolute inset-0 opacity-0"
           style={{
             background:
-              "radial-gradient(circle at 50% 36%, rgba(217,188,130,0.42), transparent 62%)",
+              "radial-gradient(circle at 50% 36%, rgba(255,251,242,0.95), transparent 62%)",
           }}
         />
 
@@ -121,7 +121,7 @@ export default function Hero() {
             <p
               dir="rtl"
               lang="ar"
-              className="font-arabic text-xl leading-relaxed text-accent/85"
+              className="font-arabic text-xl leading-relaxed text-accent-dark"
             >
               بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
             </p>
@@ -130,7 +130,7 @@ export default function Hero() {
               The Wedding Of
             </p>
 
-            <Crest className="mt-6 w-16 text-accent/70" />
+            <Crest className="mt-6 w-16 text-accent-dark" />
 
             {/* the couple's names — the one place the script face appears at
                 full scale, gilded and slowly drifting */}
@@ -138,7 +138,7 @@ export default function Hero() {
               <span className="text-gilded text-gilded-drift font-script text-[clamp(3.2rem,20vw,5.5rem)] leading-[0.95]">
                 {couple.groom.shortName}
               </span>
-              <span className="my-1 font-display text-2xl font-light italic text-accent/80">
+              <span className="my-1 font-display text-2xl font-light italic text-accent-dark">
                 &amp;
               </span>
               <span className="text-gilded text-gilded-drift font-script text-[clamp(3.2rem,20vw,5.5rem)] leading-[0.95]">
@@ -173,7 +173,7 @@ export default function Hero() {
                 open();
               }}
             />
-            <p className="font-accent text-[9px] font-light uppercase tracking-[0.4em] text-on-maroon-soft/70">
+            <p className="font-accent text-[9px] font-light uppercase tracking-[0.4em] text-on-maroon-soft">
               Ketuk untuk membuka
             </p>
           </div>

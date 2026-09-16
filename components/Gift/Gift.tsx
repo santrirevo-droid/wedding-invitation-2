@@ -87,14 +87,14 @@ export default function Gift() {
             <div key={account.bank} data-reveal className={cardClass}>
               <EnvelopeFlap />
 
-              <p className="font-accent text-[9px] font-light uppercase tracking-[0.4em] text-ink-soft/75">
+              <p className="font-accent text-[9px] font-light uppercase tracking-[0.4em] text-ink-soft">
                 Transfer Bank
               </p>
               <div className="mt-3 font-display text-[26px] font-light leading-tight text-ink">
                 {account.bank}
               </div>
 
-              <Botanical variant="garland" className="mx-auto my-5 w-36 text-gold/45" />
+              <Botanical variant="garland" className="mx-auto my-5 w-36 text-gold/60" />
 
               <div className="font-display text-[24px] font-normal tabular-nums tracking-[0.18em] text-gold-dark">
                 {account.number}
@@ -121,14 +121,14 @@ export default function Gift() {
           <div data-reveal className={cardClass}>
             <EnvelopeFlap />
 
-            <p className="font-accent text-[9px] font-light uppercase tracking-[0.4em] text-ink-soft/75">
+            <p className="font-accent text-[9px] font-light uppercase tracking-[0.4em] text-ink-soft">
               Kirim Hadiah
             </p>
             <div className="mt-3 font-display text-[26px] font-light leading-tight text-ink">
               Alamat Pengiriman
             </div>
 
-            <Botanical variant="garland" className="mx-auto my-5 w-36 text-gold/45" />
+            <Botanical variant="garland" className="mx-auto my-5 w-36 text-gold/60" />
 
             <div className="mx-auto max-w-[19rem] font-display text-[17px] font-light leading-[1.65] text-gold-dark">
               {giftAddress.address}

@@ -30,11 +30,11 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
             invitation would put around a portrait */}
         <Botanical
           variant="wreath"
-          className="pointer-events-none absolute w-[13.5rem] text-accent/30"
+          className="pointer-events-none absolute w-[13.5rem] text-accent/40"
         />
 
-        <div className="relative flex h-[7.5rem] w-[6.5rem] items-center justify-center rounded-t-full border border-accent/25 bg-white/[0.02]">
-          <span className="absolute inset-[5px] rounded-t-full border border-accent/15" />
+        <div className="relative flex h-[7.5rem] w-[6.5rem] items-center justify-center rounded-t-full border border-accent/38 bg-paper/70">
+          <span className="absolute inset-[5px] rounded-t-full border border-accent/28" />
           <span className="text-gilded font-script text-[3.4rem] leading-none">
             {person.shortName.charAt(0)}
           </span>
@@ -45,7 +45,7 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
         {person.name}
       </h3>
 
-      <p className="mt-3 font-accent text-[9px] font-light uppercase tracking-[0.38em] text-accent/65">
+      <p className="mt-3 font-accent text-[9px] font-light uppercase tracking-[0.38em] text-accent-dark">
         {role === "putra" ? "Putra" : "Putri"} dari
       </p>
 
@@ -60,7 +60,7 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
           href={`https://instagram.com/${person.instagram.replace(/^@/, "")}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-5 inline-flex items-center gap-2 border border-accent/20 px-4 py-2 font-handle text-[10px] font-light lowercase tracking-[0.22em] text-accent/85 transition-colors hover:border-accent/50 hover:text-accent"
+          className="mt-5 inline-flex items-center gap-2 border border-accent/32 px-4 py-2 font-handle text-[10px] font-light lowercase tracking-[0.22em] text-accent-dark transition-colors hover:border-accent/50 hover:text-accent"
         >
           <svg
             width="12"
@@ -137,7 +137,7 @@ export default function Mempelai() {
 
         <Botanical
           variant="garland"
-          className="mx-auto mt-16 w-60 -scale-y-100 text-accent/40"
+          className="mx-auto mt-16 w-60 -scale-y-100 text-accent/50"
         />
       </div>
     </section>

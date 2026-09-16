@@ -12,20 +12,30 @@ Undangan pernikahan digital — Next.js. Diduplikat dari template undangan sebel
 - [ ] Password edit `/persiapan/itinerary` masih default `"0000"` (lihat `components/Persiapan/Itinerary.tsx`) — ganti bila perlu keamanan lebih.
 - [ ] Backend (Redis/KV untuk fitur Wishes & Daftar Tamu) belum disambungkan — lihat bagian **Environment variables** di bawah.
 
-## Tampilan ("gilded nocturne")
+## Tampilan ("blush garden")
 
-- **Warna** — ground nyaris hitam hangat + emas champagne + ivory, lihat
-  `app/globals.css`. Nama variabel CSS (`--maroon-deep`, `--gold`, dst.)
-  sengaja dipertahankan dari tema lama supaya class Tailwind di belasan
-  komponen tidak perlu diubah; baca `maroon-*` sebagai "ground gelap",
-  `accent` sebagai "emas di atas gelap", `gold-*` sebagai "tinta emas di
-  atas kertas terang".
-- **Kedalaman** — `components/BackgroundPattern` menumpuk gradasi dasar, dua
-  wash emas, grain film, lalu vignette. Grain + vignette inilah yang bikin
-  ground gelapnya tidak terbaca sebagai warna rata.
+- **Warna** — ground gading cerah bersemu blush & sage, emas-cokelat
+  antik untuk ornamen, cokelat hangat untuk teks. Lihat `app/globals.css`.
+  Nama variabel CSS (`--maroon-deep`, `--gold`, dst.) sengaja dipertahankan
+  dari tema lama supaya class Tailwind di belasan komponen tidak perlu
+  diubah; baca `maroon-*` sebagai "ground halaman" (sekarang terang),
+  `accent` sebagai "warna ornamen di atas ground", `gold-*` sebagai "tinta
+  di dalam kartu", `on-maroon-*` sebagai "teks di atas ground".
+- **Kedalaman** — `components/BackgroundPattern` menumpuk gradasi dasar,
+  wash blush + sage + krem, grain kertas, lalu vignette hangat tipis.
+  Grain-nya memakai `mix-blend-multiply`, bukan `overlay`: di atas ground
+  terang, overlay mencerahkan sebanyak ia menggelapkan sehingga hanya jadi
+  noise — di-multiply, tekstur yang sama terbaca sebagai serat kertas.
+- **Kontras yang perlu diingat saat mengubah warna** — di ground terang,
+  warna tipis memudar jauh lebih cepat daripada di ground gelap. Karena itu
+  label kecil memakai `accent-dark` (bukan `accent` beropasitas), dan
+  `.gild-sweep` (tombol cover) sengaja memakai rentang gradasi lebih
+  gelap/sempit daripada `.text-gilded`: gradasi foil penuh memuncak terlalu
+  terang sehingga label ivory di atasnya hilang di tengah sapuan.
 - **Emas bergradasi** — `.text-gilded` (+ `.text-gilded-drift`) meng-clip
   gradasi foil ke glyph; dipakai terbatas untuk judul section dan nama
-  mempelai saja. `.rule-gild` untuk garis rambut, `.card-stock` untuk kartu
+  mempelai saja. Stop-nya berbobot perunggu agar tetap terbaca sebagai
+  logam di atas gading (versi pucat hanya bekerja di atas hitam). `.rule-gild` untuk garis rambut, `.card-stock` untuk kartu
   kertas gading bergaris emas di dalam, `.gild-sweep` untuk tombol cover.
 - **Font** — hanya 4 keluarga yang benar-benar dimuat (Cormorant Garamond,
   Italianno, Jost, Amiri); token `--font-*` lain adalah alias, lihat

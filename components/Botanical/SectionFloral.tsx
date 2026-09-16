@@ -20,10 +20,10 @@ export default function SectionFloral({ className = "" }: SectionFloralProps) {
       aria-hidden="true"
       className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}
     >
-      <div className="absolute -left-10 -top-7 w-32 text-accent/35 sm:-left-6 sm:w-44">
+      <div className="absolute -left-10 -top-7 w-32 text-accent/45 sm:-left-6 sm:w-44">
         <Botanical variant="cluster" className="w-full" />
       </div>
-      <div className="absolute -bottom-7 -right-10 w-32 -scale-100 text-accent/35 sm:-right-6 sm:w-44">
+      <div className="absolute -bottom-7 -right-10 w-32 -scale-100 text-accent/45 sm:-right-6 sm:w-44">
         <Botanical variant="cluster" className="w-full" />
       </div>
     </div>

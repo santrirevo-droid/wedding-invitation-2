@@ -19,8 +19,8 @@ const InvitationButton = forwardRef<HTMLButtonElement, InvitationButtonProps>(
         type="button"
         className={[
           "gild-sweep group relative inline-flex min-h-12 cursor-pointer items-center gap-3.5 rounded-full px-11 py-4",
-          "font-accent text-[10px] font-medium uppercase tracking-[0.38em] text-maroon-deep",
-          "shadow-[0_20px_44px_-18px_rgba(217,188,130,0.55)]",
+          "font-accent text-[10px] font-medium uppercase tracking-[0.38em] text-paper",
+          "shadow-[0_18px_38px_-16px_rgba(122,90,46,0.5)]",
           "transition-transform duration-300 hover:-translate-y-0.5",
           className,
         ].join(" ")}
@@ -28,7 +28,7 @@ const InvitationButton = forwardRef<HTMLButtonElement, InvitationButtonProps>(
       >
         <span
           aria-hidden="true"
-          className="h-1.5 w-1.5 rotate-45 bg-maroon-deep/75 transition-transform duration-300 group-hover:rotate-[135deg]"
+          className="h-1.5 w-1.5 rotate-45 bg-paper/80 transition-transform duration-300 group-hover:rotate-[135deg]"
         />
         {label}
       </button>

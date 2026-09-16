@@ -78,7 +78,7 @@ export default function RekapClient() {
     return (
       <main className="mx-auto max-w-lg px-6 py-16">
         <h1 className="text-3xl font-bold text-on-maroon">Rekap Daftar Tamu</h1>
-        <p className="mt-4 text-lg font-medium text-red-400">{error}</p>
+        <p className="mt-4 text-lg font-medium text-red-700">{error}</p>
       </main>
     );
   }

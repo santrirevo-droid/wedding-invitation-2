@@ -40,7 +40,7 @@ export default function OpeningQuote() {
       <div className="relative max-w-md">
         <Crest className="mx-auto w-10 text-accent/60" />
 
-        <p className="mt-5 font-accent text-[10px] font-light uppercase tracking-[0.45em] text-accent/75">
+        <p className="mt-5 font-accent text-[10px] font-light uppercase tracking-[0.45em] text-accent-dark">
           Ayat Pembuka
         </p>
 
@@ -70,7 +70,7 @@ export default function OpeningQuote() {
 
         <p
           data-reveal
-          className="mt-7 font-accent text-[10px] font-light uppercase tracking-[0.42em] text-accent/70"
+          className="mt-7 font-accent text-[10px] font-light uppercase tracking-[0.42em] text-accent-dark"
         >
           Q.S. Ar-Rum : 21
         </p>
