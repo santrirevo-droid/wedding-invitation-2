@@ -6,9 +6,9 @@ Undangan pernikahan digital — Next.js. Diduplikat dari template undangan sebel
 - [ ] `lib/families.ts` — label `guestListFamily` (judul halaman `/daftar-tamu`); default "Daftar Tamu" biasanya sudah pas.
 - [ ] `components/Persiapan/defaultData.ts` — isi awal dashboard `/persiapan` (checklist, rundown, budget) masih generik; sunting atau langsung edit dari halaman setelah deploy.
 - [ ] `public/music/` — tambahkan file lagu sendiri sebagai `wedding-song.m4a` (dihapus dari duplikat ini karena berhak cipta/personal ke pasangan asal).
-- [ ] `app/icon.png` & `app/apple-icon.png` — masih placeholder ampersand generik; ganti dengan monogram sendiri jika perlu (Hero sudah pakai inisial pasangan, bukan gambar, sejak repalette earth-tone).
+- [ ] `app/icon.png` & `app/apple-icon.png` — masih placeholder ampersand generik; ganti dengan monogram sendiri jika perlu (Hero sendiri sudah pakai inisial pasangan sebagai teks, bukan gambar).
 - [ ] Foto-foto di `public/` (bila ditambahkan nanti) dan galeri — belum ada, tambahkan sesuai kebutuhan.
-- [x] ~~Font "TT Fors" ... trial, no-public-site~~ — sudah diganti total ke Google Fonts (EB Garamond, Parisienne, Jost, Amiri) saat repalette earth-tone; tidak ada lagi font lokal berlisensi trial di repo ini.
+- [x] ~~Font "TT Fors" ... trial, no-public-site~~ — sudah diganti total ke Google Fonts (Cormorant Garamond, Italianno, Jost, Amiri); tidak ada lagi font lokal berlisensi trial di repo ini.
 - [ ] Password edit `/persiapan/itinerary` masih default `"0000"` (lihat `components/Persiapan/Itinerary.tsx`) — ganti bila perlu keamanan lebih.
 - [ ] Backend (Redis/KV untuk fitur Wishes & Daftar Tamu) belum disambungkan — lihat bagian **Environment variables** di bawah.
 
@@ -30,7 +30,15 @@ Undangan pernikahan digital — Next.js. Diduplikat dari template undangan sebel
 - **Font** — hanya 4 keluarga yang benar-benar dimuat (Cormorant Garamond,
   Italianno, Jost, Amiri); token `--font-*` lain adalah alias, lihat
   `app/globals.css`.
-- **Ornamen** — `components/Ornament` (flourish / corner / crest), SVG
+- **Bentuk kartu** — tiap jenis kartu punya bentuk sendiri, tapi satu
+  keluarga: kartu acara & sel countdown berpuncak lengkung (senada arch
+  monogram Mempelai), kartu tanda kasih berbentuk amplop dengan lipatan
+  dan segel, kartu ucapan/RSVP bergaris emas di sisi jilid dengan pelat
+  inisial melengkung, dan kartu sapaan di cover memakai tanda sudut ala
+  crop-mark. Lengkungnya dibuat dengan `rounded-t-full`: CSS menyusutkan
+  radius yang kelewat besar secara proporsional, jadi hasilnya setengah
+  lingkaran presisi berapa pun lebar kartunya.
+- **Ornamen** — `components/Crest` + `components/Botanical`, SVG
   bikinan sendiri, bukan clipart. Aset watercolor di `public/floral` masih
   dipakai tapi besar & sangat samar sebagai tekstur latar.
 - **Tanggal** — `lib/weddingDate.ts` menurunkan semua bentuk tampilan

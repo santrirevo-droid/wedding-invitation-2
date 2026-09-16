@@ -194,13 +194,13 @@ export default function RSVP() {
         {sentWish && (
           <div
             data-reveal
-            className="mt-7 border border-accent/25 bg-white/[0.03] px-6 py-5 text-left"
+            className="mt-7 border-y border-r border-accent/15 border-l-2 border-l-accent/50 bg-white/[0.03] px-6 py-5 text-left"
           >
             <p className="font-accent text-[9px] font-light uppercase tracking-[0.38em] text-accent/70">
               Ucapan Terkirim
             </p>
             <div className="mt-4 flex items-center gap-3.5">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-accent/35 font-display text-lg font-light text-accent">
+              <span className="flex h-11 w-9 shrink-0 items-center justify-center rounded-t-full border border-accent/35 font-display text-lg font-light text-accent">
                 {sentWish.name.trim().charAt(0).toUpperCase() || "?"}
               </span>
               <div className="min-w-0">

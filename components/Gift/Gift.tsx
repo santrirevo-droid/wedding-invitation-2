@@ -6,6 +6,42 @@ import SectionHeading from "@/components/SectionHeading";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { bankAccounts, giftAddress } from "@/lib/weddingData";
 
+/**
+ * The envelope this section is named after: a flap folded down over the
+ * card stock and closed with a wax seal. The seal is opaque `bg-paper`, so
+ * it covers the point where the two fold lines meet the way a real one
+ * would — that overlap is what stops it reading as a drawn triangle.
+ */
+function EnvelopeFlap() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-x-0 top-0 text-gold"
+    >
+      <svg
+        viewBox="0 0 400 84"
+        preserveAspectRatio="none"
+        fill="none"
+        className="h-[84px] w-full"
+      >
+        <path d="M0 0 200 72 400 0Z" fill="currentColor" opacity="0.05" />
+        <path
+          d="M0 0 200 72 400 0"
+          stroke="currentColor"
+          strokeWidth="1"
+          strokeLinejoin="round"
+          opacity="0.4"
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
+
+      <span className="absolute left-1/2 top-[72px] flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-gold/35 bg-paper">
+        <span className="h-2 w-2 rotate-45 bg-gold/55" />
+      </span>
+    </div>
+  );
+}
+
 export default function Gift() {
   const sectionRef = useRef<HTMLElement>(null);
   useRevealOnScroll(sectionRef, { stagger: 0.12, y: 26 });
@@ -22,6 +58,8 @@ export default function Gift() {
     setTimeout(() => setCopiedKey((cur) => (cur === key ? null : cur)), 1800);
   }
 
+  const cardClass =
+    "card-stock relative overflow-hidden rounded-[4px] px-7 pb-9 pt-[6.75rem]";
   const copyButtonClass =
     "mt-6 inline-flex min-h-11 cursor-pointer items-center justify-center border px-7 py-3 font-accent text-[9.5px] font-medium uppercase tracking-[0.3em] transition-colors duration-300";
 
@@ -44,13 +82,11 @@ export default function Gift() {
           Bila berkenan memberi tanda kasih, kami sediakan pilihan berikut.
         </p>
 
-        <div className="mt-11 flex flex-col gap-6">
+        <div className="mt-11 flex flex-col gap-7">
           {bankAccounts.map((account) => (
-            <div
-              key={account.bank}
-              data-reveal
-              className="card-stock rounded-[3px] px-7 py-9"
-            >
+            <div key={account.bank} data-reveal className={cardClass}>
+              <EnvelopeFlap />
+
               <p className="font-accent text-[9px] font-light uppercase tracking-[0.4em] text-ink-soft/75">
                 Transfer Bank
               </p>
@@ -82,7 +118,9 @@ export default function Gift() {
             </div>
           ))}
 
-          <div data-reveal className="card-stock rounded-[3px] px-7 py-9">
+          <div data-reveal className={cardClass}>
+            <EnvelopeFlap />
+
             <p className="font-accent text-[9px] font-light uppercase tracking-[0.4em] text-ink-soft/75">
               Kirim Hadiah
             </p>
@@ -92,7 +130,7 @@ export default function Gift() {
 
             <Botanical variant="garland" className="mx-auto my-5 w-36 text-gold/45" />
 
-            <div className="mx-auto max-w-[19rem] font-display text-[17px] font-light leading-[1.65] text-gold">
+            <div className="mx-auto max-w-[19rem] font-display text-[17px] font-light leading-[1.65] text-gold-dark">
               {giftAddress.address}
             </div>
             <div className="mt-2 font-display text-[16px] font-light italic text-ink-soft">

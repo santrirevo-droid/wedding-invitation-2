@@ -70,10 +70,10 @@ export default function Wishes() {
                 <div
                   key={wish.id}
                   data-wish-card
-                  className="border border-accent/15 bg-white/[0.025] px-6 py-5"
+                  className="border-y border-r border-accent/12 border-l-2 border-l-accent/45 bg-white/[0.025] px-6 py-5"
                 >
                   <div className="flex items-center gap-3.5">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-accent/30 font-display text-lg font-light text-accent">
+                    <span className="flex h-11 w-9 shrink-0 items-center justify-center rounded-t-full border border-accent/30 font-display text-lg font-light text-accent">
                       {wish.name.trim().charAt(0).toUpperCase() || "?"}
                     </span>
                     <div className="min-w-0">

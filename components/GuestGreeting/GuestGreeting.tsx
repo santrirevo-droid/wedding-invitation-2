@@ -4,7 +4,14 @@ import { useGuestName } from "@/hooks/useGuestName";
 
 function GreetingCardShell({ guestName }: { guestName: string }) {
   return (
-    <div className="w-full max-w-[17rem] border border-accent/20 bg-white/[0.025] px-7 py-5 text-center backdrop-blur-[2px]">
+    <div className="relative w-full max-w-[17rem] bg-white/[0.025] px-7 py-6 text-center backdrop-blur-[2px]">
+      {/* corner marks rather than a full box — a printer's crop-mark frame,
+          which leaves the name sitting in open space instead of a label */}
+      <span aria-hidden="true" className="absolute left-0 top-0 h-3.5 w-3.5 border-l border-t border-accent/45" />
+      <span aria-hidden="true" className="absolute right-0 top-0 h-3.5 w-3.5 border-r border-t border-accent/45" />
+      <span aria-hidden="true" className="absolute bottom-0 left-0 h-3.5 w-3.5 border-b border-l border-accent/45" />
+      <span aria-hidden="true" className="absolute bottom-0 right-0 h-3.5 w-3.5 border-b border-r border-accent/45" />
+
       <p className="font-accent text-[9px] font-light uppercase tracking-[0.36em] text-on-maroon-soft">
         Kepada Yth.
       </p>

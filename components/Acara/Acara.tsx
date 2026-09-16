@@ -118,7 +118,7 @@ export default function Acara() {
           {cells.map((cell) => (
             <div
               key={cell.label}
-              className="border border-accent/20 bg-white/[0.025] px-1 py-5"
+              className="rounded-t-full border border-accent/20 bg-white/[0.025] px-1 pb-4 pt-7"
             >
               <div
                 suppressHydrationWarning
@@ -136,7 +136,7 @@ export default function Acara() {
         {/* the invitation card itself */}
         <div
           data-reveal
-          className="card-stock relative mt-12 overflow-hidden rounded-[3px] px-7 py-11 sm:px-10"
+          className="card-stock relative mt-12 overflow-hidden rounded-t-full rounded-b-[4px] px-7 pb-12 pt-24 sm:px-10"
         >
           <Botanical
             variant="garland"
