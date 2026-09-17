@@ -49,10 +49,12 @@ const items: NavItem[] = [
     id: "acara",
     label: "Waktu & Tempat",
     icon: (
+      // a map pin (à la Google Maps) — "Waktu & Tempat" is a venue with a
+      // "Lihat Lokasi" link, so a pin reads as the section's actual
+      // purpose more directly than a calendar page would
       <svg {...ICON_PROPS}>
-        <rect x="3.5" y="5" width="17" height="15" rx="2" />
-        <path d="M3.5 9.5h17" />
-        <path d="M8 3v4M16 3v4" />
+        <path d="M12 21s-7-6.4-7-11.2A7 7 0 0 1 19 9.8C19 14.6 12 21 12 21Z" />
+        <circle cx="12" cy="9.8" r="2.4" />
       </svg>
     ),
   },
