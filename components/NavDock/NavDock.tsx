@@ -91,12 +91,17 @@ const items: NavItem[] = [
 ];
 
 /**
- * A quick-nav dock, visible only on the cover — it exists so a guest can
+ * A quick-nav bar, visible only on the cover — it exists so a guest can
  * jump straight to a section as soon as the invitation loads, then gets
- * out of the way once they've actually started scrolling through it. Its
- * own visibility follows the same #cover element useScrollReveal pins, so
- * it fades in step with the cover: still up through the pin-and-reveal
- * transition, gone once #cover has actually scrolled past.
+ * out of the way once they've actually started scrolling through it (so it
+ * never sits over the "Buka Undangan" button or any section beneath the
+ * cover). Its own visibility follows the same #cover element
+ * useScrollReveal pins, so it fades in step with the cover: still up
+ * through the pin-and-reveal transition, gone once #cover has actually
+ * scrolled past.
+ *
+ * Stuck flush to the bottom edge (not a floating pill) so it reads as part
+ * of the cover's frame rather than an overlay competing with the CTA.
  *
  * Rendered once in Hero, next to MusicPlayer, as a sibling of #cover (not
  * a descendant — see the comment in Hero.tsx on why).
@@ -133,25 +138,22 @@ export default function NavDock() {
   }
 
   return (
-    // bottom-20, not bottom-6: MusicPlayer already owns the bottom-6/right-6
-    // corner once a guest opens the invitation. Stacking above it (same
-    // reach zone, different row) avoids any horizontal collision at every
-    // viewport width, without shrinking six icons past a comfortable tap
-    // size to dodge sideways.
-    //
     // Faded with opacity/pointer-events rather than unmounted: unmounting
     // would tear down and re-create the IntersectionObserver on every
-    // cover enter/exit, and a CSS fade reads as the dock settling out of
+    // cover enter/exit, and a CSS fade reads as the bar settling out of
     // the way rather than snapping off.
     <nav
       aria-label="Navigasi ke bagian undangan"
       aria-hidden={!visible}
       className={[
-        "fixed bottom-20 left-1/2 z-20 -translate-x-1/2 transition-opacity duration-500",
+        "fixed inset-x-0 bottom-0 z-20 transition-opacity duration-500",
         visible ? "opacity-100" : "pointer-events-none opacity-0",
       ].join(" ")}
     >
-      <div className="flex items-center gap-1 rounded-full border border-accent/35 bg-paper/85 p-1.5 shadow-[0_12px_28px_-14px_rgba(122,90,46,0.5)] backdrop-blur-sm">
+      <div
+        className="mx-auto flex max-w-md items-center justify-between gap-1 border-t border-accent/25 bg-paper/90 px-3 backdrop-blur-sm shadow-[0_-12px_28px_-18px_rgba(122,90,46,0.45)]"
+        style={{ paddingTop: "0.625rem", paddingBottom: "calc(0.625rem + env(safe-area-inset-bottom))" }}
+      >
         {items.map((item) => (
           <button
             key={item.id}

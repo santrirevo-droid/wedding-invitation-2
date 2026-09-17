@@ -204,7 +204,9 @@ export default function Hero() {
         </div>
       </section>
 
-      <MusicPlayer ref={music} className="fixed bottom-6 right-6 z-20" />
+      {/* bottom-20: clears NavDock's bar, which is now stuck flush to the
+          true bottom edge instead of floating mid-screen */}
+      <MusicPlayer ref={music} className="fixed bottom-20 right-4 z-20" />
       <NavDock />
     </>
   );
