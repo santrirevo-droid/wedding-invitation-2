@@ -84,7 +84,7 @@ export default function Gift() {
 
         <div className="mt-11 flex flex-col gap-7">
           {bankAccounts.map((account) => (
-            <div key={account.bank} data-reveal className={cardClass}>
+            <div key={account.number} data-reveal className={cardClass}>
               <EnvelopeFlap />
 
               <p className="font-accent text-[11px] font-normal uppercase tracking-[0.4em] text-ink-soft">
@@ -105,15 +105,15 @@ export default function Gift() {
 
               <button
                 type="button"
-                onClick={() => handleCopy(account.number, account.bank)}
+                onClick={() => handleCopy(account.number, account.number)}
                 className={[
                   copyButtonClass,
-                  copiedKey === account.bank
+                  copiedKey === account.number
                     ? "border-sage-dark bg-sage-dark text-paper"
                     : "border-gold-dark/45 text-gold-dark hover:border-gold-dark hover:bg-gold-dark/5",
                 ].join(" ")}
               >
-                {copiedKey === account.bank ? "Tersalin ✓" : "Salin Nomor"}
+                {copiedKey === account.number ? "Tersalin ✓" : "Salin Nomor"}
               </button>
             </div>
           ))}

@@ -52,7 +52,8 @@ export const venue = {
 };
 
 export const bankAccounts = [
-  { bank: "BCA", number: "0891378342", holder: "Saiful Amri Tanjung" },
+  { bank: "BCA", number: "7003007539", holder: "Saiful Amri Tanjung" },
+  { bank: "BCA", number: "5421457299", holder: "Nufus Nurcholisoh" },
 ];
 
 export const giftAddress = {
