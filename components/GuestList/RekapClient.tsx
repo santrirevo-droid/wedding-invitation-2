@@ -74,7 +74,7 @@ export default function RekapClient() {
   if (isLoading) {
     return (
       <main className="mx-auto max-w-lg px-6 py-16">
-        <p className="text-xl text-on-maroon-soft">Memuat…</p>
+        <p className="text-base text-on-maroon-soft">Memuat…</p>
       </main>
     );
   }
@@ -82,8 +82,8 @@ export default function RekapClient() {
   if (error) {
     return (
       <main className="mx-auto max-w-lg px-6 py-16">
-        <h1 className="text-3xl font-bold text-on-maroon">Rekap Daftar Tamu</h1>
-        <p className="mt-4 text-lg font-medium text-red-700">{error}</p>
+        <h1 className="text-2xl font-bold text-on-maroon">Rekap Daftar Tamu</h1>
+        <p className="mt-4 text-base font-medium text-red-700">{error}</p>
       </main>
     );
   }
@@ -92,12 +92,12 @@ export default function RekapClient() {
 
   return (
     <main className="mx-auto flex min-h-full max-w-2xl flex-col px-6 py-16">
-      <p className="text-sm font-semibold uppercase tracking-[0.3em] text-accent">
+      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-accent">
         Ringkasan
       </p>
-      <h1 className="mt-2 text-4xl font-bold text-on-maroon">Rekap Daftar Tamu</h1>
-      <span className="rule-gild mt-5 block w-16" />
-      <p className="mt-5 text-xl text-on-maroon-soft">
+      <h1 className="mt-2 text-2xl font-bold text-on-maroon">Rekap Daftar Tamu</h1>
+      <span className="rule-gild mt-4 block w-16" />
+      <p className="mt-4 text-base text-on-maroon-soft">
         {entries.length} nama · {totalPeople} orang
       </p>
 
@@ -105,10 +105,10 @@ export default function RekapClient() {
 
       {clusters.length > 0 && (
         <section className="notice-caution mt-8 rounded-2xl p-6">
-          <h2 className="text-2xl font-semibold text-gold-dark">
+          <h2 className="text-lg font-semibold text-gold-dark">
             ⚠ Kemungkinan Nama Duplikat ({clusters.length})
           </h2>
-          <p className="mt-1 text-lg text-ink-soft">
+          <p className="mt-1 text-sm text-ink-soft">
             Periksa apakah nama-nama ini merujuk ke orang yang sama.
           </p>
           <ul className="mt-4 flex flex-col gap-4">
@@ -116,9 +116,9 @@ export default function RekapClient() {
               <li key={i} className="rounded-xl bg-paper p-4">
                 <ul className="flex flex-col gap-1">
                   {cluster.entries.map((entry) => (
-                    <li key={entry.id} className="text-lg text-ink">
+                    <li key={entry.id} className="text-base text-ink">
                       {entry.name}{" "}
-                      <span className="text-base text-ink-soft">— {entry.familyLabel}</span>
+                      <span className="text-sm text-ink-soft">— {entry.familyLabel}</span>
                     </li>
                   ))}
                 </ul>
@@ -131,14 +131,14 @@ export default function RekapClient() {
       <ol className="mt-10 flex flex-col gap-3">
         {entries.map((entry, index) => (
           <li key={entry.id} className="card-stock flex items-center gap-3 rounded-[3px] px-4 py-3">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold-dark text-base font-bold text-paper">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gold-dark text-sm font-bold text-paper">
               {index + 1}
             </span>
 
             <div className="min-w-0 flex-1">
-              <p className="truncate text-xl font-medium text-ink">{entry.name}</p>
+              <p className="truncate text-base font-medium text-ink">{entry.name}</p>
               {(entry.relation || entry.guestCount > 1) && (
-                <p className="mt-0.5 truncate text-sm text-ink-soft">
+                <p className="mt-0.5 truncate text-xs text-ink-soft">
                   {[entry.relation, entry.guestCount > 1 ? `${entry.guestCount} orang` : null]
                     .filter(Boolean)
                     .join(" · ")}
@@ -156,7 +156,7 @@ export default function RekapClient() {
         ))}
       </ol>
 
-      <p className="mt-12 text-base text-on-maroon-soft">
+      <p className="mt-12 text-sm text-on-maroon-soft">
         Untuk menghapus atau mengubah nama, buka{" "}
         <Link href="/daftar-tamu" className="underline decoration-accent/60 underline-offset-4">
           /daftar-tamu

@@ -20,10 +20,10 @@ type GuestEntry = {
 type SimilarMatch = { name: string; familyLabel: string; score: number };
 
 const fieldClass =
-  "w-full rounded-xl border-2 border-border bg-paper px-4 py-3 text-xl text-ink outline-none transition-colors focus:border-gold-dark";
-const labelClass = "mb-2 block text-lg font-semibold text-ink";
+  "w-full rounded-xl border-2 border-border bg-paper px-4 py-3 text-base text-ink outline-none transition-colors focus:border-gold-dark";
+const labelClass = "mb-2 block text-base font-semibold text-ink";
 const buttonClass =
-  "min-h-14 rounded-xl px-6 py-3 text-lg font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60";
+  "min-h-14 rounded-xl px-6 py-3 text-base font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60";
 
 function parseNameLines(text: string): string[] {
   return text
@@ -206,11 +206,11 @@ export default function GuestListClient({
   return (
     <main className="mx-auto flex min-h-full max-w-lg flex-col px-6 py-16">
       <header>
-        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-accent">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-accent">
           Formulir Tamu Undangan
         </p>
-        <h1 className="mt-2 text-4xl font-bold text-on-maroon">{family.label}</h1>
-        <span className="rule-gild mt-5 block w-16" />
+        <h1 className="mt-2 text-2xl font-bold text-on-maroon">{family.label}</h1>
+        <span className="rule-gild mt-4 block w-16" />
         {intro}
       </header>
 
@@ -231,28 +231,28 @@ export default function GuestListClient({
             className={`${fieldClass} resize-y`}
           />
           {nameLines.length > 0 && (
-            <p className="mt-2 text-base text-ink-soft">{nameLines.length} nama akan ditambahkan.</p>
+            <p className="mt-2 text-sm text-ink-soft">{nameLines.length} nama akan ditambahkan.</p>
           )}
 
           {hasSimilar && (
             <div className="notice-caution mt-3 rounded-xl px-4 py-3">
-              <p className="text-lg font-semibold text-gold-dark">
+              <p className="text-base font-semibold text-gold-dark">
                 ⚠ Sudah ada nama mirip:
               </p>
               <ul className="mt-2 flex flex-col gap-2">
                 {Object.entries(similar).map(([line, matches]) => (
-                  <li key={line} className="text-lg text-ink">
+                  <li key={line} className="text-base text-ink">
                     {line}
-                    <span className="block text-base text-ink-soft">
+                    <span className="block text-sm text-ink-soft">
                       mirip dengan {matches.map((m) => `${m.name} (${m.familyLabel})`).join(", ")}
                     </span>
                   </li>
                 ))}
               </ul>
-              <label className="mt-3 flex items-center gap-3 text-lg text-ink">
+              <label className="mt-3 flex items-center gap-3 text-base text-ink">
                 <input
                   type="checkbox"
-                  className="h-6 w-6 accent-gold-dark"
+                  className="h-5 w-5 accent-gold-dark"
                   checked={confirmedDespiteSimilar}
                   onChange={(e) => setConfirmedText(e.target.checked ? namesText : null)}
                 />
@@ -262,9 +262,9 @@ export default function GuestListClient({
           )}
         </div>
 
-        {formError && <p className="text-lg font-medium text-red-600">{formError}</p>}
+        {formError && <p className="text-base font-medium text-red-600">{formError}</p>}
         {successMessage && !formError && (
-          <p className="text-lg font-medium text-sage-dark">✅ {successMessage}</p>
+          <p className="text-base font-medium text-sage-dark">✅ {successMessage}</p>
         )}
 
         <button
@@ -279,17 +279,17 @@ export default function GuestListClient({
       <MessageTemplateEditor value={messageTemplate} onChange={setMessageTemplate} />
 
       <section className="mt-10">
-        <h2 className="text-2xl font-bold text-on-maroon">
+        <h2 className="text-lg font-bold text-on-maroon">
           Tamu yang Sudah Anda Tambahkan
         </h2>
-        <p className="mt-1 text-lg text-on-maroon-soft">
+        <p className="mt-1 text-sm text-on-maroon-soft">
           {entries.length} nama · {totalPeople} orang
         </p>
 
         {isLoadingList ? (
-          <p className="mt-4 text-lg text-on-maroon-soft">Memuat…</p>
+          <p className="mt-4 text-sm text-on-maroon-soft">Memuat…</p>
         ) : entries.length === 0 ? (
-          <p className="mt-4 text-lg text-on-maroon-soft">Belum ada nama yang ditambahkan.</p>
+          <p className="mt-4 text-sm text-on-maroon-soft">Belum ada nama yang ditambahkan.</p>
         ) : (
           <ol className="mt-4 flex flex-col gap-3">
             {entries.map((entry, index) => (
@@ -297,14 +297,14 @@ export default function GuestListClient({
                 key={entry.id}
                 className="card-stock flex items-center gap-3 rounded-[3px] px-4 py-3"
               >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold-dark text-base font-bold text-paper">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gold-dark text-sm font-bold text-paper">
                   {index + 1}
                 </span>
 
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-xl font-medium text-ink">{entry.name}</p>
+                  <p className="truncate text-base font-medium text-ink">{entry.name}</p>
                   {(entry.relation || entry.guestCount > 1) && (
-                    <p className="mt-0.5 truncate text-sm text-ink-soft">
+                    <p className="mt-0.5 truncate text-xs text-ink-soft">
                       {[entry.relation, entry.guestCount > 1 ? `${entry.guestCount} orang` : null]
                         .filter(Boolean)
                         .join(" · ")}

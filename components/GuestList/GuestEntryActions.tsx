@@ -1,8 +1,8 @@
 "use client";
 
 const ICON_PROPS = {
-  width: 20,
-  height: 20,
+  width: 17,
+  height: 17,
   viewBox: "0 0 24 24",
   "aria-hidden": true as const,
 };
@@ -42,7 +42,7 @@ function DeleteIcon() {
 }
 
 const iconButtonBase =
-  "flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors";
+  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors";
 
 export default function GuestEntryActions({
   guestName,

@@ -17,13 +17,13 @@ export default function MessageTemplateEditor({
   return (
     <section className="card-stock mt-6 flex flex-col gap-3 rounded-[3px] p-7">
       <div>
-        <label className="mb-1 block text-lg font-semibold text-ink" htmlFor="wa-template">
+        <label className="mb-1 block text-base font-semibold text-ink" htmlFor="wa-template">
           Pesan Pengantar WhatsApp
         </label>
-        <p className="text-base text-ink-soft">
+        <p className="text-sm text-ink-soft">
           Sesuaikan kalimatnya di sini sebelum dikirim. Tulis{" "}
-          <code className="rounded bg-maroon px-1.5 py-0.5 text-sm">{"{{nama}}"}</code> dan{" "}
-          <code className="rounded bg-maroon px-1.5 py-0.5 text-sm">{"{{link}}"}</code> di mana
+          <code className="rounded bg-maroon px-1.5 py-0.5 text-xs">{"{{nama}}"}</code> dan{" "}
+          <code className="rounded bg-maroon px-1.5 py-0.5 text-xs">{"{{link}}"}</code> di mana
           saja — otomatis diganti nama tamu dan tautan undangannya masing-masing saat dikirim.
         </p>
       </div>
@@ -33,14 +33,14 @@ export default function MessageTemplateEditor({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         rows={10}
-        className="w-full resize-y rounded-xl border-2 border-border bg-paper px-4 py-3 text-lg leading-relaxed text-ink outline-none transition-colors focus:border-gold-dark"
+        className="w-full resize-y rounded-xl border-2 border-border bg-paper px-4 py-3 text-sm leading-relaxed text-ink outline-none transition-colors focus:border-gold-dark"
       />
 
       {value !== DEFAULT_WHATSAPP_MESSAGE_TEMPLATE && (
         <button
           type="button"
           onClick={() => onChange(DEFAULT_WHATSAPP_MESSAGE_TEMPLATE)}
-          className="self-start text-base font-semibold text-ink-soft underline decoration-border underline-offset-4 hover:text-ink"
+          className="self-start text-sm font-semibold text-ink-soft underline decoration-border underline-offset-4 hover:text-ink"
         >
           Kembalikan ke teks asli
         </button>
