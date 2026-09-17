@@ -90,15 +90,21 @@ const items: NavItem[] = [
   },
 ];
 
+type NavDockProps = {
+  // scroll is locked to the cover until "Buka Undangan" is pressed, so
+  // jumping to a section is impossible before then — stay hidden until
+  // the invitation is actually opened rather than show a dead control
+  enabled: boolean;
+};
+
 /**
- * A quick-nav bar, visible only on the cover — it exists so a guest can
- * jump straight to a section as soon as the invitation loads, then gets
- * out of the way once they've actually started scrolling through it (so it
- * never sits over the "Buka Undangan" button or any section beneath the
- * cover). Its own visibility follows the same #cover element
- * useScrollReveal pins, so it fades in step with the cover: still up
- * through the pin-and-reveal transition, gone once #cover has actually
- * scrolled past.
+ * A quick-nav bar, visible only on the cover once it's opened — it exists
+ * so a guest can jump straight to a section, then gets out of the way once
+ * they've actually started scrolling through it (so it never sits over the
+ * "Buka Undangan" button or any section beneath the cover). Its own
+ * visibility follows the same #cover element useScrollReveal pins, so it
+ * fades in step with the cover: still up through the pin-and-reveal
+ * transition, gone once #cover has actually scrolled past.
  *
  * Stuck flush to the bottom edge (not a floating pill) so it reads as part
  * of the cover's frame rather than an overlay competing with the CTA.
@@ -106,16 +112,17 @@ const items: NavItem[] = [
  * Rendered once in Hero, next to MusicPlayer, as a sibling of #cover (not
  * a descendant — see the comment in Hero.tsx on why).
  */
-export default function NavDock() {
+export default function NavDock({ enabled }: NavDockProps) {
   const lenis = useLenis();
-  const [visible, setVisible] = useState(true);
+  const [coverVisible, setCoverVisible] = useState(true);
+  const visible = coverVisible && enabled;
 
   useEffect(() => {
     const cover = document.getElementById("cover");
     if (!cover) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting),
+      ([entry]) => setCoverVisible(entry.isIntersecting),
       { threshold: 0 }
     );
     observer.observe(cover);

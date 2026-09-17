@@ -17,7 +17,7 @@ import { weddingDay, weddingMonth, weddingYear } from "@/lib/weddingDate";
 export default function Hero() {
   const refs = useCoverRefs();
   const idle = useIdleMotion(refs);
-  const { open } = useOpenInvitation(refs);
+  const { isOpened, open } = useOpenInvitation(refs);
   useScrollReveal(refs);
 
   const { section, coverInner, background, glow, content, title, button, music } = refs;
@@ -207,7 +207,7 @@ export default function Hero() {
       {/* bottom-20: clears NavDock's bar, which is now stuck flush to the
           true bottom edge instead of floating mid-screen */}
       <MusicPlayer ref={music} className="fixed bottom-20 right-4 z-20" />
-      <NavDock />
+      <NavDock enabled={isOpened} />
     </>
   );
 }
