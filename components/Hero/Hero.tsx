@@ -2,7 +2,6 @@
 
 import { Suspense } from "react";
 import Botanical from "@/components/Botanical";
-import Crest from "@/components/Crest";
 import FloralLayer from "@/components/FloralLayer";
 import GuestGreeting, { GuestGreetingFallback } from "@/components/GuestGreeting";
 import InvitationButton from "@/components/InvitationButton";
@@ -130,7 +129,21 @@ export default function Hero() {
               The Wedding Of
             </p>
 
-            <Crest className="mt-6 w-16 text-accent-dark" />
+            {/* monogram — the couple's initials, not a generic sprig, so it
+                stays correct automatically if shortName ever changes */}
+            <div aria-hidden="true" className="mt-6 flex items-center justify-center gap-3">
+              <span className="rule-gild w-7 sm:w-9" />
+              <span className="text-gilded font-script text-[2.75rem] leading-none sm:text-[3.25rem]">
+                {couple.groom.shortName.charAt(0)}
+              </span>
+              <span className="font-display text-lg font-normal italic leading-none text-accent-dark sm:text-xl">
+                &amp;
+              </span>
+              <span className="text-gilded font-script text-[2.75rem] leading-none sm:text-[3.25rem]">
+                {couple.bride.shortName.charAt(0)}
+              </span>
+              <span className="rule-gild w-7 sm:w-9" />
+            </div>
 
             {/* the couple's names — the one place the script face appears at
                 full scale, gilded and slowly drifting */}
