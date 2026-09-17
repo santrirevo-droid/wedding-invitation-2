@@ -2,8 +2,10 @@
 
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import type { Family } from "@/lib/families";
-import { buildInviteLink, buildWhatsAppMessage, buildWhatsAppUrl } from "@/lib/inviteLink";
-import ShareMessageDialog from "./ShareMessageDialog";
+import { buildInviteLink, buildWhatsAppUrl, fillWhatsAppTemplate } from "@/lib/inviteLink";
+import { useWhatsAppTemplate } from "@/hooks/useWhatsAppTemplate";
+import GuestEntryActions from "./GuestEntryActions";
+import MessageTemplateEditor from "./MessageTemplateEditor";
 
 type GuestEntry = {
   id: string;
@@ -22,46 +24,6 @@ const fieldClass =
 const labelClass = "mb-2 block text-lg font-semibold text-ink";
 const buttonClass =
   "min-h-14 rounded-xl px-6 py-3 text-lg font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60";
-
-const ICON_PROPS = {
-  width: 18,
-  height: 18,
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: 2,
-  strokeLinecap: "round" as const,
-  strokeLinejoin: "round" as const,
-  "aria-hidden": true as const,
-};
-
-function SendIcon() {
-  return (
-    <svg {...ICON_PROPS}>
-      <path d="m3 11 18-8-8 18-2.5-7.5L3 11Z" />
-    </svg>
-  );
-}
-
-function LinkIcon() {
-  return (
-    <svg {...ICON_PROPS}>
-      <path d="M9 15 15 9" />
-      <path d="M11 6.5 12.5 5a3.5 3.5 0 0 1 5 5L16 11.5" />
-      <path d="M13 17.5 11.5 19a3.5 3.5 0 0 1-5-5L8 12.5" />
-    </svg>
-  );
-}
-
-function TrashIcon() {
-  return (
-    <svg {...ICON_PROPS}>
-      <path d="M4 7h16" />
-      <path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
-      <path d="M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13" />
-    </svg>
-  );
-}
 
 function parseNameLines(text: string): string[] {
   return text
@@ -99,9 +61,8 @@ export default function GuestListClient({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [shareTarget, setShareTarget] = useState<GuestEntry | null>(null);
+  const [messageTemplate, setMessageTemplate] = useWhatsAppTemplate();
 
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchRequestId = useRef(0);
@@ -221,24 +182,24 @@ export default function GuestListClient({
     }
   }
 
-  function handleConfirmSend(message: string) {
+  function handleShareWhatsApp(entry: GuestEntry) {
+    const link = buildInviteLink(window.location.origin, entry.name);
+    const message = fillWhatsAppTemplate(messageTemplate, entry.name, link);
     window.open(buildWhatsAppUrl(message), "_blank", "noopener,noreferrer");
-    setShareTarget(null);
   }
 
-  async function handleDelete(id: string) {
+  async function handleDelete(entry: GuestEntry) {
+    if (!window.confirm(`Hapus "${entry.name}" dari daftar tamu?`)) return;
     try {
-      const res = await fetch(`/api/guest-list/${id}`, {
+      const res = await fetch(`/api/guest-list/${entry.id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ familySlug: family.slug }),
       });
       if (!res.ok) throw new Error();
-      setEntries((current) => current.filter((entry) => entry.id !== id));
+      setEntries((current) => current.filter((e) => e.id !== entry.id));
     } catch {
       setFormError("Gagal menghapus nama. Coba lagi.");
-    } finally {
-      setPendingDeleteId(null);
     }
   }
 
@@ -315,6 +276,8 @@ export default function GuestListClient({
         </button>
       </form>
 
+      <MessageTemplateEditor value={messageTemplate} onChange={setMessageTemplate} />
+
       <section className="mt-10">
         <h2 className="text-2xl font-bold text-on-maroon">
           Tamu yang Sudah Anda Tambahkan
@@ -332,67 +295,30 @@ export default function GuestListClient({
             {entries.map((entry, index) => (
               <li
                 key={entry.id}
-                className="card-stock flex gap-4 rounded-[3px] px-5 py-4"
+                className="card-stock flex items-center gap-3 rounded-[3px] px-4 py-3"
               >
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold-dark text-base font-bold text-paper">
                   {index + 1}
                 </span>
 
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-xl font-medium text-ink">
-                    {entry.name}
-                    {entry.guestCount > 1 && (
-                      <span className="ml-2 text-base font-normal text-ink-soft">
-                        · {entry.guestCount} orang
-                      </span>
-                    )}
-                  </p>
-                  {entry.relation && (
-                    <p className="mt-0.5 truncate text-base text-ink-soft">{entry.relation}</p>
+                  <p className="truncate text-xl font-medium text-ink">{entry.name}</p>
+                  {(entry.relation || entry.guestCount > 1) && (
+                    <p className="mt-0.5 truncate text-sm text-ink-soft">
+                      {[entry.relation, entry.guestCount > 1 ? `${entry.guestCount} orang` : null]
+                        .filter(Boolean)
+                        .join(" · ")}
+                    </p>
                   )}
-
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    <button
-                      onClick={() => setShareTarget(entry)}
-                      className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-sage px-4 text-base font-semibold text-white transition-colors hover:brightness-95"
-                    >
-                      <SendIcon />
-                      Kirim WhatsApp
-                    </button>
-                    <button
-                      onClick={() => handleCopyLink(entry)}
-                      className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-border px-4 text-base font-semibold text-ink transition-colors hover:bg-maroon"
-                    >
-                      <LinkIcon />
-                      {copiedId === entry.id ? "Tersalin!" : "Salin Link"}
-                    </button>
-
-                    {pendingDeleteId === entry.id ? (
-                      <>
-                        <button
-                          onClick={() => handleDelete(entry.id)}
-                          className="min-h-11 rounded-lg bg-red-600 px-4 text-base font-semibold text-white"
-                        >
-                          Ya, Hapus
-                        </button>
-                        <button
-                          onClick={() => setPendingDeleteId(null)}
-                          className="min-h-11 rounded-lg border border-border px-4 text-base font-semibold text-ink"
-                        >
-                          Batal
-                        </button>
-                      </>
-                    ) : (
-                      <button
-                        onClick={() => setPendingDeleteId(entry.id)}
-                        className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-border px-4 text-base font-semibold text-ink-soft transition-colors hover:bg-maroon"
-                      >
-                        <TrashIcon />
-                        Hapus
-                      </button>
-                    )}
-                  </div>
                 </div>
+
+                <GuestEntryActions
+                  guestName={entry.name}
+                  copied={copiedId === entry.id}
+                  onShareWhatsApp={() => handleShareWhatsApp(entry)}
+                  onCopyLink={() => handleCopyLink(entry)}
+                  onDelete={() => handleDelete(entry)}
+                />
               </li>
             ))}
           </ol>
@@ -400,18 +326,6 @@ export default function GuestListClient({
       </section>
 
       {footer}
-
-      {shareTarget && (
-        <ShareMessageDialog
-          guestName={shareTarget.name}
-          defaultMessage={buildWhatsAppMessage(
-            buildInviteLink(window.location.origin, shareTarget.name),
-            shareTarget.name
-          )}
-          onCancel={() => setShareTarget(null)}
-          onSend={handleConfirmSend}
-        />
-      )}
     </main>
   );
 }

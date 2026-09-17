@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { buildInviteLink, buildWhatsAppMessage, buildWhatsAppUrl } from "@/lib/inviteLink";
-import ShareMessageDialog from "./ShareMessageDialog";
+import { buildInviteLink, buildWhatsAppUrl, fillWhatsAppTemplate } from "@/lib/inviteLink";
+import { useWhatsAppTemplate } from "@/hooks/useWhatsAppTemplate";
+import GuestEntryActions from "./GuestEntryActions";
+import MessageTemplateEditor from "./MessageTemplateEditor";
 
 type GuestEntry = {
   id: string;
@@ -25,7 +27,7 @@ export default function RekapClient() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [shareTarget, setShareTarget] = useState<GuestEntry | null>(null);
+  const [messageTemplate, setMessageTemplate] = useWhatsAppTemplate();
 
   async function handleCopyLink(entry: GuestEntry) {
     const link = buildInviteLink(window.location.origin, entry.name);
@@ -38,9 +40,10 @@ export default function RekapClient() {
     }
   }
 
-  function handleConfirmSend(message: string) {
+  function handleShareWhatsApp(entry: GuestEntry) {
+    const link = buildInviteLink(window.location.origin, entry.name);
+    const message = fillWhatsAppTemplate(messageTemplate, entry.name, link);
     window.open(buildWhatsAppUrl(message), "_blank", "noopener,noreferrer");
-    setShareTarget(null);
   }
 
   useEffect(() => {
@@ -98,6 +101,8 @@ export default function RekapClient() {
         {entries.length} nama · {totalPeople} orang
       </p>
 
+      <MessageTemplateEditor value={messageTemplate} onChange={setMessageTemplate} />
+
       {clusters.length > 0 && (
         <section className="notice-caution mt-8 rounded-2xl p-6">
           <h2 className="text-2xl font-semibold text-gold-dark">
@@ -125,39 +130,28 @@ export default function RekapClient() {
 
       <ol className="mt-10 flex flex-col gap-3">
         {entries.map((entry, index) => (
-          <li key={entry.id} className="card-stock flex gap-4 rounded-[3px] px-5 py-4">
+          <li key={entry.id} className="card-stock flex items-center gap-3 rounded-[3px] px-4 py-3">
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold-dark text-base font-bold text-paper">
               {index + 1}
             </span>
 
             <div className="min-w-0 flex-1">
-              <p className="truncate text-xl font-medium text-ink">
-                {entry.name}
-                {entry.guestCount > 1 && (
-                  <span className="ml-2 text-base font-normal text-ink-soft">
-                    · {entry.guestCount} orang
-                  </span>
-                )}
-              </p>
-              {entry.relation && (
-                <p className="mt-0.5 truncate text-base text-ink-soft">{entry.relation}</p>
+              <p className="truncate text-xl font-medium text-ink">{entry.name}</p>
+              {(entry.relation || entry.guestCount > 1) && (
+                <p className="mt-0.5 truncate text-sm text-ink-soft">
+                  {[entry.relation, entry.guestCount > 1 ? `${entry.guestCount} orang` : null]
+                    .filter(Boolean)
+                    .join(" · ")}
+                </p>
               )}
-
-              <div className="mt-3 flex flex-wrap gap-2">
-                <button
-                  onClick={() => setShareTarget(entry)}
-                  className="min-h-11 rounded-lg bg-sage px-4 text-base font-semibold text-white transition-colors hover:brightness-95"
-                >
-                  Kirim WhatsApp
-                </button>
-                <button
-                  onClick={() => handleCopyLink(entry)}
-                  className="min-h-11 rounded-lg border border-border px-4 text-base font-semibold text-ink transition-colors hover:bg-maroon"
-                >
-                  {copiedId === entry.id ? "Tersalin!" : "Salin Link"}
-                </button>
-              </div>
             </div>
+
+            <GuestEntryActions
+              guestName={entry.name}
+              copied={copiedId === entry.id}
+              onShareWhatsApp={() => handleShareWhatsApp(entry)}
+              onCopyLink={() => handleCopyLink(entry)}
+            />
           </li>
         ))}
       </ol>
@@ -169,18 +163,6 @@ export default function RekapClient() {
         </Link>
         .
       </p>
-
-      {shareTarget && (
-        <ShareMessageDialog
-          guestName={shareTarget.name}
-          defaultMessage={buildWhatsAppMessage(
-            buildInviteLink(window.location.origin, shareTarget.name),
-            shareTarget.name
-          )}
-          onCancel={() => setShareTarget(null)}
-          onSend={handleConfirmSend}
-        />
-      )}
     </main>
   );
 }
