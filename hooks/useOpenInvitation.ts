@@ -4,11 +4,8 @@ import { useCallback, useRef, useState } from "react";
 import gsap from "gsap";
 import { useLenis } from "lenis/react";
 import type Lenis from "lenis";
+import { easeInOutCubic } from "@/lib/easing";
 import type { CoverRefs } from "./useCoverRefs";
-
-// easeInOutCubic — gentle glide in, cruise, gentle glide out
-const easeInOutCubic = (t: number) =>
-  t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
 // every section below the cover, in page order — the autoscroll hops
 // between these one at a time instead of gliding the whole document
@@ -27,6 +24,18 @@ const AUTOSCROLL_STOPS = [
 const AUTOSCROLL_HOP_DURATION = 1.6; // s — glide between two sections
 const AUTOSCROLL_PAUSE = 1800; // ms — dwell time to actually read a section
 
+// at most one tour instance ever runs at a time, so a single module-level
+// slot (rather than React state/context) is enough to let something
+// outside this hook — NavDock's jump-to-section — cancel it on demand
+let activeTourCancel: (() => void) | null = null;
+
+/** Stops the autoscroll tour if one is in flight; a no-op otherwise. Call
+ * this before any other programmatic scroll (see NavDock), or the tour's
+ * next scheduled hop will fight it for control of lenis. */
+export function stopAutoScrollTour() {
+  activeTourCancel?.();
+}
+
 /**
  * Carries the visitor down through the invitation one section at a time:
  * glide, pause to read, glide to the next. Cancels itself the instant the
@@ -41,6 +50,7 @@ function autoScrollThroughInvitation(lenis: Lenis) {
     window.removeEventListener("wheel", cancel);
     window.removeEventListener("touchstart", cancel);
     window.removeEventListener("keydown", cancel);
+    if (activeTourCancel === cancel) activeTourCancel = null;
   };
 
   const cancel = () => {
@@ -49,6 +59,10 @@ function autoScrollThroughInvitation(lenis: Lenis) {
     clearTimeout(pauseTimer);
     cleanup();
   };
+
+  // exposed via stopAutoScrollTour() so a direct jump (NavDock) can call
+  // this same cancel path instead of fighting the tour for control of lenis
+  activeTourCancel = cancel;
 
   window.addEventListener("wheel", cancel, { passive: true, once: true });
   window.addEventListener("touchstart", cancel, { passive: true, once: true });

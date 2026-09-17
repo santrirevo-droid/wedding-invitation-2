@@ -1,0 +1,176 @@
+"use client";
+
+import { useEffect, useState, type JSX } from "react";
+import { useLenis } from "lenis/react";
+import { easeInOutCubic } from "@/lib/easing";
+import { stopAutoScrollTour } from "@/hooks/useOpenInvitation";
+
+type NavItem = {
+  id: string;
+  label: string;
+  icon: JSX.Element;
+};
+
+const ICON_PROPS = {
+  width: 18,
+  height: 18,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 1.6,
+  strokeLinecap: "round" as const,
+  strokeLinejoin: "round" as const,
+  "aria-hidden": true as const,
+};
+
+const items: NavItem[] = [
+  {
+    id: "mempelai",
+    label: "Mempelai",
+    icon: (
+      <svg {...ICON_PROPS}>
+        <circle cx="9" cy="14" r="6" />
+        <circle cx="15" cy="14" r="6" />
+      </svg>
+    ),
+  },
+  {
+    id: "kisah-kami",
+    label: "Kisah Kami",
+    icon: (
+      <svg {...ICON_PROPS}>
+        <path d="M12 6c-1.8-1.3-4-2-6.5-2A2.5 2.5 0 0 0 3 6.5v11A2.5 2.5 0 0 1 5.5 16c2.5 0 4.7.7 6.5 2" />
+        <path d="M12 6c1.8-1.3 4-2 6.5-2A2.5 2.5 0 0 1 21 6.5v11a2.5 2.5 0 0 0-2.5-2c-2.5 0-4.7.7-6.5 2" />
+        <path d="M12 6v12" />
+      </svg>
+    ),
+  },
+  {
+    id: "acara",
+    label: "Waktu & Tempat",
+    icon: (
+      <svg {...ICON_PROPS}>
+        <rect x="3.5" y="5" width="17" height="15" rx="2" />
+        <path d="M3.5 9.5h17" />
+        <path d="M8 3v4M16 3v4" />
+      </svg>
+    ),
+  },
+  {
+    id: "rsvp",
+    label: "Konfirmasi Kehadiran",
+    icon: (
+      <svg {...ICON_PROPS}>
+        <rect x="3" y="5.5" width="18" height="13" rx="2" />
+        <path d="M3.5 6.5 12 13l8.5-6.5" />
+      </svg>
+    ),
+  },
+  {
+    id: "tanda-kasih",
+    label: "Tanda Kasih",
+    icon: (
+      <svg {...ICON_PROPS}>
+        <rect x="3.5" y="10" width="17" height="10" rx="1.5" />
+        <path d="M3.5 14h17M12 10v10" />
+        <path d="M12 10c-1.8 0-3.6-1-3.6-2.8A2.2 2.2 0 0 1 10.6 5c1.4 0 1.9 1.6 1.4 3M12 10c1.8 0 3.6-1 3.6-2.8A2.2 2.2 0 0 0 13.4 5c-1.4 0-1.9 1.6-1.4 3" />
+      </svg>
+    ),
+  },
+  {
+    id: "ucapan",
+    label: "Ucapan & Doa",
+    icon: (
+      <svg {...ICON_PROPS}>
+        <path d="M4 5.5h16a1 1 0 0 1 1 1V15a1 1 0 0 1-1 1H9l-4 3.5V16H4a1 1 0 0 1-1-1V6.5a1 1 0 0 1 1-1Z" />
+      </svg>
+    ),
+  },
+];
+
+/**
+ * A floating quick-nav dock, fixed for the whole visit (mounted once, in
+ * Hero, next to MusicPlayer — same "render once, position:fixed carries it
+ * everywhere" pattern). Lets a guest jump straight to a section instead of
+ * only riding the cover's auto-scroll tour or scrolling manually.
+ *
+ * The active icon is read off an IntersectionObserver watching a thin band
+ * near the vertical centre of the viewport (rootMargin shrinks it there) —
+ * whichever section's heading is crossing that band is "current".
+ */
+export default function NavDock() {
+  const lenis = useLenis();
+  const [active, setActive] = useState<string | null>(null);
+
+  useEffect(() => {
+    const targets = items
+      .map((item) => document.getElementById(item.id))
+      .filter((el): el is HTMLElement => el !== null);
+    if (targets.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting);
+        if (visible.length === 0) return;
+        const topmost = visible.reduce((a, b) =>
+          a.boundingClientRect.top < b.boundingClientRect.top ? a : b
+        );
+        setActive(topmost.target.id);
+      },
+      { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
+    );
+
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  function goTo(id: string) {
+    // a direct jump always wins over the cover's autoplay tour, so the two
+    // scrolls never fight over lenis mid-hop
+    stopAutoScrollTour();
+
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    if (lenis) {
+      lenis.scrollTo(el, { duration: 1.2, easing: easeInOutCubic });
+    } else {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  return (
+    // bottom-20, not bottom-6: MusicPlayer already owns the bottom-6/right-6
+    // corner once a guest opens the invitation. Stacking above it (same
+    // reach zone, different row) avoids any horizontal collision at every
+    // viewport width, without shrinking six icons past a comfortable tap
+    // size to dodge sideways.
+    <nav
+      aria-label="Navigasi ke bagian undangan"
+      className="fixed bottom-20 left-1/2 z-20 -translate-x-1/2"
+    >
+      <div className="flex items-center gap-1 rounded-full border border-accent/35 bg-paper/85 p-1.5 shadow-[0_12px_28px_-14px_rgba(122,90,46,0.5)] backdrop-blur-sm">
+        {items.map((item) => {
+          const isActive = active === item.id;
+          return (
+            <button
+              key={item.id}
+              type="button"
+              aria-label={item.label}
+              aria-current={isActive ? "true" : undefined}
+              onClick={() => goTo(item.id)}
+              className={[
+                "flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full transition-colors duration-300 sm:h-10 sm:w-10",
+                isActive
+                  ? "bg-accent-dark text-paper"
+                  : "text-gold-dark hover:bg-accent/15",
+              ].join(" ")}
+            >
+              {item.icon}
+            </button>
+          );
+        })}
+      </div>
+    </nav>
+  );
+}
