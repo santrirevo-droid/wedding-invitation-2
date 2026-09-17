@@ -1,7 +1,8 @@
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { couple, events, venue } from "@/lib/weddingData";
+import { couple, venue } from "@/lib/weddingData";
+import { weddingDay, weddingMonthName, weddingYear } from "@/lib/weddingDate";
 
 export const alt = `The Wedding of ${couple.groom.shortName} & ${couple.bride.shortName}`;
 export const size = { width: 1200, height: 630 };
@@ -61,7 +62,7 @@ export default async function Image() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: 18,
+            gap: 10,
           }}
         >
           <div
@@ -105,33 +106,43 @@ export default async function Image() {
           <div
             style={{
               display: "flex",
+              flexDirection: "column",
               alignItems: "center",
-              gap: 14,
-              marginTop: 10,
+              marginTop: 6,
             }}
           >
-            <div style={{ width: 40, height: 1.5, background: "rgba(166,124,82,0.55)" }} />
             <div
               style={{
                 fontFamily: "Cormorant Garamond",
-                fontSize: 62,
+                fontSize: 50,
                 fontWeight: 500,
-                letterSpacing: 1,
-                color: "#6b584a",
+                letterSpacing: 6,
+                textTransform: "uppercase",
+                color: "#a67c52",
               }}
             >
-              {events[0].date}
+              Ahad
             </div>
-            <div style={{ width: 40, height: 1.5, background: "rgba(166,124,82,0.55)" }} />
+            <div
+              style={{
+                fontFamily: "Cormorant Garamond",
+                fontSize: 150,
+                fontWeight: 600,
+                color: "#46382d",
+                marginTop: -10,
+              }}
+            >
+              {`${weddingDay} ${weddingMonthName} ${weddingYear}`}
+            </div>
           </div>
 
           <div
             style={{
               fontFamily: "Cormorant Garamond",
-              fontSize: 24,
+              fontSize: 22,
               fontWeight: 500,
               color: "#8a7867",
-              marginTop: 4,
+              marginTop: -6,
             }}
           >
             {venue.name}
