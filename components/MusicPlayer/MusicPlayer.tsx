@@ -44,6 +44,50 @@ const MusicPlayer = forwardRef<MusicPlayerHandle, MusicPlayerProps>(
       },
     }));
 
+    // browsers refuse to play audio with sound until the visitor performs
+    // some gesture on the page — there is no way to start truly on load, so
+    // this listens for the visitor's very first tap/scroll/keypress
+    // *anywhere*, not just the "Buka Undangan" button, so music starts as
+    // close to instantly as the browser will allow
+    useEffect(() => {
+      const audio = audioRef.current;
+      if (!audio) return;
+
+      let unlocked = false;
+
+      const tryPlay = () => {
+        if (unlocked) return;
+        audio
+          .play()
+          .then(() => {
+            unlocked = true;
+            setIsPlaying(true);
+            setHasStarted(true);
+            removeGestureListeners();
+          })
+          .catch(() => {
+            // still blocked — wait for the next gesture
+          });
+      };
+
+      const gestureEvents = ["pointerdown", "touchstart", "keydown", "wheel"] as const;
+      const removeGestureListeners = () => {
+        gestureEvents.forEach((event) => window.removeEventListener(event, tryPlay));
+      };
+
+      gestureEvents.forEach((event) =>
+        window.addEventListener(event, tryPlay, { once: true, passive: true })
+      );
+
+      // harmless if blocked; succeeds outright for returning visitors whose
+      // browser already trusts this site enough to allow autoplay
+      tryPlay();
+
+      return () => {
+        removeGestureListeners();
+      };
+    }, []);
+
     // stop the music the moment the visitor leaves the tab/browser (or
     // closes it), and pick back up if they return — mirrors how a physical
     // music box would fall silent once no one's there to hear it
