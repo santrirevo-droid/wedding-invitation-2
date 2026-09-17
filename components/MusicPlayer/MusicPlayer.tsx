@@ -2,6 +2,7 @@
 
 import {
   forwardRef,
+  useEffect,
   useImperativeHandle,
   useRef,
   useState,
@@ -17,10 +18,14 @@ type MusicPlayerProps = {
 };
 
 const MusicPlayer = forwardRef<MusicPlayerHandle, MusicPlayerProps>(
-  ({ src = "/music/wedding-song.m4a", className = "" }, ref) => {
+  ({ src = "/music/rab-ne.mp3", className = "" }, ref) => {
     const audioRef = useRef<HTMLAudioElement>(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [hasStarted, setHasStarted] = useState(false);
+    // tracks whether the tab itself paused playback (vs. the visitor
+    // pressing the toggle), so a return to the tab only resumes music
+    // that was actually playing before it was backgrounded
+    const pausedByVisibilityRef = useRef(false);
 
     useImperativeHandle(ref, () => ({
       play: () => {
@@ -39,12 +44,49 @@ const MusicPlayer = forwardRef<MusicPlayerHandle, MusicPlayerProps>(
       },
     }));
 
+    // stop the music the moment the visitor leaves the tab/browser (or
+    // closes it), and pick back up if they return — mirrors how a physical
+    // music box would fall silent once no one's there to hear it
+    useEffect(() => {
+      const audio = audioRef.current;
+      if (!audio) return;
+
+      const handleVisibilityChange = () => {
+        if (document.visibilityState === "hidden") {
+          if (!audio.paused) {
+            pausedByVisibilityRef.current = true;
+            audio.pause();
+            setIsPlaying(false);
+          }
+        } else if (pausedByVisibilityRef.current) {
+          pausedByVisibilityRef.current = false;
+          audio.play().then(() => setIsPlaying(true)).catch(() => {});
+        }
+      };
+
+      const stopOnLeave = () => {
+        audio.pause();
+        setIsPlaying(false);
+      };
+
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+      window.addEventListener("pagehide", stopOnLeave);
+      window.addEventListener("beforeunload", stopOnLeave);
+
+      return () => {
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
+        window.removeEventListener("pagehide", stopOnLeave);
+        window.removeEventListener("beforeunload", stopOnLeave);
+      };
+    }, []);
+
     const toggle = () => {
       const audio = audioRef.current;
       if (!audio) return;
       if (audio.paused) {
         audio.play().then(() => setIsPlaying(true)).catch(() => {});
       } else {
+        pausedByVisibilityRef.current = false;
         audio.pause();
         setIsPlaying(false);
       }
