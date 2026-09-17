@@ -28,7 +28,10 @@ export default function Wishes() {
     const ctx = gsap.context(() => {
       const cards = gsap.utils.toArray<HTMLElement>("[data-wish-card]");
       if (!cards.length) return;
-      gsap.set(cards, { opacity: 0, y: 26 });
+      // same blur-into-focus language as useRevealOnScroll, hand-rolled
+      // here because this list is dynamic (re-triggers per wishes.length)
+      // rather than a one-shot section mount
+      gsap.set(cards, { opacity: 0, y: 26, filter: "blur(7px)" });
       ScrollTrigger.create({
         trigger: section,
         start: "top 78%",
@@ -37,6 +40,7 @@ export default function Wishes() {
           gsap.to(cards, {
             opacity: 1,
             y: 0,
+            filter: "blur(0px)",
             duration: 0.75,
             stagger: 0.1,
             ease: "power3.out",
