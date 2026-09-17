@@ -21,7 +21,6 @@ const MusicPlayer = forwardRef<MusicPlayerHandle, MusicPlayerProps>(
   ({ src = "/music/rab-ne.mp3", className = "" }, ref) => {
     const audioRef = useRef<HTMLAudioElement>(null);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [hasStarted, setHasStarted] = useState(false);
     // tracks whether the tab itself paused playback (vs. the visitor
     // pressing the toggle), so a return to the tab only resumes music
     // that was actually playing before it was backgrounded
@@ -33,13 +32,10 @@ const MusicPlayer = forwardRef<MusicPlayerHandle, MusicPlayerProps>(
         if (!audio) return;
         audio
           .play()
-          .then(() => {
-            setIsPlaying(true);
-            setHasStarted(true);
-          })
+          .then(() => setIsPlaying(true))
           .catch(() => {
-            // autoplay blocked or asset missing — user can still use the toggle
-            setHasStarted(true);
+            // autoplay blocked or asset missing — the always-visible toggle
+            // below is the guaranteed manual fallback
           });
       },
     }));
@@ -48,7 +44,11 @@ const MusicPlayer = forwardRef<MusicPlayerHandle, MusicPlayerProps>(
     // some gesture on the page — there is no way to start truly on load, so
     // this listens for the visitor's very first tap/scroll/keypress
     // *anywhere*, not just the "Buka Undangan" button, so music starts as
-    // close to instantly as the browser will allow
+    // close to instantly as the browser will allow. Not every gesture is
+    // honoured on every mobile browser (in-app browsers like WhatsApp's or
+    // Instagram's are especially inconsistent), which is exactly why the
+    // toggle button below is always rendered rather than hidden until this
+    // succeeds — it's the guaranteed fallback when this silently fails.
     useEffect(() => {
       const audio = audioRef.current;
       if (!audio) return;
@@ -62,7 +62,6 @@ const MusicPlayer = forwardRef<MusicPlayerHandle, MusicPlayerProps>(
           .then(() => {
             unlocked = true;
             setIsPlaying(true);
-            setHasStarted(true);
             removeGestureListeners();
           })
           .catch(() => {
@@ -70,7 +69,13 @@ const MusicPlayer = forwardRef<MusicPlayerHandle, MusicPlayerProps>(
           });
       };
 
-      const gestureEvents = ["pointerdown", "touchstart", "keydown", "wheel"] as const;
+      const gestureEvents = [
+        "pointerdown",
+        "touchstart",
+        "touchend",
+        "keydown",
+        "wheel",
+      ] as const;
       const removeGestureListeners = () => {
         gestureEvents.forEach((event) => window.removeEventListener(event, tryPlay));
       };
@@ -135,8 +140,6 @@ const MusicPlayer = forwardRef<MusicPlayerHandle, MusicPlayerProps>(
         setIsPlaying(false);
       }
     };
-
-    if (!hasStarted) return <audio ref={audioRef} src={src} loop preload="none" />;
 
     return (
       <>
