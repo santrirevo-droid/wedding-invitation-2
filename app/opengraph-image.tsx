@@ -81,9 +81,9 @@ export default async function Image() {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 28,
+              gap: 34,
               fontFamily: "Cormorant Garamond",
-              fontSize: 108,
+              fontSize: 168,
               fontWeight: 600,
               color: "#46382d",
             }}
@@ -93,7 +93,7 @@ export default async function Image() {
               style={{
                 fontStyle: "italic",
                 fontWeight: 500,
-                fontSize: 60,
+                fontSize: 92,
                 color: "#7f5c39",
               }}
             >
@@ -106,23 +106,23 @@ export default async function Image() {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 20,
-              marginTop: 6,
+              gap: 14,
+              marginTop: 10,
             }}
           >
-            <div style={{ width: 64, height: 1.5, background: "rgba(166,124,82,0.55)" }} />
+            <div style={{ width: 40, height: 1.5, background: "rgba(166,124,82,0.55)" }} />
             <div
               style={{
                 fontFamily: "Cormorant Garamond",
-                fontSize: 32,
+                fontSize: 62,
                 fontWeight: 500,
-                letterSpacing: 2,
+                letterSpacing: 1,
                 color: "#6b584a",
               }}
             >
               {events[0].date}
             </div>
-            <div style={{ width: 64, height: 1.5, background: "rgba(166,124,82,0.55)" }} />
+            <div style={{ width: 40, height: 1.5, background: "rgba(166,124,82,0.55)" }} />
           </div>
 
           <div
