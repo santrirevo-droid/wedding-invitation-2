@@ -40,9 +40,24 @@ const amiri = Amiri({
   weight: ["400", "700"],
 });
 
+const siteUrl = "https://nufus-amri.vercel.app";
+const title = `${couple.groom.shortName} & ${couple.bride.shortName} — The Wedding Of`;
+const description = `Undangan pernikahan digital ${couple.groom.name} & ${couple.bride.name} — ${events[0].date}, ${venue.name}.`;
+
 export const metadata: Metadata = {
-  title: `${couple.groom.shortName} & ${couple.bride.shortName} — The Wedding Of`,
-  description: `Undangan pernikahan digital ${couple.groom.name} & ${couple.bride.name} — ${events[0].date}, ${venue.name}.`,
+  // required so the file-based opengraph-image below resolves to an
+  // absolute URL — WhatsApp/Telegram/etc refuse relative og:image URLs
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    url: siteUrl,
+    siteName: title,
+    locale: "id_ID",
+    type: "website",
+  },
 };
 
 // Without this, browsers with an auto-dark-theme feature (e.g. Android
