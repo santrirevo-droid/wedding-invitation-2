@@ -202,6 +202,15 @@ html.scroll-locked {
   pointer-events: none;
 }
 
+/* ── Caution notice ────────────────────────────────────────────────────
+   A gold-toned warning, not the default Tailwind amber — so a "check this"
+   notice (duplicate-name warnings, etc.) still reads as part of the same
+   warm ivory/gold system instead of a clashing off-brand orange. */
+.notice-caution {
+  border: 2px solid color-mix(in oklab, var(--gold) 45%, transparent);
+  background: color-mix(in oklab, var(--gold-light) 20%, var(--paper));
+}
+
 /* ── Shimmer sweep (the "Buka Undangan" button) ───────────────────────
    A narrower, darker range than .text-gilded: this gradient sits *behind*
    ivory text, so its lightest stop still has to clear 4.5:1. The full foil

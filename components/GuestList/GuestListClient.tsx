@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import type { Family } from "@/lib/families";
-import { buildInviteLink, buildWhatsAppShareUrl } from "@/lib/inviteLink";
+import { buildInviteLink, buildWhatsAppMessage, buildWhatsAppUrl } from "@/lib/inviteLink";
+import ShareMessageDialog from "./ShareMessageDialog";
 
 type GuestEntry = {
   id: string;
@@ -21,6 +22,46 @@ const fieldClass =
 const labelClass = "mb-2 block text-lg font-semibold text-ink";
 const buttonClass =
   "min-h-14 rounded-xl px-6 py-3 text-lg font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60";
+
+const ICON_PROPS = {
+  width: 18,
+  height: 18,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 2,
+  strokeLinecap: "round" as const,
+  strokeLinejoin: "round" as const,
+  "aria-hidden": true as const,
+};
+
+function SendIcon() {
+  return (
+    <svg {...ICON_PROPS}>
+      <path d="m3 11 18-8-8 18-2.5-7.5L3 11Z" />
+    </svg>
+  );
+}
+
+function LinkIcon() {
+  return (
+    <svg {...ICON_PROPS}>
+      <path d="M9 15 15 9" />
+      <path d="M11 6.5 12.5 5a3.5 3.5 0 0 1 5 5L16 11.5" />
+      <path d="M13 17.5 11.5 19a3.5 3.5 0 0 1-5-5L8 12.5" />
+    </svg>
+  );
+}
+
+function TrashIcon() {
+  return (
+    <svg {...ICON_PROPS}>
+      <path d="M4 7h16" />
+      <path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+      <path d="M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13" />
+    </svg>
+  );
+}
 
 function parseNameLines(text: string): string[] {
   return text
@@ -60,6 +101,7 @@ export default function GuestListClient({
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [shareTarget, setShareTarget] = useState<GuestEntry | null>(null);
 
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchRequestId = useRef(0);
@@ -179,9 +221,9 @@ export default function GuestListClient({
     }
   }
 
-  function handleShareWhatsApp(entry: GuestEntry) {
-    const link = buildInviteLink(window.location.origin, entry.name);
-    window.open(buildWhatsAppShareUrl(link, entry.name), "_blank", "noopener,noreferrer");
+  function handleConfirmSend(message: string) {
+    window.open(buildWhatsAppUrl(message), "_blank", "noopener,noreferrer");
+    setShareTarget(null);
   }
 
   async function handleDelete(id: string) {
@@ -202,8 +244,14 @@ export default function GuestListClient({
 
   return (
     <main className="mx-auto flex min-h-full max-w-lg flex-col px-6 py-16">
-      <h1 className="text-3xl font-bold text-on-maroon">{family.label}</h1>
-      {intro}
+      <header>
+        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-accent">
+          Formulir Tamu Undangan
+        </p>
+        <h1 className="mt-2 text-4xl font-bold text-on-maroon">{family.label}</h1>
+        <span className="rule-gild mt-5 block w-16" />
+        {intro}
+      </header>
 
       <form onSubmit={handleSubmit} className="card-stock mt-8 flex flex-col gap-6 rounded-[3px] p-7">
         <div>
@@ -226,24 +274,24 @@ export default function GuestListClient({
           )}
 
           {hasSimilar && (
-            <div className="mt-3 rounded-xl border-2 border-amber-400 bg-amber-50 px-4 py-3">
-              <p className="text-lg font-semibold text-amber-900">
-                ⚠️ Sudah ada nama mirip:
+            <div className="notice-caution mt-3 rounded-xl px-4 py-3">
+              <p className="text-lg font-semibold text-gold-dark">
+                ⚠ Sudah ada nama mirip:
               </p>
               <ul className="mt-2 flex flex-col gap-2">
                 {Object.entries(similar).map(([line, matches]) => (
-                  <li key={line} className="text-lg text-amber-900">
+                  <li key={line} className="text-lg text-ink">
                     {line}
-                    <span className="block text-base text-amber-700">
+                    <span className="block text-base text-ink-soft">
                       mirip dengan {matches.map((m) => `${m.name} (${m.familyLabel})`).join(", ")}
                     </span>
                   </li>
                 ))}
               </ul>
-              <label className="mt-3 flex items-center gap-3 text-lg text-amber-900">
+              <label className="mt-3 flex items-center gap-3 text-lg text-ink">
                 <input
                   type="checkbox"
-                  className="h-6 w-6"
+                  className="h-6 w-6 accent-gold-dark"
                   checked={confirmedDespiteSimilar}
                   onChange={(e) => setConfirmedText(e.target.checked ? namesText : null)}
                 />
@@ -280,13 +328,17 @@ export default function GuestListClient({
         ) : entries.length === 0 ? (
           <p className="mt-4 text-lg text-on-maroon-soft">Belum ada nama yang ditambahkan.</p>
         ) : (
-          <ul className="mt-4 flex flex-col gap-3">
-            {entries.map((entry) => (
+          <ol className="mt-4 flex flex-col gap-3">
+            {entries.map((entry, index) => (
               <li
                 key={entry.id}
-                className="rounded-[3px] border border-border bg-paper px-5 py-4 shadow-[0_12px_26px_-20px_rgba(0,0,0,0.65)]"
+                className="card-stock flex gap-4 rounded-[3px] px-5 py-4"
               >
-                <div className="min-w-0">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold-dark text-base font-bold text-paper">
+                  {index + 1}
+                </span>
+
+                <div className="min-w-0 flex-1">
                   <p className="truncate text-xl font-medium text-ink">
                     {entry.name}
                     {entry.guestCount > 1 && (
@@ -298,53 +350,68 @@ export default function GuestListClient({
                   {entry.relation && (
                     <p className="mt-0.5 truncate text-base text-ink-soft">{entry.relation}</p>
                   )}
-                </div>
 
-                <div className="mt-3 flex flex-wrap gap-2">
-                  <button
-                    onClick={() => handleShareWhatsApp(entry)}
-                    className="min-h-11 rounded-lg bg-sage px-4 text-base font-semibold text-white"
-                  >
-                    Kirim WhatsApp
-                  </button>
-                  <button
-                    onClick={() => handleCopyLink(entry)}
-                    className="min-h-11 rounded-lg border border-border px-4 text-base font-semibold text-ink"
-                  >
-                    {copiedId === entry.id ? "Tersalin!" : "Salin Link"}
-                  </button>
-
-                  {pendingDeleteId === entry.id ? (
-                    <>
-                      <button
-                        onClick={() => handleDelete(entry.id)}
-                        className="min-h-11 rounded-lg bg-red-600 px-4 text-base font-semibold text-white"
-                      >
-                        Ya, Hapus
-                      </button>
-                      <button
-                        onClick={() => setPendingDeleteId(null)}
-                        className="min-h-11 rounded-lg border border-border px-4 text-base font-semibold text-ink"
-                      >
-                        Batal
-                      </button>
-                    </>
-                  ) : (
+                  <div className="mt-3 flex flex-wrap gap-2">
                     <button
-                      onClick={() => setPendingDeleteId(entry.id)}
-                      className="min-h-11 rounded-lg border border-border px-4 text-base font-semibold text-ink-soft"
+                      onClick={() => setShareTarget(entry)}
+                      className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-sage px-4 text-base font-semibold text-white transition-colors hover:brightness-95"
                     >
-                      Hapus
+                      <SendIcon />
+                      Kirim WhatsApp
                     </button>
-                  )}
+                    <button
+                      onClick={() => handleCopyLink(entry)}
+                      className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-border px-4 text-base font-semibold text-ink transition-colors hover:bg-maroon"
+                    >
+                      <LinkIcon />
+                      {copiedId === entry.id ? "Tersalin!" : "Salin Link"}
+                    </button>
+
+                    {pendingDeleteId === entry.id ? (
+                      <>
+                        <button
+                          onClick={() => handleDelete(entry.id)}
+                          className="min-h-11 rounded-lg bg-red-600 px-4 text-base font-semibold text-white"
+                        >
+                          Ya, Hapus
+                        </button>
+                        <button
+                          onClick={() => setPendingDeleteId(null)}
+                          className="min-h-11 rounded-lg border border-border px-4 text-base font-semibold text-ink"
+                        >
+                          Batal
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        onClick={() => setPendingDeleteId(entry.id)}
+                        className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-border px-4 text-base font-semibold text-ink-soft transition-colors hover:bg-maroon"
+                      >
+                        <TrashIcon />
+                        Hapus
+                      </button>
+                    )}
+                  </div>
                 </div>
               </li>
             ))}
-          </ul>
+          </ol>
         )}
       </section>
 
       {footer}
+
+      {shareTarget && (
+        <ShareMessageDialog
+          guestName={shareTarget.name}
+          defaultMessage={buildWhatsAppMessage(
+            buildInviteLink(window.location.origin, shareTarget.name),
+            shareTarget.name
+          )}
+          onCancel={() => setShareTarget(null)}
+          onSend={handleConfirmSend}
+        />
+      )}
     </main>
   );
 }

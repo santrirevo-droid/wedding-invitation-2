@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { buildInviteLink, buildWhatsAppShareUrl } from "@/lib/inviteLink";
+import { buildInviteLink, buildWhatsAppMessage, buildWhatsAppUrl } from "@/lib/inviteLink";
+import ShareMessageDialog from "./ShareMessageDialog";
 
 type GuestEntry = {
   id: string;
@@ -24,6 +25,7 @@ export default function RekapClient() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [shareTarget, setShareTarget] = useState<GuestEntry | null>(null);
 
   async function handleCopyLink(entry: GuestEntry) {
     const link = buildInviteLink(window.location.origin, entry.name);
@@ -36,9 +38,9 @@ export default function RekapClient() {
     }
   }
 
-  function handleShareWhatsApp(entry: GuestEntry) {
-    const link = buildInviteLink(window.location.origin, entry.name);
-    window.open(buildWhatsAppShareUrl(link, entry.name), "_blank", "noopener,noreferrer");
+  function handleConfirmSend(message: string) {
+    window.open(buildWhatsAppUrl(message), "_blank", "noopener,noreferrer");
+    setShareTarget(null);
   }
 
   useEffect(() => {
@@ -87,17 +89,21 @@ export default function RekapClient() {
 
   return (
     <main className="mx-auto flex min-h-full max-w-2xl flex-col px-6 py-16">
-      <h1 className="text-3xl font-bold text-on-maroon">Rekap Daftar Tamu</h1>
-      <p className="mt-2 text-xl text-on-maroon-soft">
+      <p className="text-sm font-semibold uppercase tracking-[0.3em] text-accent">
+        Ringkasan
+      </p>
+      <h1 className="mt-2 text-4xl font-bold text-on-maroon">Rekap Daftar Tamu</h1>
+      <span className="rule-gild mt-5 block w-16" />
+      <p className="mt-5 text-xl text-on-maroon-soft">
         {entries.length} nama · {totalPeople} orang
       </p>
 
       {clusters.length > 0 && (
-        <section className="mt-8 rounded-2xl border-2 border-amber-400 bg-amber-50 p-6">
-          <h2 className="text-2xl font-semibold text-amber-900">
-            ⚠️ Kemungkinan Nama Duplikat ({clusters.length})
+        <section className="notice-caution mt-8 rounded-2xl p-6">
+          <h2 className="text-2xl font-semibold text-gold-dark">
+            ⚠ Kemungkinan Nama Duplikat ({clusters.length})
           </h2>
-          <p className="mt-1 text-lg text-amber-800">
+          <p className="mt-1 text-lg text-ink-soft">
             Periksa apakah nama-nama ini merujuk ke orang yang sama.
           </p>
           <ul className="mt-4 flex flex-col gap-4">
@@ -117,41 +123,44 @@ export default function RekapClient() {
         </section>
       )}
 
-      <ul className="mt-10 flex flex-col gap-3">
-        {entries.map((entry) => (
-          <li
-            key={entry.id}
-            className="rounded-[3px] border border-border bg-paper px-5 py-4 shadow-[0_12px_26px_-20px_rgba(0,0,0,0.65)]"
-          >
-            <p className="truncate text-xl font-medium text-ink">
-              {entry.name}
-              {entry.guestCount > 1 && (
-                <span className="ml-2 text-base font-normal text-ink-soft">
-                  · {entry.guestCount} orang
-                </span>
-              )}
-            </p>
-            {entry.relation && (
-              <p className="mt-0.5 truncate text-base text-ink-soft">{entry.relation}</p>
-            )}
+      <ol className="mt-10 flex flex-col gap-3">
+        {entries.map((entry, index) => (
+          <li key={entry.id} className="card-stock flex gap-4 rounded-[3px] px-5 py-4">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold-dark text-base font-bold text-paper">
+              {index + 1}
+            </span>
 
-            <div className="mt-3 flex flex-wrap gap-2">
-              <button
-                onClick={() => handleShareWhatsApp(entry)}
-                className="min-h-11 rounded-lg bg-sage px-4 text-base font-semibold text-white"
-              >
-                Kirim WhatsApp
-              </button>
-              <button
-                onClick={() => handleCopyLink(entry)}
-                className="min-h-11 rounded-lg border border-border px-4 text-base font-semibold text-ink"
-              >
-                {copiedId === entry.id ? "Tersalin!" : "Salin Link"}
-              </button>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-xl font-medium text-ink">
+                {entry.name}
+                {entry.guestCount > 1 && (
+                  <span className="ml-2 text-base font-normal text-ink-soft">
+                    · {entry.guestCount} orang
+                  </span>
+                )}
+              </p>
+              {entry.relation && (
+                <p className="mt-0.5 truncate text-base text-ink-soft">{entry.relation}</p>
+              )}
+
+              <div className="mt-3 flex flex-wrap gap-2">
+                <button
+                  onClick={() => setShareTarget(entry)}
+                  className="min-h-11 rounded-lg bg-sage px-4 text-base font-semibold text-white transition-colors hover:brightness-95"
+                >
+                  Kirim WhatsApp
+                </button>
+                <button
+                  onClick={() => handleCopyLink(entry)}
+                  className="min-h-11 rounded-lg border border-border px-4 text-base font-semibold text-ink transition-colors hover:bg-maroon"
+                >
+                  {copiedId === entry.id ? "Tersalin!" : "Salin Link"}
+                </button>
+              </div>
             </div>
           </li>
         ))}
-      </ul>
+      </ol>
 
       <p className="mt-12 text-base text-on-maroon-soft">
         Untuk menghapus atau mengubah nama, buka{" "}
@@ -160,6 +169,18 @@ export default function RekapClient() {
         </Link>
         .
       </p>
+
+      {shareTarget && (
+        <ShareMessageDialog
+          guestName={shareTarget.name}
+          defaultMessage={buildWhatsAppMessage(
+            buildInviteLink(window.location.origin, shareTarget.name),
+            shareTarget.name
+          )}
+          onCancel={() => setShareTarget(null)}
+          onSend={handleConfirmSend}
+        />
+      )}
     </main>
   );
 }

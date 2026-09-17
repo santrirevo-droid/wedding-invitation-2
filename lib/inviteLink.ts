@@ -5,8 +5,11 @@ export function buildInviteLink(origin: string, guestName: string): string {
   return `${origin}/?to=${encodeURIComponent(guestName)}`;
 }
 
-export function buildWhatsAppShareUrl(inviteLink: string, guestName: string): string {
-  const message =
+/** The default WhatsApp invite text — editable by the sender before sending
+ * (see ShareMessageDialog), so this is exported on its own rather than
+ * baked directly into a URL. */
+export function buildWhatsAppMessage(inviteLink: string, guestName: string): string {
+  return (
     `Assalamu'alaikum warahmatullahi wabarakatuh.\n\n` +
     `Yth. Bapak/Ibu/Saudara/i\n${guestName}\n\n` +
     `Dengan penuh rasa syukur, kami mengundang Bapak/Ibu/Saudara/i untuk menjadi bagian dari momen bahagia pernikahan ` +
@@ -14,6 +17,14 @@ export function buildWhatsAppShareUrl(inviteLink: string, guestName: string): st
     `Informasi lengkap mengenai acara, serta kolom doa dan ucapan, dapat diakses melalui tautan berikut:\n\n` +
     `🔗 ${inviteLink}\n\n` +
     `Terima kasih atas perhatian, doa, dan restunya.\n\n` +
-    `Wassalamu'alaikum warahmatullahi wabarakatuh.`;
+    `Wassalamu'alaikum warahmatullahi wabarakatuh.`
+  );
+}
+
+export function buildWhatsAppUrl(message: string): string {
   return `https://wa.me/?text=${encodeURIComponent(message)}`;
+}
+
+export function buildWhatsAppShareUrl(inviteLink: string, guestName: string): string {
+  return buildWhatsAppUrl(buildWhatsAppMessage(inviteLink, guestName));
 }
