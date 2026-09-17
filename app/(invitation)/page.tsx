@@ -4,6 +4,7 @@ import Gift from "@/components/Gift";
 import Hero from "@/components/Hero";
 import Mempelai from "@/components/Mempelai";
 import OpeningQuote from "@/components/OpeningQuote";
+import OurStory from "@/components/OurStory";
 import RSVP from "@/components/RSVP";
 import Wishes from "@/components/Wishes";
 
@@ -19,6 +20,7 @@ export default function Home() {
       <Hero />
       <OpeningQuote />
       <Mempelai />
+      <OurStory />
       <Acara />
       <RSVP />
       <Gift />

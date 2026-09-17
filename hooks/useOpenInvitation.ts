@@ -16,6 +16,7 @@ const easeInOutCubic = (t: number) =>
 const AUTOSCROLL_STOPS = [
   "#ayat-pembuka",
   "#mempelai",
+  "#kisah-kami",
   "#acara",
   "#rsvp",
   "#tanda-kasih",
