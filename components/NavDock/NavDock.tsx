@@ -91,38 +91,29 @@ const items: NavItem[] = [
 ];
 
 /**
- * A floating quick-nav dock, fixed for the whole visit (mounted once, in
- * Hero, next to MusicPlayer — same "render once, position:fixed carries it
- * everywhere" pattern). Lets a guest jump straight to a section instead of
- * only riding the cover's auto-scroll tour or scrolling manually.
+ * A quick-nav dock, visible only on the cover — it exists so a guest can
+ * jump straight to a section as soon as the invitation loads, then gets
+ * out of the way once they've actually started scrolling through it. Its
+ * own visibility follows the same #cover element useScrollReveal pins, so
+ * it fades in step with the cover: still up through the pin-and-reveal
+ * transition, gone once #cover has actually scrolled past.
  *
- * The active icon is read off an IntersectionObserver watching a thin band
- * near the vertical centre of the viewport (rootMargin shrinks it there) —
- * whichever section's heading is crossing that band is "current".
+ * Rendered once in Hero, next to MusicPlayer, as a sibling of #cover (not
+ * a descendant — see the comment in Hero.tsx on why).
  */
 export default function NavDock() {
   const lenis = useLenis();
-  const [active, setActive] = useState<string | null>(null);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const targets = items
-      .map((item) => document.getElementById(item.id))
-      .filter((el): el is HTMLElement => el !== null);
-    if (targets.length === 0) return;
+    const cover = document.getElementById("cover");
+    if (!cover) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((entry) => entry.isIntersecting);
-        if (visible.length === 0) return;
-        const topmost = visible.reduce((a, b) =>
-          a.boundingClientRect.top < b.boundingClientRect.top ? a : b
-        );
-        setActive(topmost.target.id);
-      },
-      { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
+      ([entry]) => setVisible(entry.isIntersecting),
+      { threshold: 0 }
     );
-
-    targets.forEach((el) => observer.observe(el));
+    observer.observe(cover);
     return () => observer.disconnect();
   }, []);
 
@@ -147,31 +138,32 @@ export default function NavDock() {
     // reach zone, different row) avoids any horizontal collision at every
     // viewport width, without shrinking six icons past a comfortable tap
     // size to dodge sideways.
+    //
+    // Faded with opacity/pointer-events rather than unmounted: unmounting
+    // would tear down and re-create the IntersectionObserver on every
+    // cover enter/exit, and a CSS fade reads as the dock settling out of
+    // the way rather than snapping off.
     <nav
       aria-label="Navigasi ke bagian undangan"
-      className="fixed bottom-20 left-1/2 z-20 -translate-x-1/2"
+      aria-hidden={!visible}
+      className={[
+        "fixed bottom-20 left-1/2 z-20 -translate-x-1/2 transition-opacity duration-500",
+        visible ? "opacity-100" : "pointer-events-none opacity-0",
+      ].join(" ")}
     >
       <div className="flex items-center gap-1 rounded-full border border-accent/35 bg-paper/85 p-1.5 shadow-[0_12px_28px_-14px_rgba(122,90,46,0.5)] backdrop-blur-sm">
-        {items.map((item) => {
-          const isActive = active === item.id;
-          return (
-            <button
-              key={item.id}
-              type="button"
-              aria-label={item.label}
-              aria-current={isActive ? "true" : undefined}
-              onClick={() => goTo(item.id)}
-              className={[
-                "flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full transition-colors duration-300 sm:h-10 sm:w-10",
-                isActive
-                  ? "bg-accent-dark text-paper"
-                  : "text-gold-dark hover:bg-accent/15",
-              ].join(" ")}
-            >
-              {item.icon}
-            </button>
-          );
-        })}
+        {items.map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            tabIndex={visible ? 0 : -1}
+            aria-label={item.label}
+            onClick={() => goTo(item.id)}
+            className="flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full text-gold-dark transition-colors duration-300 hover:bg-accent/15 sm:h-10 sm:w-10"
+          >
+            {item.icon}
+          </button>
+        ))}
       </div>
     </nav>
   );
