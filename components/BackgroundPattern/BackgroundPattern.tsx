@@ -28,21 +28,21 @@ export default function BackgroundPattern() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(62% 42% at 80% 6%, rgba(224,170,158,0.3), transparent 72%)",
+            "radial-gradient(62% 42% at 80% 6%, rgba(216,140,150,0.3), transparent 72%)",
         }}
       />
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(55% 40% at 10% 64%, rgba(172,186,152,0.26), transparent 74%)",
+            "radial-gradient(55% 40% at 10% 64%, rgba(150,166,124,0.22), transparent 74%)",
         }}
       />
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(48% 34% at 88% 88%, rgba(228,198,160,0.28), transparent 72%)",
+            "radial-gradient(48% 34% at 88% 88%, rgba(184,120,134,0.24), transparent 72%)",
         }}
       />
 
@@ -60,7 +60,7 @@ export default function BackgroundPattern() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(120% 78% at 50% 42%, transparent 48%, rgba(154,120,86,0.14) 100%)",
+            "radial-gradient(120% 78% at 50% 42%, transparent 48%, rgba(105,65,73,0.14) 100%)",
         }}
       />
     </div>

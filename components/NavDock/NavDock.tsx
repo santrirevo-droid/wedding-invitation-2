@@ -69,13 +69,13 @@ const items: NavItem[] = [
     ),
   },
   {
-    id: "tanda-kasih",
-    label: "Tanda Kasih",
+    id: "momen",
+    label: "Momen",
     icon: (
       <svg {...ICON_PROPS}>
-        <rect x="3.5" y="10" width="17" height="10" rx="1.5" />
-        <path d="M3.5 14h17M12 10v10" />
-        <path d="M12 10c-1.8 0-3.6-1-3.6-2.8A2.2 2.2 0 0 1 10.6 5c1.4 0 1.9 1.6 1.4 3M12 10c1.8 0 3.6-1 3.6-2.8A2.2 2.2 0 0 0 13.4 5c-1.4 0-1.9 1.6-1.4 3" />
+        <rect x="3" y="5.5" width="18" height="14" rx="2" />
+        <circle cx="12" cy="12.5" r="3.5" />
+        <path d="M8 5.5 9.4 3.5h5.2L16 5.5" />
       </svg>
     ),
   },

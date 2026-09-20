@@ -17,31 +17,47 @@ type Person = {
 };
 
 /**
- * Each half of the couple, introduced under an arched plate carrying their
- * initial. The arch stands in for the portrait this invitation doesn't have
- * yet — an empty frame drawn on purpose reads far better than a gap, and it
- * can be swapped for a real photo later without touching the layout.
+ * Each half of the couple, introduced under a silhouette "portrait" — a
+ * pure-CSS gradient bust (soft highlight, cheek/jaw shading, a diagonal
+ * light streak) standing in for the photo this invitation doesn't have,
+ * borrowed from the herewego/ reference. Reads as a photograph at a glance
+ * rather than an obviously-empty frame, and drops in for a real photo later
+ * without touching the layout — just replace the gradient with an <img>.
  */
 function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
   return (
     <div data-reveal className="flex flex-col items-center text-center">
-      <div className="relative flex items-center justify-center">
-        {/* a wreath rings the arch — the flower-heavy frame a printed
-            invitation would put around a portrait */}
-        <Botanical
-          variant="wreath"
-          className="pointer-events-none absolute w-[13.5rem] text-accent/40"
+      <div
+        className="relative flex w-[9.5rem] items-end justify-end overflow-hidden shadow-[0_17px_31px_-8px_rgba(105,65,73,0.35)] sm:w-[11rem]"
+        style={{
+          aspectRatio: "0.75",
+          borderRadius: "999px 999px 6px 6px",
+        }}
+      >
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              role === "putra"
+                ? "linear-gradient(160deg, rgba(255,255,255,.35), transparent 45%), radial-gradient(ellipse at 51% 24%, #f0d3c8 0 11%, transparent 11.5%), radial-gradient(ellipse at 50% 56%, #b8888a 0 27%, transparent 27.5%), linear-gradient(140deg, #83585e, #d9a9a8 54%, #674049)"
+                : "linear-gradient(160deg, rgba(255,255,255,.35), transparent 45%), radial-gradient(ellipse at 51% 24%, #f7ddd2 0 11%, transparent 11.5%), radial-gradient(ellipse at 50% 56%, #cd9b96 0 27%, transparent 27.5%), linear-gradient(140deg, #9b6e70, #e8bcb5 54%, #775255)",
+          }}
         />
-
-        <div className="relative flex h-[7.5rem] w-[6.5rem] items-center justify-center rounded-t-full border border-accent/38 bg-paper/70">
-          <span className="absolute inset-[5px] rounded-t-full border border-accent/28" />
-          <span className="text-gilded font-script text-[3.4rem] leading-none">
-            {person.shortName.charAt(0)}
-          </span>
-        </div>
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 mix-blend-multiply"
+          style={{
+            background:
+              "linear-gradient(138deg, transparent 36%, rgba(82,50,53,.33) 36% 48%, transparent 48%)",
+          }}
+        />
+        <span className="relative z-[1] mb-2 mr-3.5 font-script text-[3.1rem] leading-none text-white [text-shadow:0_2px_9px_rgba(69,39,43,0.4)]">
+          {person.shortName.charAt(0)}
+        </span>
       </div>
 
-      <h3 className="text-gilded mt-7 font-display text-[30px] font-light leading-tight">
+      <h3 className="text-gilded mt-7 font-display text-[30px] font-normal leading-tight">
         {person.name}
       </h3>
 
@@ -96,14 +112,14 @@ export default function Mempelai() {
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-20 top-24 w-[20rem] select-none opacity-[0.06] blur-[1.5px] sm:-right-12 sm:w-[26rem]"
+        className="pointer-events-none absolute -right-20 top-10 w-[18rem] select-none opacity-30 mix-blend-multiply sm:-right-12 sm:w-[22rem]"
       >
         <FloralLayer
           ref={sprayRef}
           src="/floral/floral-wc-spray-b.png"
-          width={1000}
-          height={753}
-          sizes="(min-width: 640px) 416px, 320px"
+          width={1024}
+          height={1536}
+          sizes="(min-width: 640px) 352px, 288px"
           className="h-auto w-full -scale-x-100"
         />
       </div>

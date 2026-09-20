@@ -15,8 +15,8 @@ const AUTOSCROLL_STOPS = [
   "#mempelai",
   "#kisah-kami",
   "#acara",
+  "#momen",
   "#rsvp",
-  "#tanda-kasih",
   "#ucapan",
   "#penutup",
 ];

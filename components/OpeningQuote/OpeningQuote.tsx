@@ -23,14 +23,14 @@ export default function OpeningQuote() {
           scale it reads as a warm bloom in the paper rather than clipart */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-16 top-4 w-[19rem] select-none opacity-[0.07] blur-[1.5px] sm:-left-10 sm:w-[24rem]"
+        className="pointer-events-none absolute -left-24 top-0 w-[22rem] select-none opacity-30 mix-blend-multiply sm:-left-16 sm:w-[28rem]"
       >
         <FloralLayer
           ref={sprayRef}
           src="/floral/floral-wc-spray-a.png"
-          width={571}
-          height={1000}
-          sizes="(min-width: 640px) 384px, 304px"
+          width={1536}
+          height={1024}
+          sizes="(min-width: 640px) 448px, 352px"
           className="h-auto w-full"
         />
       </div>

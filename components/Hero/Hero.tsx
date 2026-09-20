@@ -1,7 +1,6 @@
 "use client";
 
 import { Suspense } from "react";
-import Botanical from "@/components/Botanical";
 import FloralLayer from "@/components/FloralLayer";
 import GuestGreeting, { GuestGreetingFallback } from "@/components/GuestGreeting";
 import InvitationButton from "@/components/InvitationButton";
@@ -45,44 +44,53 @@ export default function Hero() {
             className="absolute inset-0"
             style={{
               background:
-                "radial-gradient(78% 52% at 50% 38%, #fffdfa 0%, #fbf3ec 52%, #f2e5d9 100%)",
+                "radial-gradient(78% 52% at 50% 38%, #fffdfa 0%, #fbeeec 52%, #f1d7d6 100%)",
             }}
           />
 
-          {/* watercolour atmosphere, far behind everything */}
+          {/* rose bouquets, bold and photographic — the defining look of this
+              pass, replacing the old faint hairline watercolour atmosphere.
+              mix-blend-multiply knocks the dark backdrop of each source PNG
+              out against the paper ground instead of showing as a box. */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -left-24 -top-16 w-[26rem] select-none opacity-[0.1] blur-[2px]"
+            className="pointer-events-none absolute -left-28 -top-20 w-[30rem] select-none opacity-80 mix-blend-multiply sm:w-[34rem]"
           >
             <FloralLayer
-              src="/floral/floral-wc-spray-b.png"
-              width={1000}
-              height={753}
-              sizes="416px"
+              src="/floral/floral-wc-spray-a.png"
+              width={1536}
+              height={1024}
+              sizes="544px"
               priority
               className="h-auto w-full"
             />
           </div>
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -bottom-20 -right-24 w-[22rem] select-none opacity-[0.09] blur-[2px]"
+            className="pointer-events-none absolute -bottom-24 -right-28 w-[28rem] select-none opacity-80 mix-blend-multiply sm:w-[32rem]"
           >
             <FloralLayer
               src="/floral/floral-wc-spray-a.png"
-              width={571}
-              height={1000}
-              sizes="352px"
-              className="h-auto w-full"
+              width={1536}
+              height={1024}
+              sizes="512px"
+              className="h-auto w-full -scale-x-100"
             />
           </div>
 
-          {/* a wreath sits behind the names — the densest floral moment on the
-              page, kept legible by living entirely behind the type */}
+          {/* the garden gate — a full rose arch standing in for the portrait
+              this invitation doesn't have, framing the monogram behind it */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-[46%] w-[23rem] -translate-x-1/2 -translate-y-1/2 text-accent/25 sm:w-[26rem]"
+            className="pointer-events-none absolute left-1/2 top-[42%] w-[19rem] -translate-x-1/2 -translate-y-1/2 select-none opacity-[0.55] mix-blend-multiply sm:w-[22rem]"
           >
-            <Botanical variant="wreath" className="w-full" />
+            <FloralLayer
+              src="/floral/garden-gate.png"
+              width={1024}
+              height={1536}
+              sizes="352px"
+              className="h-auto w-full"
+            />
           </div>
 
           {/* hairline frame, with floral clusters bursting over its corners.
@@ -91,26 +99,53 @@ export default function Hero() {
           <div className="pointer-events-none absolute inset-4 border border-accent/28 sm:inset-6" />
 
           <div className="pointer-events-none absolute inset-2 sm:inset-4">
-            <div data-cover-floral="tl" className="absolute left-0 top-0 w-28 text-accent/62 sm:w-36">
-              <Botanical variant="cluster" className="w-full" />
+            <div
+              data-cover-floral="tl"
+              className="absolute left-0 top-0 w-32 opacity-90 mix-blend-multiply sm:w-40"
+            >
+              <FloralLayer
+                src="/floral/floral-wc-spray-c.png"
+                width={1536}
+                height={1024}
+                sizes="160px"
+                className="h-auto w-full"
+              />
             </div>
             <div
               data-cover-floral="tr"
-              className="absolute right-0 top-0 w-28 -scale-x-100 text-accent/62 sm:w-36"
+              className="absolute right-0 top-0 w-32 -scale-x-100 opacity-90 mix-blend-multiply sm:w-40"
             >
-              <Botanical variant="cluster" className="w-full" />
+              <FloralLayer
+                src="/floral/floral-wc-spray-c.png"
+                width={1536}
+                height={1024}
+                sizes="160px"
+                className="h-auto w-full"
+              />
             </div>
             <div
               data-cover-floral="bl"
-              className="absolute bottom-0 left-0 w-28 -scale-y-100 text-accent/62 sm:w-36"
+              className="absolute bottom-0 left-0 w-32 -scale-y-100 opacity-90 mix-blend-multiply sm:w-40"
             >
-              <Botanical variant="cluster" className="w-full" />
+              <FloralLayer
+                src="/floral/floral-wc-spray-c.png"
+                width={1536}
+                height={1024}
+                sizes="160px"
+                className="h-auto w-full"
+              />
             </div>
             <div
               data-cover-floral="br"
-              className="absolute bottom-0 right-0 w-28 -scale-100 text-accent/62 sm:w-36"
+              className="absolute bottom-0 right-0 w-32 -scale-100 opacity-90 mix-blend-multiply sm:w-40"
             >
-              <Botanical variant="cluster" className="w-full" />
+              <FloralLayer
+                src="/floral/floral-wc-spray-c.png"
+                width={1536}
+                height={1024}
+                sizes="160px"
+                className="h-auto w-full"
+              />
             </div>
           </div>
 
@@ -126,7 +161,18 @@ export default function Hero() {
           />
 
           <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-md flex-col items-center justify-center gap-8 px-8 py-20 text-center">
-            <div ref={content} className="flex flex-col items-center">
+            {/* the cover-card — a bordered plate holding the invitation's own
+                content, distinct from the full-bleed frame around it, echoing
+                herewego's boxed cover-card rather than type floating free */}
+            <div
+              ref={content}
+              className="relative flex flex-col items-center border border-accent/30 bg-paper/45 px-7 py-10 backdrop-blur-[2px] sm:px-10"
+            >
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-[7px] border border-accent/22"
+              />
+
               <p
                 dir="rtl"
                 lang="ar"
@@ -146,7 +192,7 @@ export default function Hero() {
                 <span className="text-gilded font-script text-[2.75rem] leading-none sm:text-[3.25rem]">
                   {couple.groom.shortName.charAt(0)}
                 </span>
-                <span className="font-display text-lg font-normal italic leading-none text-accent-dark sm:text-xl">
+                <span className="font-display text-lg font-normal leading-none text-accent-dark sm:text-xl">
                   &amp;
                 </span>
                 <span className="text-gilded font-script text-[2.75rem] leading-none sm:text-[3.25rem]">
@@ -161,7 +207,7 @@ export default function Hero() {
                 <span className="text-gilded text-gilded-drift font-script text-[clamp(3.2rem,20vw,5.5rem)] leading-[0.95]">
                   {couple.groom.shortName}
                 </span>
-                <span className="my-1 font-display text-2xl font-light italic text-accent-dark">
+                <span className="my-1 font-display text-2xl font-normal leading-none text-accent-dark">
                   &amp;
                 </span>
                 <span className="text-gilded text-gilded-drift font-script text-[clamp(3.2rem,20vw,5.5rem)] leading-[0.95]">

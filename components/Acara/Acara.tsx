@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Botanical, { SectionFloral } from "@/components/Botanical";
+import { SectionFloral } from "@/components/Botanical";
 import FloralLayer from "@/components/FloralLayer";
 import SectionHeading from "@/components/SectionHeading";
 import { useFloralParallax } from "@/hooks/useFloralParallax";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { CALENDAR_GOOGLE_URL } from "@/lib/calendar";
 import { WEDDING_DATE_ISO, events, venue } from "@/lib/weddingData";
-import { weddingDateLong, weddingDayName } from "@/lib/weddingDate";
+import { weddingDay, weddingDayName, weddingMonthName, weddingYear } from "@/lib/weddingDate";
 
 const [akad, resepsi] = events;
 
@@ -27,30 +27,38 @@ function getTimeLeft() {
   };
 }
 
-function EventBlock({
+function EventCard({
+  index,
   title,
   time,
   date,
   emphasis = false,
 }: {
+  index: string;
   title: string;
   time: string;
   date: string;
   emphasis?: boolean;
 }) {
   return (
-    <div>
-      <h3
-        className={`font-display font-light text-ink ${
-          emphasis ? "text-[28px]" : "text-[24px]"
-        } leading-tight`}
-      >
-        {title}
-      </h3>
-      <p className="mt-3 font-accent text-[15px] font-normal tracking-[0.08em] text-gold">
+    <div
+      data-reveal
+      className={`flex-1 border px-6 py-7 text-left ${
+        emphasis
+          ? "border-accent/35 bg-accent/12"
+          : "border-border bg-paper/75"
+      }`}
+    >
+      <div className="flex items-start justify-between">
+        <p className="font-accent text-[11px] font-normal uppercase tracking-[0.32em] text-accent-dark">
+          {title}
+        </p>
+        <span className="font-display text-lg font-normal text-accent">{index}</span>
+      </div>
+      <h3 className="mt-6 font-display text-[22px] font-normal leading-tight text-ink">
         {time}
-      </p>
-      <p className="mt-1.5 font-display text-[15px] font-normal italic text-ink-soft">
+      </h3>
+      <p className="mt-2 font-display text-[15px] font-normal italic leading-[1.6] text-ink-soft">
         {date}
       </p>
     </div>
@@ -81,116 +89,119 @@ export default function Acara() {
   ];
 
   return (
-    <section
-      id="acara"
-      ref={sectionRef}
-      className="relative overflow-hidden px-8 py-28 text-center"
-    >
+    <section id="acara" ref={sectionRef} className="relative overflow-hidden">
+      {/* the countdown band — full-bleed and dark, the one place on the page
+          that inverts to berry-on-ivory instead of ivory-on-berry, so the
+          numbers themselves become the moment of drama */}
       <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-24 bottom-16 w-[20rem] select-none opacity-[0.06] blur-[1.5px] sm:-left-16 sm:w-[25rem]"
+        data-reveal
+        className="relative bg-accent-dark px-8 py-16 text-center text-paper sm:py-20"
       >
-        <FloralLayer
-          ref={sprayRef}
-          src="/floral/floral-wc-spray-c.png"
-          width={1000}
-          height={1000}
-          sizes="(min-width: 640px) 400px, 320px"
-          className="h-auto w-full"
-        />
-      </div>
-
-      <SectionFloral />
-
-      <div className="relative mx-auto max-w-md">
-        <SectionHeading eyebrow="Acara" title="Waktu & Tempat" />
-
-        {/* save the date — the date is the section's second voice after the
-            title, and must outrank the countdown digits beneath it */}
-        <p
-          data-reveal
-          className="mt-8 font-accent text-[11px] font-normal uppercase tracking-[0.45em] text-accent-dark"
-        >
-          Save the Date · {weddingDayName}
+        <p className="font-accent text-[11px] font-normal uppercase tracking-[0.4em] text-paper/65">
+          Save the Date
         </p>
-        <p
-          data-reveal
-          className="text-gilded mt-3 font-display text-[clamp(1.9rem,8vw,2.4rem)] font-normal leading-tight tracking-[0.02em]"
-        >
-          {weddingDateLong}
-        </p>
+        <h2 className="mt-3 font-display text-[clamp(2rem,7vw,2.9rem)] font-normal leading-[1.1]">
+          Menuju hari
+          <br />
+          <span className="font-script text-[1.35em] leading-none text-[#e8b0b9]">
+            bahagia kami.
+          </span>
+        </h2>
 
-        {/* countdown — quieter than the date above it */}
-        <div data-reveal className="mt-8 grid grid-cols-4 gap-2.5">
+        <div className="mx-auto mt-10 grid max-w-sm grid-cols-4 border-l border-paper/25">
           {cells.map((cell) => (
-            <div
-              key={cell.label}
-              className="rounded-t-full border border-accent/32 bg-paper/70 px-1 pb-4 pt-6"
-            >
+            <div key={cell.label} className="border-r border-paper/25 px-1">
               <div
                 suppressHydrationWarning
-                className="text-gilded font-display text-[24px] font-normal leading-none tabular-nums"
+                className="font-display text-[clamp(1.7rem,6vw,2.4rem)] font-normal leading-none tabular-nums"
               >
                 {String(cell.value).padStart(2, "0")}
               </div>
-              <div className="mt-2.5 font-accent text-[11px] font-normal uppercase tracking-[0.3em] text-on-maroon-soft">
+              <div className="mt-2 font-accent text-[9px] font-normal uppercase tracking-[0.24em] text-paper/70">
                 {cell.label}
               </div>
             </div>
           ))}
         </div>
+      </div>
 
-        {/* the invitation card itself */}
+      {/* events — back on the page ground */}
+      <div className="relative px-8 py-24 text-center">
         <div
-          data-reveal
-          className="card-stock relative mt-12 overflow-hidden rounded-t-full rounded-b-[4px] px-7 pb-12 pt-24 sm:px-10"
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-28 bottom-0 w-[22rem] select-none opacity-30 mix-blend-multiply sm:-left-20 sm:w-[27rem]"
         >
-          <Botanical
-            variant="garland"
-            className="mx-auto mb-8 w-44 text-gold/60"
+          <FloralLayer
+            ref={sprayRef}
+            src="/floral/floral-wc-spray-c.png"
+            width={1536}
+            height={1024}
+            sizes="(min-width: 640px) 432px, 352px"
+            className="h-auto w-full"
           />
+        </div>
 
-          <EventBlock title={akad.title} time={akad.time} date={akad.date} />
+        <SectionFloral />
 
-          <Botanical
-            variant="garland"
-            className="mx-auto my-9 w-40 -scale-y-100 text-gold/60"
-          />
+        <div className="relative mx-auto max-w-md">
+          <SectionHeading eyebrow="Acara" title="Rayakan Bersama Kami" />
 
-          <EventBlock
-            title={resepsi.title}
-            time={resepsi.time}
-            date={resepsi.date}
-            emphasis
-          />
+          {/* the day itself, set as one large callout — day name, a big
+              numeral, then month/year, echoing herewego's event-date block */}
+          <div data-reveal className="mt-9 flex items-center justify-center gap-4">
+            <span className="text-right font-accent text-[11px] font-normal uppercase leading-[1.7] tracking-[0.16em] text-on-maroon-soft">
+              {weddingDayName}
+            </span>
+            <strong className="text-gilded font-display text-[clamp(3.6rem,14vw,5.2rem)] font-normal leading-[0.75]">
+              {weddingDay}
+            </strong>
+            <span className="text-left font-accent text-[11px] font-normal uppercase leading-[1.7] tracking-[0.16em] text-on-maroon-soft">
+              {weddingMonthName}
+              <br />
+              {weddingYear}
+            </span>
+          </div>
 
-          <p className="mt-10 font-accent text-[11px] font-normal uppercase tracking-[0.4em] text-ink-soft">
-            Bertempat di
-          </p>
-          <h4 className="mt-3 font-display text-[25px] font-light leading-tight text-ink">
-            {venue.name}
-          </h4>
-          <p className="mx-auto mt-2.5 max-w-[19rem] font-display text-[16px] font-normal italic leading-[1.6] text-ink-soft">
-            {venue.location}
-          </p>
+          <div data-reveal className="mt-10 flex flex-col gap-3.5 sm:flex-row">
+            <EventCard index="01" title={akad.title} time={akad.time} date={akad.date} />
+            <EventCard
+              index="02"
+              title={resepsi.title}
+              time={resepsi.time}
+              date={resepsi.date}
+              emphasis
+            />
+          </div>
 
-          <div className="mt-9 flex flex-col items-stretch gap-3">
-            <a
-              href={venue.mapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center justify-center bg-gold-dark px-7 py-3.5 font-accent text-[11px] font-medium uppercase tracking-[0.32em] text-paper transition-[filter] duration-300 hover:brightness-110"
-            >
-              Lihat Lokasi
-            </a>
-            <a
-              href={CALENDAR_GOOGLE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center justify-center border border-gold-dark/45 px-7 py-3.5 font-accent text-[11px] font-medium uppercase tracking-[0.32em] text-gold-dark transition-colors duration-300 hover:border-gold-dark hover:bg-gold-dark/5"
-            >
-              Simpan ke Kalender
-            </a>
+          <div data-reveal className="card-stock relative mt-8 rounded-[4px] px-7 py-9">
+            <p className="font-accent text-[11px] font-normal uppercase tracking-[0.4em] text-ink-soft">
+              Bertempat di
+            </p>
+            <h4 className="mt-3 font-display text-[25px] font-normal leading-tight text-ink">
+              {venue.name}
+            </h4>
+            <p className="mx-auto mt-2.5 max-w-[19rem] font-display text-[16px] font-normal leading-[1.6] text-ink-soft">
+              {venue.location}
+            </p>
+
+            <div className="mt-8 flex flex-col items-stretch gap-3">
+              <a
+                href={venue.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center justify-center bg-gold-dark px-7 py-3.5 font-accent text-[11px] font-medium uppercase tracking-[0.32em] text-paper transition-[filter] duration-300 hover:brightness-110"
+              >
+                Lihat Lokasi
+              </a>
+              <a
+                href={CALENDAR_GOOGLE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center justify-center border border-gold-dark/45 px-7 py-3.5 font-accent text-[11px] font-medium uppercase tracking-[0.32em] text-gold-dark transition-colors duration-300 hover:border-gold-dark hover:bg-gold-dark/5"
+              >
+                Simpan ke Kalender
+              </a>
+            </div>
           </div>
         </div>
       </div>

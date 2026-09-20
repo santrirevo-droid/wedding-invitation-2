@@ -1,26 +1,27 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Amiri, Jost, Italianno } from "next/font/google";
+import { Amiri, DM_Sans, Italiana, Parisienne } from "next/font/google";
 import BackgroundPattern from "@/components/BackgroundPattern";
 import { couple, events, venue } from "@/lib/weddingData";
 import "./globals.css";
 
 /* Four families, and only four — every other --font-* token in globals.css
-   aliases one of these. A high-contrast old-style serif carries the whole
-   invitation; the rest are narrow exceptions. */
+   aliases one of these. Re-themed from the previous Cormorant/Italianno/Jost
+   set to match the herewego/ reference (see globals.css for the rest of
+   that re-theme). */
 
-// headings + all running copy. Cormorant Garamond's very light weights hold
-// up at display sizes, which is what makes the oversized moments (cover
-// date, section titles) read as engraved rather than just big.
-const cormorant = Cormorant_Garamond({
+// headings + all running copy. Italiana ships only weight 400/normal (no
+// italic, no other weights) — any font-light/font-semibold/italic classes
+// that reach font-display fall back to the browser's faux-bold/-italic,
+// same trade-off herewego itself makes for the same font.
+const italiana = Italiana({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  style: ["normal", "italic"],
+  weight: "400",
 });
 
 // the couple's names, and nothing else — a true calligraphic face, used
 // only at large sizes where its thin strokes and long swashes work
-const italianno = Italianno({
+const parisienne = Parisienne({
   variable: "--font-script",
   subsets: ["latin"],
   weight: "400",
@@ -28,10 +29,10 @@ const italianno = Italianno({
 
 // tiny wide-tracked labels ("The Wedding Of", section eyebrows, IG handles).
 // Kept geometric and quiet so it never competes with the serif.
-const jost = Jost({
+const dmSans = DM_Sans({
   variable: "--font-meta",
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: ["400", "500", "600"],
 });
 
 const amiri = Amiri({
@@ -68,7 +69,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   colorScheme: "light",
-  themeColor: "#f9f1ea",
+  themeColor: "#f8e8e6",
 };
 
 export default function RootLayout({
@@ -79,7 +80,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${cormorant.variable} ${italianno.variable} ${jost.variable} ${amiri.variable} h-full antialiased`}
+      className={`${italiana.variable} ${parisienne.variable} ${dmSans.variable} ${amiri.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-maroon-deep font-body text-on-maroon">
         <BackgroundPattern />

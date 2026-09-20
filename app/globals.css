@@ -1,53 +1,54 @@
 @import "tailwindcss";
 
 :root {
-  /* ── "Blush garden" ───────────────────────────────────────────────────
-     A bright, soft ground: warm ivory washed with blush and sage, antique
-     gold-brown for ornament, deep warm brown for type.
+  /* ── "Rose garden" ────────────────────────────────────────────────────
+     Rebuilt from the herewego/ reference: a warm blush ground, dusty rose
+     and berry for ornament, deep plum-brown ink for type — photographic
+     rose bouquets instead of hairline gold botanicals.
 
-     This is an inversion of the dark theme the design was built on, so
-     every role flipped, not just the hex values: text ON the ground went
-     from ivory to brown, the translucent plates went from near-black to
-     near-white, and the gilded foil gradient had to go DARKER (a pale gold
-     gradient is invisible on ivory — it only read as metal against black).
-
-     Variable NAMES are inherited and deliberately kept: ~15 components
-     reference these Tailwind tokens. Read "maroon-*" as "the page ground"
-     (now light), "accent" as "ornament colour on the ground", "gold-*" as
-     "ink inside a card", "on-maroon-*" as "text on the ground".  */
+     This is a second re-theme of the same token set (the previous one was
+     the "blush garden" ivory/gold pass — see git history), so every role
+     kept its NAME but not its hue: "gold-*" reads as "ink inside a card"
+     regardless of whether that ink is actually gold- or berry-toned this
+     time. Variable NAMES stay because ~15 components reference these
+     Tailwind tokens; read "maroon-*" as "the page ground", "accent" as
+     "ornament colour on the ground", "gold-*" as "ink inside a card",
+     "on-maroon-*" as "text on the ground".  */
 
   /* the ground, lightest at the top of the page */
-  --maroon-light: #fdf8f4;
-  --maroon: #f9f1ea;
-  --maroon-deep: #f4e8de;
+  --maroon-light: #fdf6f5;
+  --maroon: #f8e8e6;
+  --maroon-deep: #f1d7d6;
 
   /* card surfaces — a touch brighter than the ground so cards lift off it */
-  --paper: #fffdfa;
+  --paper: #fffaf6;
 
   /* ornament + text ON the ground */
-  --accent: #a67c52;
-  --accent-dark: #7f5c39;
-  --on-maroon: #46382d;
-  --on-maroon-soft: #6b584a;
+  --accent: #b87886;
+  --accent-dark: #7c4e58;
+  --on-maroon: #49363a;
+  --on-maroon-soft: #80666a;
 
-  /* gold + ink INSIDE card surfaces */
-  --gold: #946b3c;
-  --gold-light: #be9560;
-  --gold-dark: #7a5a2e;
-  --ink: #3f332a;
-  --ink-soft: #6b5a4b;
-  --border: #eadfd1;
+  /* gold + ink INSIDE card surfaces — berry-toned this pass, not gold */
+  --gold: #7c4e58;
+  --gold-light: #b87886;
+  --gold-dark: #674049;
+  --ink: #49363a;
+  --ink-soft: #80666a;
+  --border: #e8d5d0;
 
-  /* foil gradient stops — bronze-weighted so gilded type reads as metal
-     against ivory rather than washing out */
-  --gild-1: #997842;
-  --gild-2: #8f6a33;
-  --gild-3: #63461e;
+  /* foil gradient stops — rose/berry-weighted so gilded type reads as a
+     soft shimmer against blush instead of washing out */
+  --gild-1: #c98a95;
+  --gild-2: #a2606c;
+  --gild-3: #6f414a;
 
-  /* functional signal only (RSVP "hadir") */
-  --sage: #4a6337;
-  --sage-light: #5d7643;
-  --sage-dark: #33472a;
+  /* functional signal only (RSVP "hadir") — a warmer, muted sage than the
+     previous pass: sage-and-blush is the classic pairing for this palette,
+     so it stays a real green rather than folding into the rose family */
+  --sage: #6b7d52;
+  --sage-light: #82936a;
+  --sage-dark: #4f5e3a;
 }
 
 @theme inline {
@@ -86,10 +87,10 @@
 
 :root {
   /* Only FOUR families are actually loaded (see app/layout.tsx):
-       --font-display  Cormorant Garamond — every heading and all running copy
-       --font-script   Italianno          — the couple's names, nothing else
-       --font-meta     Jost               — tiny tracked labels, IG handles
-       --font-arabic   Amiri              — the Qur'anic passage
+       --font-display  Italiana   — every heading and all running copy
+       --font-script   Parisienne — the couple's names, nothing else
+       --font-meta     DM Sans    — tiny tracked labels, IG handles
+       --font-arabic   Amiri      — the Qur'anic passage
      Every other token below is an alias, so components can keep their
      existing font-* classes while the type system stays this small. */
   --font-body: var(--font-display);
@@ -188,9 +189,9 @@ html.scroll-locked {
   /* warm, wide and faint — a near-black shadow reads as a smudge against
      a bright ground, where the dark theme needed it to carve the card out */
   box-shadow:
-    0 0 0 1px rgba(154, 120, 86, 0.16),
-    0 22px 48px -30px rgba(122, 90, 46, 0.4),
-    0 2px 8px -6px rgba(122, 90, 46, 0.22);
+    0 0 0 1px rgba(124, 78, 88, 0.16),
+    0 22px 48px -30px rgba(105, 65, 73, 0.4),
+    0 2px 8px -6px rgba(105, 65, 73, 0.22);
 }
 
 .card-stock::after {

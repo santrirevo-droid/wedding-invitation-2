@@ -30,22 +30,22 @@ export default async function Image() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #fdf8f4 0%, #f9f1ea 55%, #f2e5d9 100%)",
+          background: "linear-gradient(135deg, #fdf6f5 0%, #f8e8e6 55%, #f1d7d6 100%)",
           position: "relative",
         }}
       >
         {/* atmosphere, echoing the cover's corner florals */}
         <img
           src={`data:image/png;base64,${floralA.toString("base64")}`}
-          width={520}
-          height={392}
-          style={{ position: "absolute", top: -60, left: -70, opacity: 0.16 }}
+          width={480}
+          height={320}
+          style={{ position: "absolute", top: -50, left: -60, opacity: 0.4 }}
         />
         <img
           src={`data:image/png;base64,${floralB.toString("base64")}`}
-          width={420}
-          height={734}
-          style={{ position: "absolute", bottom: -140, right: -60, opacity: 0.14 }}
+          width={360}
+          height={540}
+          style={{ position: "absolute", bottom: -110, right: -40, opacity: 0.35 }}
         />
 
         {/* hairline frame */}
@@ -53,7 +53,7 @@ export default async function Image() {
           style={{
             position: "absolute",
             inset: 28,
-            border: "1.5px solid rgba(166,124,82,0.35)",
+            border: "1.5px solid rgba(124,78,88,0.35)",
           }}
         />
 
@@ -72,7 +72,7 @@ export default async function Image() {
               fontWeight: 500,
               letterSpacing: 10,
               textTransform: "uppercase",
-              color: "#a67c52",
+              color: "#7c4e58",
             }}
           >
             The Wedding Of
@@ -86,7 +86,7 @@ export default async function Image() {
               fontFamily: "Cormorant Garamond",
               fontSize: 168,
               fontWeight: 600,
-              color: "#46382d",
+              color: "#49363a",
             }}
           >
             <span>{couple.groom.shortName}</span>
@@ -95,7 +95,7 @@ export default async function Image() {
                 fontStyle: "italic",
                 fontWeight: 500,
                 fontSize: 92,
-                color: "#7f5c39",
+                color: "#7c4e58",
               }}
             >
               &amp;
@@ -118,7 +118,7 @@ export default async function Image() {
                 fontWeight: 500,
                 letterSpacing: 6,
                 textTransform: "uppercase",
-                color: "#a67c52",
+                color: "#7c4e58",
               }}
             >
               Ahad
@@ -128,7 +128,7 @@ export default async function Image() {
                 fontFamily: "Cormorant Garamond",
                 fontSize: 150,
                 fontWeight: 600,
-                color: "#46382d",
+                color: "#49363a",
                 marginTop: -10,
               }}
             >
@@ -141,7 +141,7 @@ export default async function Image() {
               fontFamily: "Cormorant Garamond",
               fontSize: 22,
               fontWeight: 500,
-              color: "#8a7867",
+              color: "#80666a",
               marginTop: -6,
             }}
           >
