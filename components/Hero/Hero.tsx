@@ -177,7 +177,7 @@ export default function Hero() {
               <AnimatedWords
                 as="p"
                 text="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"
-                variant="rise"
+                variant="popIn"
                 groupSize={2}
                 dir="rtl"
                 lang="ar"
@@ -187,7 +187,7 @@ export default function Hero() {
               <AnimatedWords
                 as="p"
                 text="The Wedding Of"
-                variant="rise"
+                variant="popIn"
                 groupSize={1}
                 className="mt-7 font-accent text-[11px] font-normal uppercase tracking-[0.5em] text-on-maroon-soft"
               />

@@ -46,7 +46,7 @@ export default function Moments() {
             <AnimatedWords
               as="p"
               text="Setiap kisah cinta itu indah, tapi kisah kami favorit kami."
-              variant="tilt"
+              variant="elasticDrop"
               groupSize={2}
               className="relative -mt-3 font-display text-[19px] font-normal leading-[1.35] text-ink"
             />
@@ -92,12 +92,12 @@ export default function Moments() {
 
           <div className="flex flex-col items-center justify-center bg-maroon-deep p-4">
             <p className="font-display text-[17px] font-normal leading-[1.2] text-ink">
-              <AnimatedWords as="span" text="To have and to hold," variant="tilt" groupSize={2} />
+              <AnimatedWords as="span" text="To have and to hold," variant="elasticDrop" groupSize={2} />
               <br />
               <AnimatedWords
                 as="span"
                 text="forevermore."
-                variant="tilt"
+                variant="elasticDrop"
                 className="font-script text-[1.3em] leading-none text-accent-dark"
               />
             </p>

@@ -54,7 +54,7 @@ export default function OpeningQuote() {
         <AnimatedWords
           as="p"
           text={AYAT_ARABIC}
-          variant="blur"
+          variant="blurZoom"
           groupSize={4}
           className="mt-8 font-arabic text-[27px] leading-[2] text-on-maroon"
           wordClassName="inline-block"
@@ -67,7 +67,7 @@ export default function OpeningQuote() {
         <AnimatedWords
           as="p"
           text={AYAT_TRANSLATION}
-          variant="blur"
+          variant="blurZoom"
           groupSize={3}
           className="mt-8 font-display text-[21px] font-normal italic leading-[1.75] text-on-maroon-soft"
         />

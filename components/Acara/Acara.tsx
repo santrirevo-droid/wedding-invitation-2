@@ -102,12 +102,12 @@ export default function Acara() {
           Save the Date
         </p>
         <h2 className="mt-3 font-display text-[clamp(2rem,7vw,2.9rem)] font-normal leading-[1.1]">
-          <AnimatedWords as="span" text="Menuju hari" variant="scale" groupSize={2} />
+          <AnimatedWords as="span" text="Menuju hari" variant="popUp" groupSize={2} />
           <br />
           <AnimatedWords
             as="span"
             text="bahagia kami."
-            variant="scale"
+            variant="popUp"
             groupSize={2}
             className="font-script text-[1.35em] leading-none text-[#e8b0b9]"
           />
@@ -188,7 +188,7 @@ export default function Acara() {
             <AnimatedWords
               as="p"
               text={venue.location}
-              variant="scale"
+              variant="popUp"
               groupSize={3}
               className="mx-auto mt-2.5 max-w-[19rem] font-display text-[16px] font-normal leading-[1.6] text-ink-soft"
             />

@@ -8,42 +8,52 @@ import { whenScrollUnlocked } from "./scrollLock";
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Eight distinct reveal styles, one assigned per section (see each
+ * Nine distinct reveal styles, one assigned per section (see each
  * section's <AnimatedWords>) so the page doesn't read as one animation
- * copy-pasted eight times — each still shares the same underlying
+ * copy-pasted nine times — each still shares the same underlying
  * mechanic (word-group stagger, ScrollTrigger, once) so the variety
  * reads as "considered" rather than "inconsistent".
+ *
+ * Deliberately bold: an earlier, subtler pass (small 20-26px moves,
+ * gentle eases) mostly happened at the very bottom edge of the screen
+ * and finished before the section was comfortably in view, so it read
+ * as "nothing happened". These are 2-4x the distance/rotation and use
+ * springier eases (back.out, elastic.out) specifically so the motion is
+ * unmistakable mid-scroll, not just a discreet fade.
  */
 export type TextRevealVariant =
-  | "rise"
-  | "blur"
+  | "popIn"
+  | "blurZoom"
   | "slideLeft"
   | "slideRight"
-  | "scale"
-  | "tilt"
+  | "popUp"
+  | "elasticDrop"
   | "unfold"
+  | "rise"
   | "drift";
 
 const VARIANTS: Record<
   TextRevealVariant,
   { from: gsap.TweenVars; duration: number; ease: string; stagger: number }
 > = {
-  // Wishes — quick, crisp, a touch of blur; the everyday "content arriving" beat
-  rise: { from: { opacity: 0, y: 20, filter: "blur(5px)" }, duration: 0.65, ease: "power3.out", stagger: 0.07 },
-  // Ayat Pembuka — a slow unveiling, nothing moves, it just comes into focus
-  blur: { from: { opacity: 0, filter: "blur(11px)" }, duration: 0.9, ease: "power2.out", stagger: 0.1 },
-  // Mempelai — reserved for the intro line; groups arrive from the left
-  slideLeft: { from: { opacity: 0, x: -26 }, duration: 0.6, ease: "power3.out", stagger: 0.06 },
-  // RSVP — groups arrive from the right, like something being handed over
-  slideRight: { from: { opacity: 0, x: 26 }, duration: 0.6, ease: "power3.out", stagger: 0.06 },
-  // Acara's dark band — a little pop, matching the section's own drama
-  scale: { from: { opacity: 0, scale: 0.78 }, duration: 0.55, ease: "back.out(1.7)", stagger: 0.08 },
-  // Moments — a gentle, imperfect tilt settling straight, like a photo being placed down
-  tilt: { from: { opacity: 0, y: 14, rotate: -3.5 }, duration: 0.65, ease: "power2.out", stagger: 0.07 },
+  // Hero — the very first text on the page; a confident bounce-in
+  popIn: { from: { opacity: 0, scale: 0.4, rotate: -6 }, duration: 0.65, ease: "back.out(2.6)", stagger: 0.09 },
+  // Ayat Pembuka — an unveiling with a slow zoom, not just a blur
+  blurZoom: { from: { opacity: 0, scale: 1.18, filter: "blur(14px)" }, duration: 1.0, ease: "power2.out", stagger: 0.1 },
+  // Mempelai — groups slide in hard from the left, with a slight tilt
+  slideLeft: { from: { opacity: 0, x: -95, rotate: -3 }, duration: 0.7, ease: "power3.out", stagger: 0.07 },
+  // RSVP — groups slide in hard from the right, like being handed over
+  slideRight: { from: { opacity: 0, x: 95, rotate: 3 }, duration: 0.7, ease: "power3.out", stagger: 0.07 },
+  // Acara's dark band — a literal pop, overshooting past full size before settling
+  popUp: { from: { opacity: 0, scale: 0.3, y: 26 }, duration: 0.7, ease: "back.out(2.4)", stagger: 0.09 },
+  // Moments — drops in from above with a springy wobble, like a photo falling into place
+  elasticDrop: { from: { opacity: 0, y: -50, rotate: -8 }, duration: 0.95, ease: "elastic.out(1, 0.55)", stagger: 0.1 },
   // Kisah Kami — each phrase unfurls vertically, like turning a page
-  unfold: { from: { opacity: 0, scaleY: 0.35, y: 8 }, duration: 0.5, ease: "power2.out", stagger: 0.085 },
+  unfold: { from: { opacity: 0, scaleY: 0.12, y: 18 }, duration: 0.65, ease: "power2.out", stagger: 0.09 },
+  // Wishes — quick and crisp, the everyday "content arriving" beat
+  rise: { from: { opacity: 0, y: 34, filter: "blur(6px)" }, duration: 0.75, ease: "power3.out", stagger: 0.08 },
   // Footer — slow and soft, the valedictory beat that closes the page
-  drift: { from: { opacity: 0, y: 26, filter: "blur(8px)" }, duration: 1.05, ease: "power1.out", stagger: 0.11 },
+  drift: { from: { opacity: 0, y: 44, filter: "blur(12px)" }, duration: 1.2, ease: "power1.out", stagger: 0.12 },
 };
 
 /**
@@ -85,7 +95,11 @@ export function useTextReveal(
       ctx = gsap.context(() => {
         ScrollTrigger.create({
           trigger: container,
-          start: "top 85%",
+          // 75%, not 85% — the earlier value fired right as the element
+          // was still peeking in at the very bottom edge of the screen,
+          // so by the time it scrolled up to a readable position the
+          // animation had already finished playing unseen
+          start: "top 75%",
           once: true,
           onEnter: () => {
             gsap.to(groups, {
