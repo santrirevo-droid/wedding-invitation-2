@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense } from "react";
+import AnimatedWords from "@/components/AnimatedWords";
 import FloralLayer from "@/components/FloralLayer";
 import GuestGreeting, { GuestGreetingFallback } from "@/components/GuestGreeting";
 import InvitationButton from "@/components/InvitationButton";
@@ -173,17 +174,23 @@ export default function Hero() {
                 className="pointer-events-none absolute inset-[7px] border border-accent/22"
               />
 
-              <p
+              <AnimatedWords
+                as="p"
+                text="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"
+                variant="rise"
+                groupSize={2}
                 dir="rtl"
                 lang="ar"
                 className="font-arabic text-xl leading-relaxed text-accent-dark"
-              >
-                بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
-              </p>
+              />
 
-              <p className="mt-7 font-accent text-[11px] font-normal uppercase tracking-[0.5em] text-on-maroon-soft">
-                The Wedding Of
-              </p>
+              <AnimatedWords
+                as="p"
+                text="The Wedding Of"
+                variant="rise"
+                groupSize={1}
+                className="mt-7 font-accent text-[11px] font-normal uppercase tracking-[0.5em] text-on-maroon-soft"
+              />
 
               {/* monogram — the couple's initials, not a generic sprig, so it
                   stays correct automatically if shortName ever changes */}

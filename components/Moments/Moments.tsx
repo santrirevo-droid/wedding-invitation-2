@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
+import AnimatedWords from "@/components/AnimatedWords";
 import { SectionFloral } from "@/components/Botanical";
 import SectionHeading from "@/components/SectionHeading";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
@@ -42,9 +43,13 @@ export default function Moments() {
             >
               &ldquo;
             </span>
-            <p className="relative -mt-3 font-display text-[19px] font-normal leading-[1.35] text-ink">
-              Setiap kisah cinta itu indah, tapi kisah kami favorit kami.
-            </p>
+            <AnimatedWords
+              as="p"
+              text="Setiap kisah cinta itu indah, tapi kisah kami favorit kami."
+              variant="tilt"
+              groupSize={2}
+              className="relative -mt-3 font-display text-[19px] font-normal leading-[1.35] text-ink"
+            />
             <small className="mt-4 font-accent text-[10px] font-normal uppercase tracking-[0.3em] text-accent-dark">
               {couple.groom.shortName.charAt(0)} + {couple.bride.shortName.charAt(0)}
             </small>
@@ -85,15 +90,16 @@ export default function Moments() {
             </span>
           </div>
 
-          <div data-reveal className="flex flex-col items-center justify-center bg-maroon-deep p-4">
+          <div className="flex flex-col items-center justify-center bg-maroon-deep p-4">
             <p className="font-display text-[17px] font-normal leading-[1.2] text-ink">
-              To have
+              <AnimatedWords as="span" text="To have and to hold," variant="tilt" groupSize={2} />
               <br />
-              and to hold,
-              <br />
-              <span className="font-script text-[1.3em] leading-none text-accent-dark">
-                forevermore.
-              </span>
+              <AnimatedWords
+                as="span"
+                text="forevermore."
+                variant="tilt"
+                className="font-script text-[1.3em] leading-none text-accent-dark"
+              />
             </p>
           </div>
         </div>

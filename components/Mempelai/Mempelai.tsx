@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import AnimatedWords from "@/components/AnimatedWords";
 import Botanical, { SectionFloral } from "@/components/Botanical";
 import FloralLayer from "@/components/FloralLayer";
 import SectionHeading from "@/components/SectionHeading";
@@ -65,11 +66,13 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
         {role === "putra" ? "Putra" : "Putri"} dari
       </p>
 
-      <p className="mt-3 max-w-[18rem] font-display text-[18px] font-normal italic leading-[1.75] text-on-maroon-soft">
-        {person.father}
-        <br />
-        &amp; {person.mother}
-      </p>
+      <AnimatedWords
+        as="p"
+        text={`${person.father} & ${person.mother}`}
+        variant="slideLeft"
+        groupSize={2}
+        className="mx-auto mt-3 max-w-[18rem] font-display text-[18px] font-normal italic leading-[1.75] text-on-maroon-soft"
+      />
 
       {person.instagram && (
         <a
@@ -129,13 +132,13 @@ export default function Mempelai() {
       <div className="relative mx-auto max-w-md text-center">
         <SectionHeading eyebrow="Mempelai" title="Kedua Mempelai" />
 
-        <p
-          data-reveal
+        <AnimatedWords
+          as="p"
+          text="Dengan memohon rahmat dan ridha Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami:"
+          variant="slideLeft"
+          groupSize={3}
           className="mx-auto mt-7 max-w-sm font-display text-[18px] font-normal italic leading-[1.75] text-on-maroon-soft"
-        >
-          Dengan memohon rahmat dan ridha Allah SWT, kami bermaksud
-          menyelenggarakan pernikahan putra-putri kami:
-        </p>
+        />
 
         <div className="mt-14 flex flex-col items-center gap-12">
           <PersonBlock person={couple.bride} role="putri" />

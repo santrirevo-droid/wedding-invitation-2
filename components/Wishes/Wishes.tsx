@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AnimatedWords from "@/components/AnimatedWords";
 import { SectionFloral } from "@/components/Botanical";
 import SectionHeading from "@/components/SectionHeading";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
@@ -65,9 +66,13 @@ export default function Wishes() {
 
         <div ref={listRef} className="mt-11">
           {wishes.length === 0 ? (
-            <p className="font-display text-[19px] font-normal italic text-on-maroon-soft">
-              Jadilah yang pertama mengirimkan ucapan &amp; doa.
-            </p>
+            <AnimatedWords
+              as="p"
+              text="Jadilah yang pertama mengirimkan ucapan & doa."
+              variant="rise"
+              groupSize={3}
+              className="font-display text-[19px] font-normal italic text-on-maroon-soft"
+            />
           ) : (
             <div className="flex max-h-[28rem] flex-col gap-3.5 overflow-y-auto pr-1.5 text-left">
               {wishes.map((wish) => (

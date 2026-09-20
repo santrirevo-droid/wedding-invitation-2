@@ -1,11 +1,18 @@
 "use client";
 
 import { useRef } from "react";
+import AnimatedWords from "@/components/AnimatedWords";
 import { SectionFloral } from "@/components/Botanical";
 import Crest from "@/components/Crest";
 import FloralLayer from "@/components/FloralLayer";
 import { useFloralParallax } from "@/hooks/useFloralParallax";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
+
+const AYAT_ARABIC =
+  "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنْفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ";
+
+const AYAT_TRANSLATION =
+  "“Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu hidup tenang bersamanya. Dia menjadikan di antaramu rasa cinta dan kasih sayang. Sungguh, pada yang demikian itu terdapat tanda-tanda kebesaran Allah bagi kaum yang berpikir.”";
 
 export default function OpeningQuote() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -44,29 +51,26 @@ export default function OpeningQuote() {
           Ayat Pembuka
         </p>
 
-        <p
-          data-reveal
+        <AnimatedWords
+          as="p"
+          text={AYAT_ARABIC}
+          variant="blur"
+          groupSize={4}
+          className="mt-8 font-arabic text-[27px] leading-[2] text-on-maroon"
+          wordClassName="inline-block"
           dir="rtl"
           lang="ar"
-          className="mt-8 font-arabic text-[27px] leading-[2] text-on-maroon"
-        >
-          وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنْفُسِكُمْ أَزْوَاجًا
-          لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ
-          إِنَّ فِي ذٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ
-        </p>
+        />
 
         <span data-reveal className="rule-gild mx-auto mt-9 block w-24" />
 
-        <p
-          data-reveal
+        <AnimatedWords
+          as="p"
+          text={AYAT_TRANSLATION}
+          variant="blur"
+          groupSize={3}
           className="mt-8 font-display text-[21px] font-normal italic leading-[1.75] text-on-maroon-soft"
-        >
-          &ldquo;Dan di antara tanda-tanda kekuasaan-Nya ialah Dia
-          menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar
-          kamu hidup tenang bersamanya. Dia menjadikan di antaramu rasa
-          cinta dan kasih sayang. Sungguh, pada yang demikian itu terdapat
-          tanda-tanda kebesaran Allah bagi kaum yang berpikir.&rdquo;
-        </p>
+        />
 
         <p
           data-reveal

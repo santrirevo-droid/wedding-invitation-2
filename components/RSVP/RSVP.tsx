@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense, useId, useRef, useState, type FormEvent } from "react";
+import AnimatedWords from "@/components/AnimatedWords";
 import { SectionFloral } from "@/components/Botanical";
 import FloralLayer from "@/components/FloralLayer";
 import GiftModalContent from "@/components/Gift";
@@ -230,17 +231,23 @@ export default function RSVP() {
           With love
         </p>
         <h2 className="text-gilded mt-3 font-display text-[clamp(2.4rem,9vw,3.2rem)] font-normal leading-[1.08]">
-          Kehadiran Anda adalah
+          <AnimatedWords as="span" text="Kehadiran Anda adalah" variant="slideRight" groupSize={2} />
           <br />
-          <span className="font-script text-[1.2em] leading-none">hadiah terindah.</span>
+          <AnimatedWords
+            as="span"
+            text="hadiah terindah."
+            variant="slideRight"
+            groupSize={2}
+            className="font-script text-[1.2em] leading-none"
+          />
         </h2>
-        <p
-          data-reveal
+        <AnimatedWords
+          as="p"
+          text="Merupakan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu."
+          variant="slideRight"
+          groupSize={3}
           className="mx-auto mt-6 max-w-sm font-display text-[17px] font-normal leading-[1.75] text-on-maroon-soft"
-        >
-          Merupakan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan
-          hadir dan memberikan doa restu.
-        </p>
+        />
 
         <div data-reveal className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <button

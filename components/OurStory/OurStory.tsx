@@ -1,10 +1,18 @@
 "use client";
 
 import { useRef } from "react";
+import AnimatedWords from "@/components/AnimatedWords";
 import Botanical, { SectionFloral } from "@/components/Botanical";
 import SectionHeading from "@/components/SectionHeading";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { couple } from "@/lib/weddingData";
+
+const STORY_PARAGRAPHS = [
+  `Dari ujung utara Sumatera, seorang perantau bernama ${couple.groom.shortName} melangkah meninggalkan Medan. Dari pesisir barat Banten, seorang gadis bernama ${couple.bride.shortName} turut merantau, meninggalkan Pandeglang. Dua arah yang berbeda, satu tujuan yang sama: menuntut ilmu di Jakarta.`,
+  "Tahun 2016, di ruang kelas yang sama, Program Studi Bahasa dan Sastra Arab UIN Syarif Hidayatullah Jakarta mempertemukan keduanya sebagai teman sekelas — Kelas Alif, huruf pertama, awal dari segala aksara. Tanpa disadari, di sanalah kisah ini sesungguhnya dimulai.",
+  `Semester demi semester dilalui sebagai teman biasa — tak lebih. Bahkan setelah keduanya diwisuda dan jalan hidup membawa mereka ke arah masing-masing, tak ada yang berubah. Namun diam-diam, di suatu sudut hati yang tak pernah diungkapkan, ${couple.groom.shortName} menyimpan rasa yang tumbuh perlahan sejak lama.`,
+  `Sepuluh tahun berlalu sejak hari pertama di Kelas Alif. Barulah di tahun 2026, ${couple.groom.shortName} memberanikan diri mengungkapkan apa yang selama ini ia pendam. Dan ternyata, penantian panjang itu berbuah manis.`,
+];
 
 type Milestone = {
   year: string;
@@ -58,36 +66,9 @@ export default function OurStory() {
         <SectionHeading eyebrow="Our Story" title="Kisah Kami" />
 
         <div className="mt-8 flex flex-col gap-5 font-display text-[17px] font-normal italic leading-[1.85] text-on-maroon-soft">
-          <p data-reveal>
-            Dari ujung utara Sumatera, seorang perantau bernama{" "}
-            {couple.groom.shortName} melangkah meninggalkan Medan. Dari
-            pesisir barat Banten, seorang gadis bernama {couple.bride.shortName}{" "}
-            turut merantau, meninggalkan Pandeglang. Dua arah yang berbeda,
-            satu tujuan yang sama: menuntut ilmu di Jakarta.
-          </p>
-
-          <p data-reveal>
-            Tahun 2016, di ruang kelas yang sama, Program Studi Bahasa dan
-            Sastra Arab UIN Syarif Hidayatullah Jakarta mempertemukan
-            keduanya sebagai teman sekelas — Kelas Alif, huruf pertama, awal
-            dari segala aksara. Tanpa disadari, di sanalah kisah ini
-            sesungguhnya dimulai.
-          </p>
-
-          <p data-reveal>
-            Semester demi semester dilalui sebagai teman biasa — tak lebih.
-            Bahkan setelah keduanya diwisuda dan jalan hidup membawa mereka
-            ke arah masing-masing, tak ada yang berubah. Namun diam-diam, di
-            suatu sudut hati yang tak pernah diungkapkan, {couple.groom.shortName}{" "}
-            menyimpan rasa yang tumbuh perlahan sejak lama.
-          </p>
-
-          <p data-reveal>
-            Sepuluh tahun berlalu sejak hari pertama di Kelas Alif. Barulah
-            di tahun 2026, {couple.groom.shortName} memberanikan diri
-            mengungkapkan apa yang selama ini ia pendam. Dan ternyata,
-            penantian panjang itu berbuah manis.
-          </p>
+          {STORY_PARAGRAPHS.map((paragraph, i) => (
+            <AnimatedWords key={i} as="p" text={paragraph} variant="unfold" groupSize={4} />
+          ))}
         </div>
 
         <Botanical

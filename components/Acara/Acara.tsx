@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import AnimatedWords from "@/components/AnimatedWords";
 import { SectionFloral } from "@/components/Botanical";
 import FloralLayer from "@/components/FloralLayer";
 import SectionHeading from "@/components/SectionHeading";
@@ -101,11 +102,15 @@ export default function Acara() {
           Save the Date
         </p>
         <h2 className="mt-3 font-display text-[clamp(2rem,7vw,2.9rem)] font-normal leading-[1.1]">
-          Menuju hari
+          <AnimatedWords as="span" text="Menuju hari" variant="scale" groupSize={2} />
           <br />
-          <span className="font-script text-[1.35em] leading-none text-[#e8b0b9]">
-            bahagia kami.
-          </span>
+          <AnimatedWords
+            as="span"
+            text="bahagia kami."
+            variant="scale"
+            groupSize={2}
+            className="font-script text-[1.35em] leading-none text-[#e8b0b9]"
+          />
         </h2>
 
         <div className="mx-auto mt-10 grid max-w-sm grid-cols-4 border-l border-paper/25">
@@ -180,9 +185,13 @@ export default function Acara() {
             <h4 className="mt-3 font-display text-[25px] font-normal leading-tight text-ink">
               {venue.name}
             </h4>
-            <p className="mx-auto mt-2.5 max-w-[19rem] font-display text-[16px] font-normal leading-[1.6] text-ink-soft">
-              {venue.location}
-            </p>
+            <AnimatedWords
+              as="p"
+              text={venue.location}
+              variant="scale"
+              groupSize={3}
+              className="mx-auto mt-2.5 max-w-[19rem] font-display text-[16px] font-normal leading-[1.6] text-ink-soft"
+            />
 
             <div className="mt-8 flex flex-col items-stretch gap-3">
               <a

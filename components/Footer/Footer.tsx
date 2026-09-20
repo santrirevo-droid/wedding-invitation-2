@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import AnimatedWords from "@/components/AnimatedWords";
 import Botanical, { SectionFloral } from "@/components/Botanical";
 import Crest from "@/components/Crest";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
@@ -27,22 +28,21 @@ export default function Footer() {
           Assalamu&apos;alaikum Warahmatullahi Wabarakatuh
         </p>
 
-        <p
-          data-reveal
+        <AnimatedWords
+          as="p"
+          text="Merupakan suatu kebahagiaan dan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kedua mempelai."
+          variant="drift"
+          groupSize={3}
           className="mt-8 font-display text-[19px] font-normal leading-[1.8] text-paper/85"
-        >
-          Merupakan suatu kebahagiaan dan kehormatan bagi kami apabila
-          Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu
-          kepada kedua mempelai.
-        </p>
+        />
 
-        <p
-          data-reveal
+        <AnimatedWords
+          as="p"
+          text="Atas kehadiran serta doa restunya, kami sekeluarga mengucapkan terima kasih yang sebesar-besarnya."
+          variant="drift"
+          groupSize={3}
           className="mt-5 font-display text-[19px] font-normal leading-[1.8] text-paper/85"
-        >
-          Atas kehadiran serta doa restunya, kami sekeluarga mengucapkan
-          terima kasih yang sebesar-besarnya.
-        </p>
+        />
 
         <Crest className="mx-auto mt-14 w-11 text-paper/55" />
 
