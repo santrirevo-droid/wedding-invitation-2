@@ -93,27 +93,31 @@ export function useTextReveal(
     // immediately instead of waiting for a real scroll
     const cancelWait = whenScrollUnlocked(() => {
       ctx = gsap.context(() => {
-        ScrollTrigger.create({
-          trigger: container,
-          // 75%, not 85% — the earlier value fired right as the element
-          // was still peeking in at the very bottom edge of the screen,
-          // so by the time it scrolled up to a readable position the
-          // animation had already finished playing unseen
-          start: "top 75%",
-          once: true,
-          onEnter: () => {
-            gsap.to(groups, {
-              opacity: 1,
-              y: 0,
-              x: 0,
-              scale: 1,
-              scaleY: 1,
-              rotate: 0,
-              filter: "blur(0px)",
-              duration: cfg.duration,
-              ease: cfg.ease,
-              stagger: cfg.stagger,
-            });
+        gsap.to(groups, {
+          opacity: 1,
+          y: 0,
+          x: 0,
+          scale: 1,
+          scaleY: 1,
+          rotate: 0,
+          filter: "blur(0px)",
+          duration: cfg.duration,
+          ease: cfg.ease,
+          stagger: cfg.stagger,
+          scrollTrigger: {
+            trigger: container,
+            // 75%, not 85% — the earlier value fired right as the element
+            // was still peeking in at the very bottom edge of the screen,
+            // so by the time it scrolled up to a readable position the
+            // animation had already finished playing unseen
+            start: "top 75%",
+            // no once:true — replays every time the container crosses
+            // into view from either direction (scrolling down past the
+            // top, or scrolling back up past the bottom) and reverses
+            // back to hidden when it leaves, so a visitor who scrolls up
+            // to re-read a section sees the same entrance again instead
+            // of static already-revealed text
+            toggleActions: "play reverse play reverse",
           },
         });
       }, container);

@@ -58,9 +58,14 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
         </span>
       </div>
 
-      <h3 className="text-gilded mt-7 font-display text-[30px] font-normal leading-tight">
-        {person.name}
-      </h3>
+      <AnimatedWords
+        as="h3"
+        text={person.name}
+        variant="popIn"
+        groupSize={1}
+        className="mt-7 font-display text-[30px] font-normal leading-tight"
+        wordClassName="text-gilded inline-block"
+      />
 
       <p className="mt-3 font-accent text-[11px] font-normal uppercase tracking-[0.38em] text-accent-dark">
         {role === "putra" ? "Putra" : "Putri"} dari

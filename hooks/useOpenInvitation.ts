@@ -139,6 +139,22 @@ export function useOpenInvitation(refs: CoverRefs) {
     };
   }, [lenis]);
 
+  // the couple's name is three lines (groom / "&" / bride) — hide each one
+  // immediately so open()'s timeline below can bring them in one at a time
+  // instead of the whole block appearing pre-set and only scale-popping
+  // as a single fused unit
+  useEffect(() => {
+    const lines = refs.title.current?.children;
+    if (!lines?.length) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    gsap.set(lines, { opacity: 0, y: 22 });
+  }, [refs.title]);
+
+  // React Compiler can't reconcile this callback's refs.title.current read
+  // with the mount effect above also reading refs.title.current, and skips
+  // optimizing it — harmless here since `refs` (from useCoverRefs) is a new
+  // object every render anyway, so this callback was never actually stable
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const open = useCallback(() => {
     if (isAnimating.current) return;
     isAnimating.current = true;
@@ -147,6 +163,9 @@ export function useOpenInvitation(refs: CoverRefs) {
     // already locked by the mount effect above; scroll stays locked
     // through the reveal animation and is released in onComplete below
     refs.music.current?.play();
+
+    const titleEl = refs.title.current;
+    const titleLines = titleEl?.children ?? [];
 
     // "Tersingkap": the floral frame parts outward from the centre, like
     // drawing back a curtain of flowers. Each corner is pushed along its
@@ -193,12 +212,17 @@ export function useOpenInvitation(refs: CoverRefs) {
       .to(refs.button.current, { opacity: 0, y: 12, duration: 0.35 }, 0)
       .to(refs.glow.current, { opacity: 1, duration: 0.6, ease: "power1.out" }, 0)
       .fromTo(
-        refs.title.current,
+        titleEl,
         { scale: 0.94 },
         { scale: 1.05, duration: 0.45, ease: "power2.out" },
         0.1
       )
-      .to(refs.title.current, { scale: 1, duration: 0.55, ease: "power2.inOut" }, 0.55)
+      .to(titleEl, { scale: 1, duration: 0.55, ease: "power2.inOut" }, 0.55)
+      .to(
+        titleLines,
+        { opacity: 1, y: 0, duration: 0.55, ease: "power2.out", stagger: 0.12 },
+        0.15
+      )
       .to(refs.glow.current, { opacity: 0, duration: 0.55, ease: "power1.in" }, 0.75);
   }, [refs, lenis]);
 

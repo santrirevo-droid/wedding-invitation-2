@@ -38,24 +38,25 @@ export default function Wishes() {
 
     let triggerCtx: gsap.Context | null = null;
     // deferred: see hooks/scrollLock.ts — creating the ScrollTrigger while
-    // html.scroll-locked is still applied makes once:true fire immediately
+    // html.scroll-locked is still applied makes GSAP calculate a wrong
+    // start position against a page with zero scrollable range
     const cancelWait = whenScrollUnlocked(() => {
       triggerCtx = gsap.context(() => {
         const cards = gsap.utils.toArray<HTMLElement>("[data-wish-card]");
         if (!cards.length) return;
-        ScrollTrigger.create({
-          trigger: section,
-          start: "top 78%",
-          once: true,
-          onEnter: () => {
-            gsap.to(cards, {
-              opacity: 1,
-              y: 0,
-              filter: "blur(0px)",
-              duration: 0.75,
-              stagger: 0.1,
-              ease: "power3.out",
-            });
+        gsap.to(cards, {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 0.75,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 78%",
+            // replays on every crossing, either scroll direction — see
+            // the matching note in useTextReveal.ts
+            toggleActions: "play reverse play reverse",
           },
         });
       }, section);

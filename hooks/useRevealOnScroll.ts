@@ -81,20 +81,20 @@ export function useRevealOnScroll(
       triggerCtx = gsap.context(() => {
         const matched = gsap.utils.toArray<HTMLElement>(selector);
         const els = matched.length ? matched : [container];
-        ScrollTrigger.create({
-          trigger: container,
-          start,
-          once: true,
-          onEnter: () => {
-            gsap.to(els, {
-              opacity,
-              y: 0,
-              scale: 1,
-              filter: "blur(0px)",
-              duration,
-              stagger,
-              ease: "power3.out",
-            });
+        gsap.to(els, {
+          opacity,
+          y: 0,
+          scale: 1,
+          filter: "blur(0px)",
+          duration,
+          stagger,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: container,
+            start,
+            // replays on every crossing, either scroll direction — see
+            // the matching note in useTextReveal.ts
+            toggleActions: "play reverse play reverse",
           },
         });
       }, container);

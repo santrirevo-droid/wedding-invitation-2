@@ -58,12 +58,24 @@ export default function Footer() {
           className="mx-auto mt-6 w-60 text-paper/35"
         />
 
-        <h2 data-reveal className="mt-6 flex flex-col items-center leading-none">
-          <span className="font-script text-[clamp(3.4rem,21vw,6rem)] leading-[0.95] text-[#f0d3d8]">
+        {/* data-reveal on each line rather than the h2 as a whole — the
+            shared useRevealOnScroll stagger then animates groom name, the
+            ampersand and bride name in one after another instead of the
+            three lines arriving as a single fused block */}
+        <h2 className="mt-6 flex flex-col items-center leading-none">
+          <span
+            data-reveal
+            className="font-script text-[clamp(3.4rem,21vw,6rem)] leading-[0.95] text-[#f0d3d8]"
+          >
             {couple.groom.shortName}
           </span>
-          <span className="my-1.5 font-display text-2xl font-normal text-paper/70">&amp;</span>
-          <span className="font-script text-[clamp(3.4rem,21vw,6rem)] leading-[0.95] text-[#f0d3d8]">
+          <span data-reveal className="my-1.5 font-display text-2xl font-normal text-paper/70">
+            &amp;
+          </span>
+          <span
+            data-reveal
+            className="font-script text-[clamp(3.4rem,21vw,6rem)] leading-[0.95] text-[#f0d3d8]"
+          >
             {couple.bride.shortName}
           </span>
         </h2>

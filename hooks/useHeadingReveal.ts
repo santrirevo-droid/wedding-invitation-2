@@ -14,15 +14,22 @@ gsap.registerPlugin(ScrollTrigger);
  * one more block in that section's uniform stagger:
  *
  *   1. the kicker steps in first, a quick beat
- *   2. the title pulls into focus out of a soft blur — deeper blur and a
- *      longer hold than the page's usual reveal, reserved for the one
- *      line of text every section is actually named after
+ *   2. the title's words pull into focus out of a soft blur one at a
+ *      time (see `[data-heading-word]` in SectionHeading) — deeper blur
+ *      and a longer hold than the page's usual reveal, and a per-word
+ *      stagger rather than one block, reserved for the one line every
+ *      section is actually named after
  *   3. the flourish beneath draws itself in from the centre outward
  *      (scaleX), like a line of ink rather than something that just fades
  *
- * Looks for `[data-heading-kicker]`, `[data-heading-title]` and
- * `[data-heading-flourish]` inside containerRef; any that aren't present
- * (e.g. kicker-only headings have no title) are simply skipped.
+ * Looks for `[data-heading-kicker]`, `[data-heading-title]` +
+ * `[data-heading-word]`, and `[data-heading-flourish]` inside
+ * containerRef; any that aren't present (e.g. kicker-only headings have
+ * no title) are simply skipped.
+ *
+ * Plays and reverses with scroll direction (toggleActions below) rather
+ * than firing once — scrolling back up to re-read a section replays the
+ * same entrance instead of leaving already-revealed, static text.
  */
 export function useHeadingReveal(containerRef: RefObject<HTMLElement | null>) {
   useEffect(() => {
@@ -31,8 +38,10 @@ export function useHeadingReveal(containerRef: RefObject<HTMLElement | null>) {
 
     const kicker = container.querySelector<HTMLElement>("[data-heading-kicker]");
     const title = container.querySelector<HTMLElement>("[data-heading-title]");
+    const words = container.querySelectorAll<HTMLElement>("[data-heading-word]");
     const flourish = container.querySelector<HTMLElement>("[data-heading-flourish]");
-    const parts = [kicker, title, flourish].filter(
+    const titleTargets: HTMLElement[] = words.length ? Array.from(words) : title ? [title] : [];
+    const parts = [kicker, ...titleTargets, flourish].filter(
       (el): el is HTMLElement => el !== null
     );
     if (parts.length === 0) return;
@@ -51,7 +60,9 @@ export function useHeadingReveal(containerRef: RefObject<HTMLElement | null>) {
     // hidden immediately — safe regardless of the cover's scroll-lock
     const setCtx = gsap.context(() => {
       if (kicker) gsap.set(kicker, { opacity: 0, y: 10 });
-      if (title) gsap.set(title, { opacity: 0, y: 20, filter: "blur(11px)" });
+      if (titleTargets.length) {
+        gsap.set(titleTargets, { opacity: 0, y: 20, filter: "blur(11px)" });
+      }
       if (flourish) {
         gsap.set(flourish, { opacity: 0, scaleX: 0.25, transformOrigin: "50% 50%" });
       }
@@ -59,34 +70,43 @@ export function useHeadingReveal(containerRef: RefObject<HTMLElement | null>) {
 
     let triggerCtx: gsap.Context | null = null;
     // deferred: see hooks/scrollLock.ts — creating the ScrollTrigger while
-    // html.scroll-locked is still applied makes once:true fire immediately
+    // html.scroll-locked is still applied makes GSAP calculate a wrong
+    // start position against a page with zero scrollable range
     const cancelWait = whenScrollUnlocked(() => {
       triggerCtx = gsap.context(() => {
-        ScrollTrigger.create({
-          trigger: container,
-          start: "top 82%",
-          once: true,
-          onEnter: () => {
-            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-            if (kicker) {
-              tl.to(kicker, { opacity: 1, y: 0, duration: 0.4 }, 0);
-            }
-            if (title) {
-              tl.to(
-                title,
-                { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.95 },
-                0.12
-              );
-            }
-            if (flourish) {
-              tl.to(
-                flourish,
-                { opacity: 1, scaleX: 1, duration: 0.75, ease: "power2.out" },
-                0.5
-              );
-            }
+        const tl = gsap.timeline({
+          defaults: { ease: "power3.out" },
+          scrollTrigger: {
+            trigger: container,
+            start: "top 82%",
+            // replays on every crossing, either scroll direction — see
+            // the matching note in useTextReveal.ts
+            toggleActions: "play reverse play reverse",
           },
         });
+        if (kicker) {
+          tl.to(kicker, { opacity: 1, y: 0, duration: 0.4 }, 0);
+        }
+        if (titleTargets.length) {
+          tl.to(
+            titleTargets,
+            {
+              opacity: 1,
+              y: 0,
+              filter: "blur(0px)",
+              duration: 0.8,
+              stagger: 0.12,
+            },
+            0.12
+          );
+        }
+        if (flourish) {
+          tl.to(
+            flourish,
+            { opacity: 1, scaleX: 1, duration: 0.75, ease: "power2.out" },
+            0.55
+          );
+        }
       }, container);
     });
 

@@ -230,8 +230,19 @@ export default function RSVP() {
         <p className="font-accent text-[11px] font-normal uppercase tracking-[0.4em] text-accent-dark">
           With love
         </p>
-        <h2 className="text-gilded mt-3 font-display text-[clamp(2.4rem,9vw,3.2rem)] font-normal leading-[1.08]">
-          <AnimatedWords as="span" text="Kehadiran Anda adalah" variant="slideRight" groupSize={2} />
+        {/* text-gilded moved onto each word (via wordClassName) rather than
+            this h2 — background-clip:text only paints the box it's set on,
+            and AnimatedWords' inline-block word spans are a separate box
+            from their ancestor, so a gradient on the h2 alone renders the
+            words invisible */}
+        <h2 className="mt-3 font-display text-[clamp(2.4rem,9vw,3.2rem)] font-normal leading-[1.08]">
+          <AnimatedWords
+            as="span"
+            text="Kehadiran Anda adalah"
+            variant="slideRight"
+            groupSize={2}
+            wordClassName="text-gilded inline-block"
+          />
           <br />
           <AnimatedWords
             as="span"
@@ -239,6 +250,7 @@ export default function RSVP() {
             variant="slideRight"
             groupSize={2}
             className="font-script text-[1.2em] leading-none"
+            wordClassName="text-gilded inline-block"
           />
         </h2>
         <AnimatedWords

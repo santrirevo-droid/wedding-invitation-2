@@ -57,9 +57,20 @@ export default function SectionHeading({
       {!kickerOnly && (
         <h2
           data-heading-title
-          className={`${titleClassName} text-gilded mt-3 text-[clamp(2.4rem,9vw,3.4rem)] leading-[1.06]`}
+          className={`${titleClassName} mt-3 text-[clamp(2.4rem,9vw,3.4rem)] leading-[1.06]`}
         >
-          {headline}
+          {/* text-gilded per word, not on the h2 — its background-clip:text
+              gradient only paints the box it's set on, and each word needs
+              its own inline-block box (for the GSAP transform/blur below)
+              rather than one shared box, or the words render invisible */}
+          {headline.split(" ").map((word, i, words) => (
+            <span key={i}>
+              <span data-heading-word className="text-gilded inline-block">
+                {word}
+              </span>
+              {i < words.length - 1 ? " " : null}
+            </span>
+          ))}
         </h2>
       )}
 
