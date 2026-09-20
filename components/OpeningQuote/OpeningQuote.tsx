@@ -26,6 +26,23 @@ export default function OpeningQuote() {
       ref={sectionRef}
       className="relative flex min-h-svh w-full items-center justify-center overflow-hidden px-8 py-28 text-center"
     >
+      {/* the same garden-gate arch, at the same top anchor/scale as Hero's
+          data-gate-anchor — see the note there for why: it's what makes the
+          cover-to-here scroll read as passing through one continuous gate
+          instead of cutting to an unrelated background. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-0 h-24 w-56 -translate-x-1/2 select-none overflow-hidden opacity-40 mix-blend-multiply sm:h-28 sm:w-64"
+      >
+        <FloralLayer
+          src="/floral/garden-gate.png"
+          width={1024}
+          height={1536}
+          sizes="256px"
+          className="h-auto w-full"
+        />
+      </div>
+
       {/* the botanical art is used once, huge and almost invisible — at this
           scale it reads as a warm bloom in the paper rather than clipart */}
       <div

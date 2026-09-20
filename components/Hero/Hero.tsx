@@ -79,17 +79,22 @@ export default function Hero() {
             />
           </div>
 
-          {/* the garden gate — a full rose arch standing in for the portrait
-              this invitation doesn't have, framing the monogram behind it */}
+          {/* the garden gate — a full rose arch, anchored to the same top
+              position/scale it reuses in OpeningQuote (data-gate-anchor on
+              both). Scrolling from the cover into that section keeps this
+              arch sitting still on screen while only the text underneath it
+              changes — a match-cut "floral gate" transition rather than a
+              hard cut between two unrelated backgrounds. */}
           <div
+            data-gate-anchor
             aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-[42%] w-[19rem] -translate-x-1/2 -translate-y-1/2 select-none opacity-[0.55] mix-blend-multiply sm:w-[22rem]"
+            className="pointer-events-none absolute left-1/2 top-0 h-24 w-56 -translate-x-1/2 select-none overflow-hidden opacity-45 mix-blend-multiply sm:h-28 sm:w-64"
           >
             <FloralLayer
               src="/floral/garden-gate.png"
               width={1024}
               height={1536}
-              sizes="352px"
+              sizes="256px"
               className="h-auto w-full"
             />
           </div>
