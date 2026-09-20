@@ -26,18 +26,20 @@ export default function OpeningQuote() {
       ref={sectionRef}
       className="relative flex min-h-svh w-full items-center justify-center overflow-hidden px-8 py-28 text-center"
     >
-      {/* the same garden-gate arch, at the same top anchor/scale as Hero's
-          data-gate-anchor — see the note there for why: it's what makes the
-          cover-to-here scroll read as passing through one continuous gate
-          instead of cutting to an unrelated background. */}
+      {/* a crop of the exact frame Hero's curtain video ends on (see
+          public/floral/cover-open-settled.jpg, extracted from
+          cover-open.mp4's last frame) — scrolling from the video's
+          full-bleed arch into this small top band of the same arch reads
+          as pulling back from the curtain rather than cutting to an
+          unrelated background. */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute left-1/2 top-0 h-24 w-56 -translate-x-1/2 select-none overflow-hidden opacity-40 mix-blend-multiply sm:h-28 sm:w-64"
       >
         <FloralLayer
-          src="/floral/garden-gate.png"
-          width={1024}
-          height={1536}
+          src="/floral/cover-open-settled.jpg"
+          width={1080}
+          height={1920}
           sizes="256px"
           className="h-auto w-full"
         />

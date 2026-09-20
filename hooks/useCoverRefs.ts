@@ -13,6 +13,7 @@ export function useCoverRefs() {
     section: useRef<HTMLElement>(null),
     coverInner: useRef<HTMLDivElement>(null),
     background: useRef<HTMLDivElement>(null),
+    video: useRef<HTMLVideoElement>(null),
     glow: useRef<HTMLDivElement>(null),
     content: useRef<HTMLDivElement>(null),
     title: useRef<HTMLHeadingElement>(null),

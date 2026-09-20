@@ -2,7 +2,6 @@
 
 import { Suspense } from "react";
 import AnimatedWords from "@/components/AnimatedWords";
-import FloralLayer from "@/components/FloralLayer";
 import GuestGreeting, { GuestGreetingFallback } from "@/components/GuestGreeting";
 import InvitationButton from "@/components/InvitationButton";
 import MusicPlayer from "@/components/MusicPlayer";
@@ -20,7 +19,7 @@ export default function Hero() {
   const { isOpened, open } = useOpenInvitation(refs);
   useScrollReveal(refs);
 
-  const { section, coverInner, background, glow, content, title, button, music } = refs;
+  const { section, coverInner, background, video, glow, content, title, button, music } = refs;
 
   return (
     // MusicPlayer and NavDock render as siblings of #cover, not descendants
@@ -38,122 +37,31 @@ export default function Hero() {
         className="relative min-h-svh w-full overflow-hidden bg-maroon-deep"
       >
         <div ref={coverInner} className="absolute inset-0">
-          {/* local wash — brighter behind the names, so the type sits in its
-              own pool of light instead of on an even field */}
-          <div
-            ref={background}
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(78% 52% at 50% 38%, #fffdfa 0%, #fbeeec 52%, #f1d7d6 100%)",
-            }}
-          />
-
-          {/* rose bouquets, bold and photographic — the defining look of this
-              pass, replacing the old faint hairline watercolour atmosphere.
-              mix-blend-multiply knocks the dark backdrop of each source PNG
-              out against the paper ground instead of showing as a box. */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -left-28 -top-20 w-[30rem] select-none opacity-80 mix-blend-multiply sm:w-[34rem]"
-          >
-            <FloralLayer
-              src="/floral/floral-wc-spray-a.png"
-              width={1536}
-              height={1024}
-              sizes="544px"
-              priority
-              className="h-auto w-full"
-            />
-          </div>
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -bottom-24 -right-28 w-[28rem] select-none opacity-80 mix-blend-multiply sm:w-[32rem]"
-          >
-            <FloralLayer
-              src="/floral/floral-wc-spray-a.png"
-              width={1536}
-              height={1024}
-              sizes="512px"
-              className="h-auto w-full -scale-x-100"
+          {/* the curtain-parting arch — a real filmed/rendered clip
+              (Motion-Ivory-Romance), trimmed to just its opening beat:
+              curtains part, flowers bloom into the archway, ~3s, then
+              holds on its last frame. Paused on frame one (poster) until
+              open() plays it — replaces the old CSS corner-floral-parting
+              tween with the real thing instead of imitating it.
+              Wrapped in `background` so it still gets the same subtle
+              scroll-out zoom useScrollReveal already applies to this ref. */}
+          <div ref={background} className="absolute inset-0 overflow-hidden">
+            <video
+              ref={video}
+              className="h-full w-full object-cover"
+              src="/video/cover-open.mp4"
+              poster="/video/cover-open-poster.jpg"
+              muted
+              playsInline
+              preload="auto"
+              aria-hidden="true"
             />
           </div>
 
-          {/* the garden gate — a full rose arch, anchored to the same top
-              position/scale it reuses in OpeningQuote (data-gate-anchor on
-              both). Scrolling from the cover into that section keeps this
-              arch sitting still on screen while only the text underneath it
-              changes — a match-cut "floral gate" transition rather than a
-              hard cut between two unrelated backgrounds. */}
-          <div
-            data-gate-anchor
-            aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-0 h-24 w-56 -translate-x-1/2 select-none overflow-hidden opacity-45 mix-blend-multiply sm:h-28 sm:w-64"
-          >
-            <FloralLayer
-              src="/floral/garden-gate.png"
-              width={1024}
-              height={1536}
-              sizes="256px"
-              className="h-auto w-full"
-            />
-          </div>
-
-          {/* hairline frame, with floral clusters bursting over its corners.
-              These four carry data-cover-floral so useOpenInvitation can part
-              them outward when the invitation is opened. */}
+          {/* hairline frame — a thin accent over the video's own carved
+              arch, echoing the bordered treatment the rest of the page
+              uses rather than leaving the video's edge to bleed flat */}
           <div className="pointer-events-none absolute inset-4 border border-accent/28 sm:inset-6" />
-
-          <div className="pointer-events-none absolute inset-2 sm:inset-4">
-            <div
-              data-cover-floral="tl"
-              className="absolute left-0 top-0 w-32 opacity-90 mix-blend-multiply sm:w-40"
-            >
-              <FloralLayer
-                src="/floral/floral-wc-spray-c.png"
-                width={1536}
-                height={1024}
-                sizes="160px"
-                className="h-auto w-full"
-              />
-            </div>
-            <div
-              data-cover-floral="tr"
-              className="absolute right-0 top-0 w-32 -scale-x-100 opacity-90 mix-blend-multiply sm:w-40"
-            >
-              <FloralLayer
-                src="/floral/floral-wc-spray-c.png"
-                width={1536}
-                height={1024}
-                sizes="160px"
-                className="h-auto w-full"
-              />
-            </div>
-            <div
-              data-cover-floral="bl"
-              className="absolute bottom-0 left-0 w-32 -scale-y-100 opacity-90 mix-blend-multiply sm:w-40"
-            >
-              <FloralLayer
-                src="/floral/floral-wc-spray-c.png"
-                width={1536}
-                height={1024}
-                sizes="160px"
-                className="h-auto w-full"
-              />
-            </div>
-            <div
-              data-cover-floral="br"
-              className="absolute bottom-0 right-0 w-32 -scale-100 opacity-90 mix-blend-multiply sm:w-40"
-            >
-              <FloralLayer
-                src="/floral/floral-wc-spray-c.png"
-                width={1536}
-                height={1024}
-                sizes="160px"
-                className="h-auto w-full"
-              />
-            </div>
-          </div>
 
           {/* bloom on open */}
           <div

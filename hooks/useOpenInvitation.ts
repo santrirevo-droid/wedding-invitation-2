@@ -167,24 +167,14 @@ export function useOpenInvitation(refs: CoverRefs) {
     const titleEl = refs.title.current;
     const titleLines = titleEl?.children ?? [];
 
-    // "Tersingkap": the floral frame parts outward from the centre, like
-    // drawing back a curtain of flowers. Each corner is pushed along its
-    // own diagonal, read off data-cover-floral ("tl" | "tr" | "bl" | "br"),
-    // so one tween covers all four without four separate refs.
-    const section = refs.section.current;
-    if (section) {
-      const corners = section.querySelectorAll<HTMLElement>("[data-cover-floral]");
-      gsap.to(corners, {
-        x: (_i, el: HTMLElement) =>
-          (el.dataset.coverFloral ?? "").includes("l") ? -88 : 88,
-        y: (_i, el: HTMLElement) =>
-          (el.dataset.coverFloral ?? "").includes("t") ? -66 : 66,
-        scale: 1.12,
-        opacity: 0.55,
-        duration: 1.5,
-        ease: "power2.inOut",
-      });
-    }
+    // "Tersingkap": the actual curtain-parting clip (see Hero's
+    // background video) plays instead of the old CSS corner-floral
+    // tween — real footage of curtains drawing back and flowers
+    // blooming in, rather than four PNG corners nudged outward as a
+    // stand-in for it. play() can reject if the browser hasn't
+    // finished buffering yet; that's fine, it just stays on its
+    // poster frame rather than blocking the rest of open().
+    refs.video.current?.play().catch(() => {});
 
     gsap
       .timeline({
@@ -223,7 +213,12 @@ export function useOpenInvitation(refs: CoverRefs) {
         { opacity: 1, y: 0, duration: 0.55, ease: "power2.out", stagger: 0.12 },
         0.15
       )
-      .to(refs.glow.current, { opacity: 0, duration: 0.55, ease: "power1.in" }, 0.75);
+      .to(refs.glow.current, { opacity: 0, duration: 0.55, ease: "power1.in" }, 0.75)
+      // hold the lock open through the rest of the curtain clip (it runs
+      // to ~2.9s — see public/video/cover-open.mp4) rather than releasing
+      // scroll the instant the text has popped in, so the visitor actually
+      // gets to watch the curtain finish parting before being carried on
+      .to({}, { duration: 0 }, 2.9);
   }, [refs, lenis]);
 
   return { isOpened, open };
