@@ -3,6 +3,7 @@
 import { useEffect, type RefObject } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { whenScrollUnlocked } from "./scrollLock";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,34 +55,55 @@ export function useRevealOnScroll(
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    const ctx = gsap.context(() => {
+    if (reduceMotion) {
+      const ctx = gsap.context(() => {
+        const matched = gsap.utils.toArray<HTMLElement>(selector);
+        const els = matched.length ? matched : [container];
+        gsap.set(els, { opacity, y: 0, scale: 1, filter: "blur(0px)" });
+      }, container);
+      return () => ctx.revert();
+    }
+
+    // set the hidden starting state immediately (safe regardless of the
+    // cover's scroll-lock — no ScrollTrigger measurement involved yet)
+    const setCtx = gsap.context(() => {
       const matched = gsap.utils.toArray<HTMLElement>(selector);
       const els = matched.length ? matched : [container];
-
-      if (reduceMotion) {
-        gsap.set(els, { opacity, y: 0, scale: 1, filter: "blur(0px)" });
-        return;
-      }
-
       gsap.set(els, { opacity: 0, y, scale, filter: `blur(${blur}px)` });
-      ScrollTrigger.create({
-        trigger: container,
-        start,
-        once: true,
-        onEnter: () => {
-          gsap.to(els, {
-            opacity,
-            y: 0,
-            scale: 1,
-            filter: "blur(0px)",
-            duration,
-            stagger,
-            ease: "power3.out",
-          });
-        },
-      });
     }, container);
 
-    return () => ctx.revert();
+    let triggerCtx: gsap.Context | null = null;
+    // deferred: creating the ScrollTrigger while html.scroll-locked is
+    // still applied makes GSAP calculate its start position against a
+    // page with zero scrollable range, so once:true fires it immediately
+    // instead of waiting for a real scroll (see hooks/scrollLock.ts)
+    const cancelWait = whenScrollUnlocked(() => {
+      triggerCtx = gsap.context(() => {
+        const matched = gsap.utils.toArray<HTMLElement>(selector);
+        const els = matched.length ? matched : [container];
+        ScrollTrigger.create({
+          trigger: container,
+          start,
+          once: true,
+          onEnter: () => {
+            gsap.to(els, {
+              opacity,
+              y: 0,
+              scale: 1,
+              filter: "blur(0px)",
+              duration,
+              stagger,
+              ease: "power3.out",
+            });
+          },
+        });
+      }, container);
+    });
+
+    return () => {
+      cancelWait();
+      triggerCtx?.revert();
+      setCtx.revert();
+    };
   }, [containerRef, y, duration, stagger, start, selector, opacity, scale, blur]);
 }

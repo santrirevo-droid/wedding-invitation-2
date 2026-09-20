@@ -3,6 +3,7 @@
 import { useEffect, type RefObject } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { whenScrollUnlocked } from "./scrollLock";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -66,32 +67,47 @@ export function useTextReveal(
 
     const cfg = VARIANTS[variant];
 
-    const ctx = gsap.context(() => {
-      gsap.set(groups, {
-        transformOrigin: variant === "unfold" ? "top center" : "50% 50%",
-        ...cfg.from,
-      });
-      ScrollTrigger.create({
-        trigger: container,
-        start: "top 85%",
-        once: true,
-        onEnter: () => {
-          gsap.to(groups, {
-            opacity: 1,
-            y: 0,
-            x: 0,
-            scale: 1,
-            scaleY: 1,
-            rotate: 0,
-            filter: "blur(0px)",
-            duration: cfg.duration,
-            ease: cfg.ease,
-            stagger: cfg.stagger,
-          });
-        },
-      });
-    }, container);
+    // hidden immediately — a plain style set, safe regardless of the
+    // cover's scroll-lock state (unlike ScrollTrigger.create below, this
+    // doesn't need to measure scrollable range)
+    gsap.set(groups, {
+      transformOrigin: variant === "unfold" ? "top center" : "50% 50%",
+      ...cfg.from,
+    });
 
-    return () => ctx.revert();
+    let ctx: gsap.Context | null = null;
+    // creating the ScrollTrigger itself has to wait: doing it while the
+    // cover's scroll-lock is still applied makes GSAP calculate this
+    // trigger's start position against a page with zero scrollable range,
+    // so it reads as "already scrolled past" and once:true fires it
+    // immediately instead of waiting for a real scroll
+    const cancelWait = whenScrollUnlocked(() => {
+      ctx = gsap.context(() => {
+        ScrollTrigger.create({
+          trigger: container,
+          start: "top 85%",
+          once: true,
+          onEnter: () => {
+            gsap.to(groups, {
+              opacity: 1,
+              y: 0,
+              x: 0,
+              scale: 1,
+              scaleY: 1,
+              rotate: 0,
+              filter: "blur(0px)",
+              duration: cfg.duration,
+              ease: cfg.ease,
+              stagger: cfg.stagger,
+            });
+          },
+        });
+      }, container);
+    });
+
+    return () => {
+      cancelWait();
+      ctx?.revert();
+    };
   }, [ref, variant]);
 }

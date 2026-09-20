@@ -3,6 +3,7 @@
 import { useEffect, type RefObject } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { whenScrollUnlocked } from "./scrollLock";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,45 +41,59 @@ export function useHeadingReveal(containerRef: RefObject<HTMLElement | null>) {
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    const ctx = gsap.context(() => {
-      if (reduceMotion) {
+    if (reduceMotion) {
+      const ctx = gsap.context(() => {
         gsap.set(parts, { opacity: 1, y: 0, scaleX: 1, filter: "blur(0px)" });
-        return;
-      }
+      }, container);
+      return () => ctx.revert();
+    }
 
+    // hidden immediately — safe regardless of the cover's scroll-lock
+    const setCtx = gsap.context(() => {
       if (kicker) gsap.set(kicker, { opacity: 0, y: 10 });
       if (title) gsap.set(title, { opacity: 0, y: 20, filter: "blur(11px)" });
       if (flourish) {
         gsap.set(flourish, { opacity: 0, scaleX: 0.25, transformOrigin: "50% 50%" });
       }
-
-      ScrollTrigger.create({
-        trigger: container,
-        start: "top 82%",
-        once: true,
-        onEnter: () => {
-          const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-          if (kicker) {
-            tl.to(kicker, { opacity: 1, y: 0, duration: 0.4 }, 0);
-          }
-          if (title) {
-            tl.to(
-              title,
-              { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.95 },
-              0.12
-            );
-          }
-          if (flourish) {
-            tl.to(
-              flourish,
-              { opacity: 1, scaleX: 1, duration: 0.75, ease: "power2.out" },
-              0.5
-            );
-          }
-        },
-      });
     }, container);
 
-    return () => ctx.revert();
+    let triggerCtx: gsap.Context | null = null;
+    // deferred: see hooks/scrollLock.ts — creating the ScrollTrigger while
+    // html.scroll-locked is still applied makes once:true fire immediately
+    const cancelWait = whenScrollUnlocked(() => {
+      triggerCtx = gsap.context(() => {
+        ScrollTrigger.create({
+          trigger: container,
+          start: "top 82%",
+          once: true,
+          onEnter: () => {
+            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+            if (kicker) {
+              tl.to(kicker, { opacity: 1, y: 0, duration: 0.4 }, 0);
+            }
+            if (title) {
+              tl.to(
+                title,
+                { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.95 },
+                0.12
+              );
+            }
+            if (flourish) {
+              tl.to(
+                flourish,
+                { opacity: 1, scaleX: 1, duration: 0.75, ease: "power2.out" },
+                0.5
+              );
+            }
+          },
+        });
+      }, container);
+    });
+
+    return () => {
+      cancelWait();
+      triggerCtx?.revert();
+      setCtx.revert();
+    };
   }, [containerRef]);
 }

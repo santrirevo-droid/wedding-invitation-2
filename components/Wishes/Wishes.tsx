@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AnimatedWords from "@/components/AnimatedWords";
 import { SectionFloral } from "@/components/Botanical";
 import SectionHeading from "@/components/SectionHeading";
+import { whenScrollUnlocked } from "@/hooks/scrollLock";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { useWishes } from "@/hooks/useWishes";
 
@@ -26,31 +27,45 @@ export default function Wishes() {
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const ctx = gsap.context(() => {
+    const setCtx = gsap.context(() => {
       const cards = gsap.utils.toArray<HTMLElement>("[data-wish-card]");
       if (!cards.length) return;
       // same blur-into-focus language as useRevealOnScroll, hand-rolled
       // here because this list is dynamic (re-triggers per wishes.length)
       // rather than a one-shot section mount
       gsap.set(cards, { opacity: 0, y: 26, filter: "blur(7px)" });
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top 78%",
-        once: true,
-        onEnter: () => {
-          gsap.to(cards, {
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-            duration: 0.75,
-            stagger: 0.1,
-            ease: "power3.out",
-          });
-        },
-      });
     }, section);
 
-    return () => ctx.revert();
+    let triggerCtx: gsap.Context | null = null;
+    // deferred: see hooks/scrollLock.ts — creating the ScrollTrigger while
+    // html.scroll-locked is still applied makes once:true fire immediately
+    const cancelWait = whenScrollUnlocked(() => {
+      triggerCtx = gsap.context(() => {
+        const cards = gsap.utils.toArray<HTMLElement>("[data-wish-card]");
+        if (!cards.length) return;
+        ScrollTrigger.create({
+          trigger: section,
+          start: "top 78%",
+          once: true,
+          onEnter: () => {
+            gsap.to(cards, {
+              opacity: 1,
+              y: 0,
+              filter: "blur(0px)",
+              duration: 0.75,
+              stagger: 0.1,
+              ease: "power3.out",
+            });
+          },
+        });
+      }, section);
+    });
+
+    return () => {
+      cancelWait();
+      triggerCtx?.revert();
+      setCtx.revert();
+    };
   }, [wishes.length]);
 
   return (

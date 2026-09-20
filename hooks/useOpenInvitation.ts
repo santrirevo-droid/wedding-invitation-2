@@ -2,10 +2,14 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLenis } from "lenis/react";
 import type Lenis from "lenis";
 import { easeInOutCubic } from "@/lib/easing";
+import { notifyScrollUnlocked } from "./scrollLock";
 import type { CoverRefs } from "./useCoverRefs";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // every section below the cover, in page order — the autoscroll hops
 // between these one at a time instead of gliding the whole document
@@ -169,6 +173,14 @@ export function useOpenInvitation(refs: CoverRefs) {
         onComplete: () => {
           document.documentElement.classList.remove("scroll-locked");
           lenis?.start();
+
+          // Tell every reveal hook waiting on whenScrollUnlocked() (see
+          // hooks/scrollLock.ts) that it's now safe to create its
+          // ScrollTrigger — the page genuinely has scrollable range to
+          // calculate a trigger position against. Refresh first in case
+          // anything already-created needs its cached positions redone.
+          ScrollTrigger.refresh();
+          notifyScrollUnlocked();
 
           if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
             return;
