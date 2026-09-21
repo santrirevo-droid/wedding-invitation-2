@@ -3,9 +3,7 @@
 import { useRef } from "react";
 import AnimatedWords from "@/components/AnimatedWords";
 import Botanical, { SectionFloral } from "@/components/Botanical";
-import FloralLayer from "@/components/FloralLayer";
 import SectionHeading from "@/components/SectionHeading";
-import { useFloralParallax } from "@/hooks/useFloralParallax";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { couple, type CoupleRole } from "@/lib/weddingData";
 
@@ -108,9 +106,7 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
 
 export default function Mempelai() {
   const sectionRef = useRef<HTMLElement>(null);
-  const sprayRef = useRef<HTMLImageElement>(null);
   useRevealOnScroll(sectionRef, { stagger: 0.12, y: 26 });
-  useFloralParallax(sectionRef, sprayRef);
 
   return (
     <section
@@ -118,23 +114,6 @@ export default function Mempelai() {
       ref={sectionRef}
       className="relative overflow-hidden px-8 py-28"
     >
-      {/* a true corner accent, not a bouquet crossing the text column —
-          sized and clipped to match SectionFloral's own corner clusters
-          below rather than the much larger spray this used before. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-6 top-6 w-28 select-none opacity-30 mix-blend-multiply sm:-right-4 sm:w-36"
-      >
-        <FloralLayer
-          ref={sprayRef}
-          src="/floral/floral-wc-spray-b.png"
-          width={1024}
-          height={1536}
-          sizes="144px"
-          className="h-auto w-full -scale-x-100"
-        />
-      </div>
-
       <SectionFloral />
 
       <div className="relative mx-auto max-w-md text-center">

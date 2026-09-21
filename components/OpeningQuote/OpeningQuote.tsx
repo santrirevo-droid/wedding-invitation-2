@@ -4,8 +4,6 @@ import { useRef } from "react";
 import AnimatedWords from "@/components/AnimatedWords";
 import { SectionFloral } from "@/components/Botanical";
 import Crest from "@/components/Crest";
-import FloralLayer from "@/components/FloralLayer";
-import { useFloralParallax } from "@/hooks/useFloralParallax";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 
 const AYAT_ARABIC =
@@ -16,9 +14,7 @@ const AYAT_TRANSLATION =
 
 export default function OpeningQuote() {
   const sectionRef = useRef<HTMLElement>(null);
-  const sprayRef = useRef<HTMLImageElement>(null);
   useRevealOnScroll(sectionRef, { stagger: 0.14, y: 28 });
-  useFloralParallax(sectionRef, sprayRef);
 
   return (
     <section
@@ -26,24 +22,6 @@ export default function OpeningQuote() {
       ref={sectionRef}
       className="relative flex min-h-svh w-full items-center justify-center overflow-hidden px-8 py-28 text-center"
     >
-      {/* a true corner accent, not a bouquet crossing the text column — see
-          the note on this same mistake in RSVP/Mempelai/Acara. Sized and
-          clipped to match SectionFloral's own corner clusters below rather
-          than the much larger spray this used before. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-6 -top-4 w-32 select-none opacity-30 mix-blend-multiply sm:-left-4 sm:w-40"
-      >
-        <FloralLayer
-          ref={sprayRef}
-          src="/floral/floral-wc-spray-a.png"
-          width={1536}
-          height={1024}
-          sizes="160px"
-          className="h-auto w-full"
-        />
-      </div>
-
       <SectionFloral />
 
       <div className="relative max-w-md">

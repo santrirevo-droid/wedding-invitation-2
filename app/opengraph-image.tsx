@@ -12,12 +12,10 @@ export const contentType = "image/png";
 // WhatsApp/Telegram/etc — mirrors the cover's ivory-and-gold look so the
 // preview reads as the same invitation, not a generic site card.
 export default async function Image() {
-  const [medium, semibold, mediumItalic, floralA, floralB] = await Promise.all([
+  const [medium, semibold, mediumItalic] = await Promise.all([
     readFile(join(process.cwd(), "assets/fonts/CormorantGaramond-Medium.ttf")),
     readFile(join(process.cwd(), "assets/fonts/CormorantGaramond-SemiBold.ttf")),
     readFile(join(process.cwd(), "assets/fonts/CormorantGaramond-MediumItalic.ttf")),
-    readFile(join(process.cwd(), "public/floral/floral-wc-spray-b.png")),
-    readFile(join(process.cwd(), "public/floral/floral-wc-spray-a.png")),
   ]);
 
   return new ImageResponse(
@@ -34,18 +32,32 @@ export default async function Image() {
           position: "relative",
         }}
       >
-        {/* atmosphere, echoing the cover's corner florals */}
-        <img
-          src={`data:image/png;base64,${floralA.toString("base64")}`}
-          width={480}
-          height={320}
-          style={{ position: "absolute", top: -50, left: -60, opacity: 0.4 }}
+        {/* atmosphere, echoing the cover's corner accents — soft gradient
+            blobs rather than a floral photo, so this has no dependency on
+            any particular image file */}
+        <div
+          style={{
+            position: "absolute",
+            top: -90,
+            left: -90,
+            width: 420,
+            height: 420,
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle, rgba(184,120,134,0.35) 0%, transparent 70%)",
+          }}
         />
-        <img
-          src={`data:image/png;base64,${floralB.toString("base64")}`}
-          width={360}
-          height={540}
-          style={{ position: "absolute", bottom: -110, right: -40, opacity: 0.35 }}
+        <div
+          style={{
+            position: "absolute",
+            bottom: -120,
+            right: -100,
+            width: 460,
+            height: 460,
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle, rgba(124,78,88,0.3) 0%, transparent 70%)",
+          }}
         />
 
         {/* hairline frame */}

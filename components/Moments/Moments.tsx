@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import AnimatedWords from "@/components/AnimatedWords";
 import { SectionFloral } from "@/components/Botanical";
 import SectionHeading from "@/components/SectionHeading";
@@ -10,12 +9,12 @@ import { couple } from "@/lib/weddingData";
 import { weddingDay, weddingMonthName, weddingYear } from "@/lib/weddingDate";
 
 /**
- * A four-card mosaic — quote, floral photo, date, promise — borrowed
- * wholesale from the herewego/ reference's "moments" grid. It exists to
- * break up the page's rhythm of tall centred sections with something wider
- * and asymmetric; there's no gallery yet, so the photo slot carries the
- * same rose bouquet art the rest of the page uses rather than an empty
- * frame (herewego's own demo does the same — it has no real photos either).
+ * A four-card mosaic — quote, photo, date, promise — borrowed wholesale
+ * from the herewego/ reference's "moments" grid. It exists to break up
+ * the page's rhythm of tall centred sections with something wider and
+ * asymmetric; there's no gallery yet, so the photo slot carries the same
+ * pure-CSS gradient technique as Mempelai's portrait placeholders rather
+ * than a stand-in photo.
  */
 export default function Moments() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -57,14 +56,15 @@ export default function Moments() {
 
           <div
             data-reveal
-            className="relative row-span-2 overflow-hidden rounded-[3px] bg-accent"
+            className="relative row-span-2 overflow-hidden rounded-[3px]"
           >
-            <Image
-              src="/floral/floral-wc-spray-a.png"
-              alt=""
-              fill
-              sizes="(min-width: 640px) 220px, 45vw"
-              className="object-cover mix-blend-multiply"
+            <div
+              aria-hidden="true"
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(150deg, rgba(255,255,255,.3), transparent 42%), radial-gradient(ellipse at 32% 72%, #e8bcb5 0%, transparent 52%), radial-gradient(ellipse at 72% 26%, #d9a9a8 0%, transparent 52%), linear-gradient(165deg, #83585e, #c98a95 55%, #674049)",
+              }}
             />
             <div
               aria-hidden="true"

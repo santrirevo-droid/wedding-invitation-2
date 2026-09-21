@@ -3,11 +3,9 @@
 import { Suspense, useId, useRef, useState, type FormEvent } from "react";
 import AnimatedWords from "@/components/AnimatedWords";
 import { SectionFloral } from "@/components/Botanical";
-import FloralLayer from "@/components/FloralLayer";
 import GiftModalContent from "@/components/Gift";
 import { GuestNameAutofill } from "@/components/GuestGreeting";
 import Modal from "@/components/Modal";
-import { useFloralParallax } from "@/hooks/useFloralParallax";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { useWishes } from "@/hooks/useWishes";
 
@@ -193,9 +191,7 @@ function RSVPFormContent() {
 
 export default function RSVP() {
   const sectionRef = useRef<HTMLElement>(null);
-  const sprayRef = useRef<HTMLImageElement>(null);
   useRevealOnScroll(sectionRef, { stagger: 0.09, y: 24 });
-  useFloralParallax(sectionRef, sprayRef);
 
   const { wishes } = useWishes();
   const hadirCount = wishes.filter((w) => w.attend === "hadir").length;
@@ -210,23 +206,6 @@ export default function RSVP() {
       ref={sectionRef}
       className="relative overflow-hidden px-8 py-28 text-center"
     >
-      {/* a true corner accent, not a bouquet crossing the text column —
-          sized and clipped to match SectionFloral's own corner clusters
-          below rather than the much larger spray this used before. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-6 top-4 w-28 select-none opacity-30 mix-blend-multiply sm:-right-4 sm:w-36"
-      >
-        <FloralLayer
-          ref={sprayRef}
-          src="/floral/floral-wc-spray-e.png"
-          width={1024}
-          height={1536}
-          sizes="144px"
-          className="h-auto w-full"
-        />
-      </div>
-
       <SectionFloral />
 
       <div className="relative mx-auto max-w-md">
