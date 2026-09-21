@@ -118,16 +118,19 @@ export default function Mempelai() {
       ref={sectionRef}
       className="relative overflow-hidden px-8 py-28"
     >
+      {/* a true corner accent, not a bouquet crossing the text column —
+          sized and clipped to match SectionFloral's own corner clusters
+          below rather than the much larger spray this used before. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-20 top-10 w-[18rem] select-none opacity-30 mix-blend-multiply sm:-right-12 sm:w-[22rem]"
+        className="pointer-events-none absolute -right-6 top-6 w-28 select-none opacity-30 mix-blend-multiply sm:-right-4 sm:w-36"
       >
         <FloralLayer
           ref={sprayRef}
           src="/floral/floral-wc-spray-b.png"
           width={1024}
           height={1536}
-          sizes="(min-width: 640px) 352px, 288px"
+          sizes="144px"
           className="h-auto w-full -scale-x-100"
         />
       </div>

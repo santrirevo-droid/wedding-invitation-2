@@ -26,18 +26,20 @@ export default function OpeningQuote() {
       ref={sectionRef}
       className="relative flex min-h-svh w-full items-center justify-center overflow-hidden px-8 py-28 text-center"
     >
-      {/* the botanical art is used once, huge and almost invisible — at this
-          scale it reads as a warm bloom in the paper rather than clipart */}
+      {/* a true corner accent, not a bouquet crossing the text column — see
+          the note on this same mistake in RSVP/Mempelai/Acara. Sized and
+          clipped to match SectionFloral's own corner clusters below rather
+          than the much larger spray this used before. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-24 top-0 w-[22rem] select-none opacity-30 mix-blend-multiply sm:-left-16 sm:w-[28rem]"
+        className="pointer-events-none absolute -left-6 -top-4 w-32 select-none opacity-30 mix-blend-multiply sm:-left-4 sm:w-40"
       >
         <FloralLayer
           ref={sprayRef}
           src="/floral/floral-wc-spray-a.png"
           width={1536}
           height={1024}
-          sizes="(min-width: 640px) 448px, 352px"
+          sizes="160px"
           className="h-auto w-full"
         />
       </div>

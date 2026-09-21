@@ -210,16 +210,19 @@ export default function RSVP() {
       ref={sectionRef}
       className="relative overflow-hidden px-8 py-28 text-center"
     >
+      {/* a true corner accent, not a bouquet crossing the text column —
+          sized and clipped to match SectionFloral's own corner clusters
+          below rather than the much larger spray this used before. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-28 top-4 w-[22rem] select-none opacity-30 mix-blend-multiply sm:-right-16 sm:w-[27rem]"
+        className="pointer-events-none absolute -right-6 top-4 w-28 select-none opacity-30 mix-blend-multiply sm:-right-4 sm:w-36"
       >
         <FloralLayer
           ref={sprayRef}
           src="/floral/floral-wc-spray-e.png"
           width={1024}
           height={1536}
-          sizes="(min-width: 640px) 432px, 352px"
+          sizes="144px"
           className="h-auto w-full"
         />
       </div>

@@ -132,16 +132,19 @@ export default function Acara() {
 
       {/* events — back on the page ground */}
       <div className="relative px-8 py-24 text-center">
+        {/* a true corner accent, not a bouquet crossing the text column —
+            sized and clipped to match SectionFloral's own corner clusters
+            below rather than the much larger spray this used before. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -left-28 bottom-0 w-[22rem] select-none opacity-30 mix-blend-multiply sm:-left-20 sm:w-[27rem]"
+          className="pointer-events-none absolute -left-6 bottom-0 w-32 select-none opacity-30 mix-blend-multiply sm:-left-4 sm:w-40"
         >
           <FloralLayer
             ref={sprayRef}
             src="/floral/floral-wc-spray-c.png"
             width={1536}
             height={1024}
-            sizes="(min-width: 640px) 432px, 352px"
+            sizes="160px"
             className="h-auto w-full"
           />
         </div>
