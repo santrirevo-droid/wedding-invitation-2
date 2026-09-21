@@ -26,25 +26,6 @@ export default function OpeningQuote() {
       ref={sectionRef}
       className="relative flex min-h-svh w-full items-center justify-center overflow-hidden px-8 py-28 text-center"
     >
-      {/* a crop of the exact frame Hero's curtain video ends on (see
-          public/floral/cover-open-settled.jpg, extracted from
-          cover-open.mp4's last frame) — scrolling from the video's
-          full-bleed arch into this small top band of the same arch reads
-          as pulling back from the curtain rather than cutting to an
-          unrelated background. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-0 h-24 w-56 -translate-x-1/2 select-none overflow-hidden opacity-40 mix-blend-multiply sm:h-28 sm:w-64"
-      >
-        <FloralLayer
-          src="/floral/cover-open-settled.jpg"
-          width={1080}
-          height={1920}
-          sizes="256px"
-          className="h-auto w-full"
-        />
-      </div>
-
       {/* the botanical art is used once, huge and almost invisible — at this
           scale it reads as a warm bloom in the paper rather than clipart */}
       <div
