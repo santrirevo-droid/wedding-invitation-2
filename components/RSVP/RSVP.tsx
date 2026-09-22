@@ -1,11 +1,10 @@
 "use client";
 
-import { Suspense, useId, useRef, useState, type FormEvent } from "react";
+import { Suspense, useRef, useState, type FormEvent } from "react";
 import AnimatedWords from "@/components/AnimatedWords";
 import { SectionFloral } from "@/components/Botanical";
 import GiftModalContent from "@/components/Gift";
 import { GuestNameAutofill } from "@/components/GuestGreeting";
-import Modal from "@/components/Modal";
 import SectionCard from "@/components/SectionCard";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { useWishes } from "@/hooks/useWishes";
@@ -197,10 +196,6 @@ export default function RSVP() {
   const { wishes } = useWishes();
   const hadirCount = wishes.filter((w) => w.attend === "hadir").length;
 
-  const [openModal, setOpenModal] = useState<"rsvp" | "gift" | null>(null);
-  const rsvpTitleId = useId();
-  const giftTitleId = useId();
-
   return (
     <section
       id="rsvp"
@@ -244,24 +239,7 @@ export default function RSVP() {
           className="mx-auto mt-6 max-w-sm font-display text-[17px] font-normal leading-[1.75] text-on-maroon-soft"
         />
 
-        <div data-reveal className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-          <button
-            type="button"
-            onClick={() => setOpenModal("rsvp")}
-            className="min-h-12 w-full cursor-pointer bg-accent-dark px-8 py-3.5 font-accent text-[11px] font-medium uppercase tracking-[0.32em] text-paper transition-[filter] duration-300 hover:brightness-105 sm:w-auto"
-          >
-            Konfirmasi Kehadiran
-          </button>
-          <button
-            type="button"
-            onClick={() => setOpenModal("gift")}
-            className="min-h-12 w-full cursor-pointer border border-accent-dark/45 bg-paper/60 px-8 py-3.5 font-accent text-[11px] font-medium uppercase tracking-[0.32em] text-accent-dark transition-colors duration-300 hover:border-accent-dark hover:bg-accent-dark/5 sm:w-auto"
-          >
-            Kirim Tanda Kasih
-          </button>
-        </div>
-
-        <div data-reveal className="mt-12 flex items-stretch justify-center gap-10">
+        <div data-reveal className="mt-9 flex items-stretch justify-center gap-10">
           <div>
             <div className="text-gilded font-display text-[34px] font-normal leading-none tabular-nums">
               {wishes.length}
@@ -282,28 +260,21 @@ export default function RSVP() {
         </div>
       </SectionCard>
 
-      {openModal === "rsvp" && (
-        <Modal titleId={rsvpTitleId} onClose={() => setOpenModal(null)}>
-          <p className="font-accent text-[11px] font-normal uppercase tracking-[0.38em] text-accent-dark">
-            RSVP
-          </p>
-          <h2
-            id={rsvpTitleId}
-            className="text-gilded mt-3 font-display text-[2.1rem] font-normal leading-[1.05]"
-          >
-            Konfirmasi
-            <br />
-            <span className="font-script text-[1.15em] leading-none">kehadiran Anda.</span>
-          </h2>
-          <RSVPFormContent />
-        </Modal>
-      )}
+      <SectionCard shape="rounded" className="relative mx-auto mt-8 max-w-md px-7 py-10 text-left sm:px-9">
+        <p className="text-center font-accent text-[11px] font-normal uppercase tracking-[0.38em] text-accent-dark">
+          RSVP
+        </p>
+        <h2 className="text-gilded mt-3 text-center font-display text-[2.1rem] font-normal leading-[1.05]">
+          Konfirmasi
+          <br />
+          <span className="font-script text-[1.15em] leading-none">kehadiran Anda.</span>
+        </h2>
+        <RSVPFormContent />
+      </SectionCard>
 
-      {openModal === "gift" && (
-        <Modal titleId={giftTitleId} onClose={() => setOpenModal(null)}>
-          <GiftModalContent />
-        </Modal>
-      )}
+      <SectionCard shape="rounded" className="relative mx-auto mt-8 max-w-md px-7 py-10 sm:px-9">
+        <GiftModalContent />
+      </SectionCard>
     </section>
   );
 }

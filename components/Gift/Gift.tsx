@@ -41,10 +41,8 @@ function EnvelopeFlap() {
 }
 
 /**
- * "Tanda Kasih" as the content of a Modal (see RSVP.tsx, which opens it) —
- * previously its own always-visible section, now opened on demand the way
- * herewego's gift dialog works, so it doesn't compete with RSVP for the
- * page's attention.
+ * "Tanda Kasih" — rendered directly inside its own card in RSVP.tsx,
+ * right under the RSVP form, so guests see it without an extra tap.
  */
 export default function GiftModalContent() {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);

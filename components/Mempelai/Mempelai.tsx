@@ -63,13 +63,10 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
           {role === "putra" ? "Putra" : "Putri"} dari
         </p>
 
-        <AnimatedWords
-          as="p"
-          text={`${person.father} & ${person.mother}`}
-          variant="slideLeft"
-          groupSize={2}
-          className="mx-auto mt-3 max-w-[17rem] font-display text-[17px] font-normal italic leading-[1.7] text-on-maroon-soft"
-        />
+        <div className="mx-auto mt-3 max-w-[17rem] font-display text-[17px] font-normal italic leading-[1.7] text-on-maroon-soft">
+          <AnimatedWords as="p" text={`${person.father} &`} variant="slideLeft" groupSize={2} />
+          <AnimatedWords as="p" text={person.mother} variant="slideLeft" groupSize={2} />
+        </div>
 
         {person.instagram && (
           <a

@@ -68,17 +68,6 @@ const items: NavItem[] = [
     ),
   },
   {
-    id: "momen",
-    label: "Momen",
-    icon: (
-      <svg {...ICON_PROPS}>
-        <rect x="3" y="5.5" width="18" height="14" rx="2" />
-        <circle cx="12" cy="12.5" r="3.5" />
-        <path d="M8 5.5 9.4 3.5h5.2L16 5.5" />
-      </svg>
-    ),
-  },
-  {
     id: "ucapan",
     label: "Ucapan & Doa",
     icon: (

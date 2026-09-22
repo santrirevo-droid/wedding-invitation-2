@@ -2,7 +2,6 @@ import Acara from "@/components/Acara";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Mempelai from "@/components/Mempelai";
-import Moments from "@/components/Moments";
 import OpeningQuote from "@/components/OpeningQuote";
 import OurStory from "@/components/OurStory";
 import RSVP from "@/components/RSVP";
@@ -14,10 +13,8 @@ import Wishes from "@/components/Wishes";
  * used to stack between them just doubled the ornament. The rhythm comes
  * from the shared py-28 and the repeated masthead instead.
  *
- * Gift is no longer its own section — its content moved into a modal RSVP
- * opens (see components/RSVP), matching the herewego/ reference's
- * "confirm attendance / send a gift" pair of actions instead of two long
- * always-visible sections.
+ * RSVP and Gift both render directly in RSVP.tsx (no modal tap needed to
+ * see either).
  */
 export default function Home() {
   return (
@@ -26,7 +23,6 @@ export default function Home() {
       <OpeningQuote />
       <Mempelai />
       <Acara />
-      <Moments />
       <RSVP />
       <Wishes />
       <OurStory />

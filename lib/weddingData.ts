@@ -46,8 +46,7 @@ export const events = [
 
 export const venue = {
   name: "Kediaman Mempelai Wanita",
-  location:
-    "Rumah samping Masjid Kp. Talaga, Kelurahan Karaton, Kabupaten Pandeglang, Banten, Indonesia",
+  location: "Kp. Talaga, Kelurahan Karaton, Kabupaten Pandeglang, Banten, Indonesia",
   mapsUrl: "https://maps.app.goo.gl/bebzMQ4xbJHFx1DZ9",
 };
 
@@ -58,6 +57,5 @@ export const bankAccounts = [
 
 export const giftAddress = {
   recipient: "Nufus Nurcholisoh",
-  address:
-    "Rumah samping Masjid Kp. Talaga, Kelurahan Karaton, Kabupaten Pandeglang, Banten, Indonesia",
+  address: "Kp. Talaga, Kelurahan Karaton, Kabupaten Pandeglang, Banten, Indonesia",
 };
