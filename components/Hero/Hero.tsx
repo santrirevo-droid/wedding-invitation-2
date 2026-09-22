@@ -28,6 +28,7 @@ export default function Hero() {
     loopVideo,
     glow,
     content,
+    coverCard,
     title,
     button,
     scrollCue,
@@ -104,6 +105,33 @@ export default function Hero() {
 
           <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-md flex-col items-center justify-center gap-4 px-8 py-8 text-center">
             <div ref={content} className="relative flex flex-col items-center px-7 py-4 sm:px-10">
+              {/* the white arch card — a gateway silhouette echoing the
+                  video's own wooden arch, materialising behind the text
+                  once every line above has popped in (see
+                  useOpenInvitation's open() timeline) rather than sitting
+                  there from the start. -z-10 (not z-0): an absolutely
+                  positioned box with z-index:auto still paints above
+                  static in-flow siblings regardless of DOM order, so
+                  without this it would cover the text instead of sitting
+                  behind it.
+                  Positioning and visual styling are split across two
+                  elements: `.card-stock` (globals.css) hardcodes
+                  `position: relative`, which — same specificity, later in
+                  the cascade — silently wins over Tailwind's `absolute`
+                  utility if both land on one element, collapsing it to
+                  0×0 (inset-0 doesn't stretch a `position: relative` box
+                  the way it does an absolute one). The outer div owns
+                  the absolute positioning and is what open()'s timeline
+                  animates; the inner one just carries card-stock + the
+                  arch shape, sized to fill it. */}
+              <div
+                ref={coverCard}
+                aria-hidden="true"
+                className="absolute inset-0 -z-10 scale-95 opacity-0"
+              >
+                <div className="card-stock h-full w-full rounded-t-[50%_30%] rounded-b-[18px]" />
+              </div>
+
               <AnimatedWords
                 as="p"
                 text="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"

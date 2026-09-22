@@ -138,6 +138,14 @@ export function useOpenInvitation(refs: CoverRefs) {
         { opacity: 1, y: 0, duration: 0.55, ease: "power2.out", stagger: 0.12 },
         3.05
       )
+      // the white arch card materialises behind the text once every line
+      // of it — including the deliberately-delayed names above — has
+      // popped in, rather than sitting there from the very start
+      .to(
+        refs.coverCard.current,
+        { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" },
+        3.8
+      )
       // the by.memonika.com reference's move: once the names have settled
       // back in, a "scroll down" cue fades in and the visitor continues on
       // their own terms — see scrollToNext below — instead of being

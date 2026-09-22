@@ -24,6 +24,9 @@ export function useCoverRefs() {
     loopVideo: useRef<HTMLVideoElement>(null),
     glow: useRef<HTMLDivElement>(null),
     content: useRef<HTMLDivElement>(null),
+    // the white arch-shaped card that appears behind `content` once every
+    // line of cover text has popped in — see useOpenInvitation's open()
+    coverCard: useRef<HTMLDivElement>(null),
     title: useRef<HTMLHeadingElement>(null),
     // wraps the button + "tap to open" hint so both fade together on open
     button: useRef<HTMLDivElement>(null),
