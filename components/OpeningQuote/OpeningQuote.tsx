@@ -4,6 +4,7 @@ import { useRef } from "react";
 import AnimatedWords from "@/components/AnimatedWords";
 import { SectionFloral } from "@/components/Botanical";
 import Crest from "@/components/Crest";
+import SectionCard from "@/components/SectionCard";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 
 const AYAT_ARABIC =
@@ -20,11 +21,11 @@ export default function OpeningQuote() {
     <section
       id="ayat-pembuka"
       ref={sectionRef}
-      className="relative flex min-h-svh w-full items-center justify-center overflow-hidden px-8 py-28 text-center"
+      className="relative flex min-h-svh w-full items-center justify-center overflow-hidden bg-maroon-light px-8 py-28 text-center"
     >
       <SectionFloral />
 
-      <div className="relative max-w-md">
+      <SectionCard shape="rounded" className="relative w-full max-w-md px-7 py-10 sm:px-10">
         <Crest className="mx-auto w-10 text-accent/60" />
 
         <p className="mt-5 font-accent text-[11px] font-normal uppercase tracking-[0.45em] text-accent-dark">
@@ -58,7 +59,7 @@ export default function OpeningQuote() {
         >
           Q.S. Ar-Rum : 21
         </p>
-      </div>
+      </SectionCard>
     </section>
   );
 }

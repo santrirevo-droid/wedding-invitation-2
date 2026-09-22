@@ -6,6 +6,7 @@ import { SectionFloral } from "@/components/Botanical";
 import GiftModalContent from "@/components/Gift";
 import { GuestNameAutofill } from "@/components/GuestGreeting";
 import Modal from "@/components/Modal";
+import SectionCard from "@/components/SectionCard";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { useWishes } from "@/hooks/useWishes";
 
@@ -204,11 +205,11 @@ export default function RSVP() {
     <section
       id="rsvp"
       ref={sectionRef}
-      className="relative overflow-hidden px-8 py-28 text-center"
+      className="relative overflow-hidden bg-gradient-to-b from-maroon to-maroon-light px-8 py-28 text-center"
     >
       <SectionFloral />
 
-      <div className="relative mx-auto max-w-md">
+      <SectionCard shape="rounded" className="relative mx-auto max-w-md px-7 py-10 sm:px-9">
         <p className="font-accent text-[11px] font-normal uppercase tracking-[0.4em] text-accent-dark">
           With love
         </p>
@@ -279,7 +280,7 @@ export default function RSVP() {
             </div>
           </div>
         </div>
-      </div>
+      </SectionCard>
 
       {openModal === "rsvp" && (
         <Modal titleId={rsvpTitleId} onClose={() => setOpenModal(null)}>

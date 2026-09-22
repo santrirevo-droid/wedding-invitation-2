@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import AnimatedWords from "@/components/AnimatedWords";
 import { SectionFloral } from "@/components/Botanical";
+import SectionCard from "@/components/SectionCard";
 import SectionHeading from "@/components/SectionHeading";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { CALENDAR_GOOGLE_URL } from "@/lib/calendar";
@@ -126,8 +127,9 @@ export default function Acara() {
         </div>
       </div>
 
-      {/* events — back on the page ground */}
-      <div className="relative px-8 py-24 text-center">
+      {/* events — a lighter ground of its own, distinct from both the dark
+          countdown band above and the sections before/after it */}
+      <div className="relative bg-maroon-light px-8 py-24 text-center">
 
         <SectionFloral />
 
@@ -161,7 +163,7 @@ export default function Acara() {
             />
           </div>
 
-          <div data-reveal className="card-stock relative mt-8 rounded-[4px] px-7 py-9">
+          <SectionCard shape="arch" className="mt-8 px-7 pb-9 pt-8">
             <p className="font-accent text-[11px] font-normal uppercase tracking-[0.4em] text-ink-soft">
               Bertempat di
             </p>
@@ -194,7 +196,7 @@ export default function Acara() {
                 Simpan ke Kalender
               </a>
             </div>
-          </div>
+          </SectionCard>
         </div>
       </div>
     </section>

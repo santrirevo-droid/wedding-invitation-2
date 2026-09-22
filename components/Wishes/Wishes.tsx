@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AnimatedWords from "@/components/AnimatedWords";
 import { SectionFloral } from "@/components/Botanical";
+import SectionCard from "@/components/SectionCard";
 import SectionHeading from "@/components/SectionHeading";
 import { whenScrollUnlocked } from "@/hooks/scrollLock";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
@@ -73,64 +74,66 @@ export default function Wishes() {
     <section
       id="ucapan"
       ref={sectionRef}
-      className="relative overflow-hidden px-8 py-28 text-center"
+      className="relative overflow-hidden bg-gradient-to-b from-maroon-light to-maroon px-8 py-28 text-center"
     >
       <SectionFloral />
 
       <div className="relative mx-auto max-w-md">
         <SectionHeading eyebrow="Guestbook" title="Ucapan & Doa" />
 
-        <div ref={listRef} className="mt-11">
-          {wishes.length === 0 ? (
-            <AnimatedWords
-              as="p"
-              text="Jadilah yang pertama mengirimkan ucapan & doa."
-              variant="rise"
-              groupSize={3}
-              className="font-display text-[19px] font-normal italic text-on-maroon-soft"
-            />
-          ) : (
-            <div className="flex max-h-[28rem] flex-col gap-3.5 overflow-y-auto pr-1.5 text-left">
-              {wishes.map((wish) => (
-                <div
-                  key={wish.id}
-                  data-wish-card
-                  className="border-y border-r border-accent/25 border-l-2 border-l-accent/60 bg-paper/70 px-6 py-5"
-                >
-                  <div className="flex items-center gap-3.5">
-                    <span className="flex h-11 w-9 shrink-0 items-center justify-center rounded-t-full border border-accent/42 font-display text-lg font-normal text-accent">
-                      {wish.name.trim().charAt(0).toUpperCase() || "?"}
-                    </span>
-                    <div className="min-w-0">
-                      <div className="truncate font-display text-[18px] font-normal text-on-maroon">
-                        {wish.name}
-                      </div>
-                      <div
-                        className={[
-                          "font-accent text-[11px] uppercase tracking-[0.26em]",
-                          wish.attend === "hadir"
-                            ? "text-sage-light"
-                            : "text-on-maroon-soft",
-                        ].join(" ")}
-                      >
-                        {wish.attend === "hadir"
-                          ? wish.guests
-                            ? `Hadir · ${wish.guests} orang`
-                            : "Hadir"
-                          : "Berhalangan hadir"}
+        <SectionCard shape="scallop-top" className="mt-10 px-6 pb-7 pt-9">
+          <div ref={listRef}>
+            {wishes.length === 0 ? (
+              <AnimatedWords
+                as="p"
+                text="Jadilah yang pertama mengirimkan ucapan & doa."
+                variant="rise"
+                groupSize={3}
+                className="font-display text-[19px] font-normal italic text-on-maroon-soft"
+              />
+            ) : (
+              <div className="flex max-h-[28rem] flex-col gap-3.5 overflow-y-auto pr-1.5 text-left">
+                {wishes.map((wish) => (
+                  <div
+                    key={wish.id}
+                    data-wish-card
+                    className="border-y border-r border-accent/25 border-l-2 border-l-accent/60 bg-paper/70 px-6 py-5"
+                  >
+                    <div className="flex items-center gap-3.5">
+                      <span className="flex h-11 w-9 shrink-0 items-center justify-center rounded-t-full border border-accent/42 font-display text-lg font-normal text-accent">
+                        {wish.name.trim().charAt(0).toUpperCase() || "?"}
+                      </span>
+                      <div className="min-w-0">
+                        <div className="truncate font-display text-[18px] font-normal text-on-maroon">
+                          {wish.name}
+                        </div>
+                        <div
+                          className={[
+                            "font-accent text-[11px] uppercase tracking-[0.26em]",
+                            wish.attend === "hadir"
+                              ? "text-sage-light"
+                              : "text-on-maroon-soft",
+                          ].join(" ")}
+                        >
+                          {wish.attend === "hadir"
+                            ? wish.guests
+                              ? `Hadir · ${wish.guests} orang`
+                              : "Hadir"
+                            : "Berhalangan hadir"}
+                        </div>
                       </div>
                     </div>
+                    {wish.message && (
+                      <p className="mt-4 font-display text-[16.5px] font-normal italic leading-[1.7] text-on-maroon-soft">
+                        {wish.message}
+                      </p>
+                    )}
                   </div>
-                  {wish.message && (
-                    <p className="mt-4 font-display text-[16.5px] font-normal italic leading-[1.7] text-on-maroon-soft">
-                      {wish.message}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </SectionCard>
       </div>
     </section>
   );
