@@ -25,7 +25,7 @@ export const couple: Record<
     name: "Nufus Nurcholisoh",
     shortName: "Nufus",
     role: "putri",
-    father: "Bapak Dudin S",
+    father: "Bapak Dudin Sadudin",
     mother: "Ibu Resa Aryanti",
     instagram: "@nufus.nch",
   },
@@ -47,17 +47,17 @@ export const events = [
 export const venue = {
   name: "Kediaman Mempelai Wanita",
   location:
-    "Rumah samping Masjid Kp. Talaga, Jl. Talaga, Karaton, Kabupaten Pandeglang, Banten, Indonesia",
+    "Rumah samping Masjid Kp. Talaga, Kelurahan Karaton, Kabupaten Pandeglang, Banten, Indonesia",
   mapsUrl: "https://maps.app.goo.gl/bebzMQ4xbJHFx1DZ9",
 };
 
 export const bankAccounts = [
-  { bank: "BCA", number: "7003007539", holder: "Saiful Amri Tanjung" },
+  { bank: "BSI", number: "7258667648", holder: "Saiful Amri Tanjung" },
   { bank: "BCA", number: "5421457299", holder: "Nufus Nurcholisoh" },
 ];
 
 export const giftAddress = {
-  recipient: "Saiful Amri Tanjung",
+  recipient: "Nufus Nurcholisoh",
   address:
-    "Rumah samping Masjid Kp. Talaga, Jl. Talaga, Karaton, Kabupaten Pandeglang, Banten, Indonesia",
+    "Rumah samping Masjid Kp. Talaga, Kelurahan Karaton, Kabupaten Pandeglang, Banten, Indonesia",
 };

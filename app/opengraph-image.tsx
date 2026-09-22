@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { couple, venue } from "@/lib/weddingData";
 import { weddingDay, weddingMonthName, weddingYear } from "@/lib/weddingDate";
 
-export const alt = `The Wedding of ${couple.groom.shortName} & ${couple.bride.shortName}`;
+export const alt = `The Wedding of ${couple.bride.shortName} & ${couple.groom.shortName}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -101,7 +101,7 @@ export default async function Image() {
               color: "#49363a",
             }}
           >
-            <span>{couple.groom.shortName}</span>
+            <span>{couple.bride.shortName}</span>
             <span
               style={{
                 fontStyle: "italic",
@@ -112,7 +112,7 @@ export default async function Image() {
             >
               &amp;
             </span>
-            <span>{couple.bride.shortName}</span>
+            <span>{couple.groom.shortName}</span>
           </div>
 
           <div

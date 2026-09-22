@@ -50,7 +50,7 @@ export default function Moments() {
               className="relative -mt-3 font-display text-[19px] font-normal leading-[1.35] text-ink"
             />
             <small className="mt-4 font-accent text-[10px] font-normal uppercase tracking-[0.3em] text-accent-dark">
-              {couple.groom.shortName.charAt(0)} + {couple.bride.shortName.charAt(0)}
+              {couple.bride.shortName.charAt(0)} + {couple.groom.shortName.charAt(0)}
             </small>
           </div>
 

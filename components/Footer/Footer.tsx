@@ -59,15 +59,15 @@ export default function Footer() {
         />
 
         {/* data-reveal on each line rather than the h2 as a whole — the
-            shared useRevealOnScroll stagger then animates groom name, the
-            ampersand and bride name in one after another instead of the
+            shared useRevealOnScroll stagger then animates bride name, the
+            ampersand and groom name in one after another instead of the
             three lines arriving as a single fused block */}
         <h2 className="mt-6 flex flex-col items-center leading-none">
           <span
             data-reveal
             className="font-script text-[clamp(3.4rem,21vw,6rem)] leading-[0.95] text-[#f0d3d8]"
           >
-            {couple.groom.shortName}
+            {couple.bride.shortName}
           </span>
           <span data-reveal className="my-1.5 font-display text-2xl font-normal text-paper/70">
             &amp;
@@ -76,7 +76,7 @@ export default function Footer() {
             data-reveal
             className="font-script text-[clamp(3.4rem,21vw,6rem)] leading-[0.95] text-[#f0d3d8]"
           >
-            {couple.bride.shortName}
+            {couple.groom.shortName}
           </span>
         </h2>
 

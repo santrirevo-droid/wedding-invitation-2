@@ -42,8 +42,8 @@ const amiri = Amiri({
 });
 
 const siteUrl = "https://nufus-amri.vercel.app";
-const title = `${couple.groom.shortName} & ${couple.bride.shortName} — The Wedding Of`;
-const description = `Undangan pernikahan digital ${couple.groom.name} & ${couple.bride.name} — ${events[0].date}, ${venue.name}.`;
+const title = `${couple.bride.shortName} & ${couple.groom.shortName} — The Wedding Of`;
+const description = `Undangan pernikahan digital ${couple.bride.name} & ${couple.groom.name} — ${events[0].date}, ${venue.name}.`;
 
 export const metadata: Metadata = {
   // required so the file-based opengraph-image below resolves to an
