@@ -142,17 +142,9 @@ export default function Hero() {
                 className="font-arabic text-xl leading-relaxed text-accent-dark"
               />
 
-              <AnimatedWords
-                as="p"
-                text="The Wedding Of"
-                variant="popIn"
-                groupSize={1}
-                className="mt-5 font-accent text-[11px] font-normal uppercase tracking-[0.5em] text-on-maroon-soft"
-              />
-
               {/* monogram — the couple's initials, not a generic sprig, so it
                   stays correct automatically if shortName ever changes */}
-              <div aria-hidden="true" className="mt-4 flex items-center justify-center gap-3">
+              <div aria-hidden="true" className="mt-5 flex items-center justify-center gap-3">
                 <span className="rule-gild w-7 sm:w-9" />
                 <span className="text-gilded font-script text-[2.75rem] leading-none sm:text-[3.25rem]">
                   {couple.bride.shortName.charAt(0)}
@@ -165,6 +157,14 @@ export default function Hero() {
                 </span>
                 <span className="rule-gild w-7 sm:w-9" />
               </div>
+
+              <AnimatedWords
+                as="p"
+                text="The Wedding Of"
+                variant="popIn"
+                groupSize={1}
+                className="mt-4 font-accent text-[11px] font-normal uppercase tracking-[0.5em] text-on-maroon-soft"
+              />
 
               {/* the couple's names — the one place the script face appears at
                   full scale, gilded and slowly drifting */}
