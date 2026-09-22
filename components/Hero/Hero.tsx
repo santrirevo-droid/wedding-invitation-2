@@ -6,6 +6,7 @@ import GuestGreeting, { GuestGreetingFallback } from "@/components/GuestGreeting
 import InvitationButton from "@/components/InvitationButton";
 import MusicPlayer from "@/components/MusicPlayer";
 import NavDock from "@/components/NavDock";
+import ScrollTopButton from "@/components/ScrollTopButton";
 import { useCoverRefs } from "@/hooks/useCoverRefs";
 import { useIdleMotion } from "@/hooks/useIdleMotion";
 import { useOpenInvitation } from "@/hooks/useOpenInvitation";
@@ -196,7 +197,9 @@ export default function Hero() {
       </section>
 
       {/* bottom-20: clears NavDock's bar, which is now stuck flush to the
-          true bottom edge instead of floating mid-screen */}
+          true bottom edge instead of floating mid-screen. ScrollTopButton
+          stacks directly above it (its own height + a gap higher). */}
+      <ScrollTopButton className="fixed bottom-[8.5rem] right-4 z-20" />
       <MusicPlayer ref={music} className="fixed bottom-20 right-4 z-20" />
       <NavDock enabled={isOpened} />
     </>

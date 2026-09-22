@@ -21,6 +21,7 @@ const MusicPlayer = forwardRef<MusicPlayerHandle, MusicPlayerProps>(
   ({ src = "/music/kal-ho-na-ho.mp3", className = "" }, ref) => {
     const audioRef = useRef<HTMLAudioElement>(null);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [isMuted, setIsMuted] = useState(false);
     // tracks whether the tab itself paused playback (vs. the visitor
     // pressing the toggle), so a return to the tab only resumes music
     // that was actually playing before it was backgrounded
@@ -129,16 +130,30 @@ const MusicPlayer = forwardRef<MusicPlayerHandle, MusicPlayerProps>(
       };
     }, []);
 
+    // Muting (rather than pausing) is what this toggle does once the
+    // track is already running: the audio keeps advancing in the
+    // background, so switching sound back on resumes instantly in sync
+    // instead of restarting the buffering/decoding that a fresh play()
+    // would need. If the track hasn't actually started yet (autoplay
+    // never got a gesture), this click is still the guaranteed manual
+    // fallback that starts it, unmuted.
     const toggle = () => {
       const audio = audioRef.current;
       if (!audio) return;
       if (audio.paused) {
-        audio.play().then(() => setIsPlaying(true)).catch(() => {});
-      } else {
-        pausedByVisibilityRef.current = false;
-        audio.pause();
-        setIsPlaying(false);
+        audio.muted = false;
+        audio
+          .play()
+          .then(() => {
+            setIsPlaying(true);
+            setIsMuted(false);
+          })
+          .catch(() => {});
+        return;
       }
+      const nextMuted = !audio.muted;
+      audio.muted = nextMuted;
+      setIsMuted(nextMuted);
     };
 
     return (
@@ -147,7 +162,7 @@ const MusicPlayer = forwardRef<MusicPlayerHandle, MusicPlayerProps>(
         <button
           type="button"
           onClick={toggle}
-          aria-label={isPlaying ? "Jeda musik" : "Putar musik"}
+          aria-label={isMuted ? "Aktifkan suara musik" : "Bisukan musik"}
           className={[
             "flex h-11 w-11 items-center justify-center rounded-full",
             "border border-accent/45 bg-paper/80 text-accent-dark backdrop-blur-sm",
@@ -156,13 +171,22 @@ const MusicPlayer = forwardRef<MusicPlayerHandle, MusicPlayerProps>(
             className,
           ].join(" ")}
         >
-          <span
-            className={[
-              "text-lg leading-none",
-              isPlaying ? "animate-spin [animation-duration:4s]" : "",
-            ].join(" ")}
-          >
-            ♪
+          <span className="relative flex h-5 w-5 items-center justify-center">
+            <span
+              className={[
+                "text-lg leading-none",
+                isMuted ? "opacity-45" : "",
+                isPlaying && !isMuted ? "animate-spin [animation-duration:4s]" : "",
+              ].join(" ")}
+            >
+              ♪
+            </span>
+            {isMuted && (
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute h-px w-[22px] rotate-45 bg-accent-dark"
+              />
+            )}
           </span>
         </button>
       </>
