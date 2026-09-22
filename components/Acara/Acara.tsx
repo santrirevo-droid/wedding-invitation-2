@@ -43,18 +43,18 @@ function EventCard({
   return (
     <div
       data-reveal
-      className={`flex-1 border px-6 py-7 text-left ${
+      className={`relative flex-1 border px-6 py-7 text-center ${
         emphasis
           ? "border-accent/35 bg-accent/12"
           : "border-border bg-paper/75"
       }`}
     >
-      <div className="flex items-start justify-between">
-        <p className="font-accent text-[11px] font-normal uppercase tracking-[0.32em] text-accent-dark">
-          {title}
-        </p>
-        <span className="font-display text-lg font-normal text-accent">{index}</span>
-      </div>
+      <span className="absolute right-5 top-5 font-display text-lg font-normal text-accent">
+        {index}
+      </span>
+      <p className="font-accent text-[11px] font-normal uppercase tracking-[0.32em] text-accent-dark">
+        {title}
+      </p>
       <h3 className="mt-6 font-display text-[22px] font-normal leading-tight text-ink">
         {time}
       </h3>

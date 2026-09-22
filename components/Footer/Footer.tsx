@@ -21,19 +21,12 @@ export default function Footer() {
       <SectionFloral className="opacity-70" />
 
       <div className="relative mx-auto max-w-md">
-        <p
-          data-reveal
-          className="font-accent text-[11px] font-normal uppercase leading-[2] tracking-[0.36em] text-paper/70"
-        >
-          Assalamu&apos;alaikum Warahmatullahi Wabarakatuh
-        </p>
-
         <AnimatedWords
           as="p"
           text="Merupakan suatu kebahagiaan dan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kedua mempelai."
           variant="drift"
           groupSize={3}
-          className="mt-8 font-display text-[19px] font-normal leading-[1.8] text-paper/85"
+          className="font-display text-[19px] font-normal leading-[1.8] text-paper/85"
         />
 
         <AnimatedWords

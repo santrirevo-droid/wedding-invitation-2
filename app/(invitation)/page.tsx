@@ -25,11 +25,11 @@ export default function Home() {
       <Hero />
       <OpeningQuote />
       <Mempelai />
-      <OurStory />
       <Acara />
       <Moments />
       <RSVP />
       <Wishes />
+      <OurStory />
       <Footer />
     </main>
   );
