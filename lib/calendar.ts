@@ -16,7 +16,7 @@ function escapeIcsText(text: string) {
 
 function buildEventDetails() {
   const start = new Date(WEDDING_DATE_ISO);
-  const end = new Date(start.getTime() + 9 * 60 * 60 * 1000); // 08.00 akad -> 17.00 resepsi selesai
+  const end = new Date(start.getTime() + 9 * 60 * 60 * 1000); // 09.00 akad -> 18.00 resepsi selesai
 
   const summary = `Pernikahan ${couple.bride.shortName} & ${couple.groom.shortName}`;
   const location = `${venue.name}, ${venue.location}`;

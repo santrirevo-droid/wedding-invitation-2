@@ -1,4 +1,4 @@
-export const WEDDING_DATE_ISO = "2026-11-01T08:00:00+07:00";
+export const WEDDING_DATE_ISO = "2026-11-01T09:00:00+07:00";
 
 export type CoupleRole = "putra" | "putri";
 
@@ -34,12 +34,12 @@ export const couple: Record<
 export const events = [
   {
     title: "Akad Nikah",
-    time: "08.00 WIB — Selesai",
+    time: "09.00 WIB — Selesai",
     date: "Minggu, 01 November 2026",
   },
   {
     title: "Resepsi",
-    time: "10.00 WIB — Selesai",
+    time: "11.00 WIB — Selesai",
     date: "Minggu, 01 November 2026",
   },
 ];
