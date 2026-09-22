@@ -90,35 +90,39 @@ export function useOpenInvitation(refs: CoverRefs) {
       .set(refs.button.current, { pointerEvents: "none" }, 0)
       .to(refs.button.current, { opacity: 0, y: 12, duration: 0.35 }, 0)
       .to(refs.glow.current, { opacity: 1, duration: 0.6, ease: "power1.out" }, 0)
+      .to(refs.glow.current, { opacity: 0, duration: 0.55, ease: "power1.in" }, 0.75)
+      // The couple's names stay hidden (see the mount effect above) until
+      // the curtain clip has finished parting (~3s — see
+      // public/video/cover-open.mp4), then pop in — matching the
+      // by.memonika.com reference: video plays first, and only once it's
+      // settled does the cover text "reload" back in, rather than the
+      // names appearing instantly under the tap.
       .fromTo(
         titleEl,
         { scale: 0.94 },
         { scale: 1.05, duration: 0.45, ease: "power2.out" },
-        0.1
+        3
       )
-      .to(titleEl, { scale: 1, duration: 0.55, ease: "power2.inOut" }, 0.55)
+      .to(titleEl, { scale: 1, duration: 0.55, ease: "power2.inOut" }, 3.45)
       .to(
         titleLines,
         { opacity: 1, y: 0, duration: 0.55, ease: "power2.out", stagger: 0.12 },
-        0.15
+        3.05
       )
-      .to(refs.glow.current, { opacity: 0, duration: 0.55, ease: "power1.in" }, 0.75)
-      // hold through the rest of the curtain clip (parts by ~3s — see
-      // public/video/cover-open.mp4) before inviting the visitor onward,
-      // rather than releasing the instant the text has popped in
-      .to({}, { duration: 0 }, 3)
-      // the by.memonika.com reference's move: once the cover has settled,
-      // a "scroll down" cue fades in and the visitor continues on their
-      // own terms — see scrollToNext below — instead of being carried
-      // through the whole page by an autoscroll tour.
+      // the by.memonika.com reference's move: once the names have settled
+      // back in, a "scroll down" cue fades in and the visitor continues on
+      // their own terms — see scrollToNext below — instead of being
+      // carried through the whole page by an autoscroll tour. Positioned
+      // at 4.3 (not 3, alongside the names) so the cue doesn't appear
+      // while the names are still popping in.
       //
-      // The unlock itself runs via .call() at this same position (3),
+      // The unlock itself runs via .call() at this same position (4.3),
       // not the timeline's onComplete (which wouldn't fire until the
       // opacity fade-in tween below finishes ~0.6s later) — otherwise
       // the cue sits there looking tappable (pointer-events already on)
       // while lenis is still stopped, so an early tap silently does
       // nothing.
-      .set(refs.scrollCue.current, { pointerEvents: "auto" }, 3)
+      .set(refs.scrollCue.current, { pointerEvents: "auto" }, 4.3)
       .call(
         () => {
           document.documentElement.classList.remove("scroll-locked");
@@ -133,9 +137,9 @@ export function useOpenInvitation(refs: CoverRefs) {
           notifyScrollUnlocked();
         },
         [],
-        3
+        4.3
       )
-      .to(refs.scrollCue.current, { opacity: 1, duration: 0.6, ease: "power1.out" }, 3);
+      .to(refs.scrollCue.current, { opacity: 1, duration: 0.6, ease: "power1.out" }, 4.3);
   }, [refs, lenis]);
 
   const scrollToNext = useCallback(() => {

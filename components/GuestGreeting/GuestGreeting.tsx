@@ -4,7 +4,7 @@ import { useGuestName } from "@/hooks/useGuestName";
 
 function GreetingCardShell({ guestName }: { guestName: string }) {
   return (
-    <div className="relative w-full max-w-[17rem] bg-paper/70 px-7 py-6 text-center backdrop-blur-[2px]">
+    <div className="relative w-full max-w-[17rem] bg-paper/70 px-7 py-4 text-center backdrop-blur-[2px]">
       {/* corner marks rather than a full box — a printer's crop-mark frame,
           which leaves the name sitting in open space instead of a label */}
       <span aria-hidden="true" className="absolute left-0 top-0 h-3.5 w-3.5 border-l border-t border-accent/55" />

@@ -75,8 +75,8 @@ export default function Hero() {
             }}
           />
 
-          <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-md flex-col items-center justify-center gap-8 px-8 py-20 text-center">
-            <div ref={content} className="relative flex flex-col items-center px-7 py-10 sm:px-10">
+          <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-md flex-col items-center justify-center gap-4 px-8 py-8 text-center">
+            <div ref={content} className="relative flex flex-col items-center px-7 py-4 sm:px-10">
               <AnimatedWords
                 as="p"
                 text="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"
@@ -92,12 +92,12 @@ export default function Hero() {
                 text="The Wedding Of"
                 variant="popIn"
                 groupSize={1}
-                className="mt-7 font-accent text-[11px] font-normal uppercase tracking-[0.5em] text-on-maroon-soft"
+                className="mt-5 font-accent text-[11px] font-normal uppercase tracking-[0.5em] text-on-maroon-soft"
               />
 
               {/* monogram — the couple's initials, not a generic sprig, so it
                   stays correct automatically if shortName ever changes */}
-              <div aria-hidden="true" className="mt-6 flex items-center justify-center gap-3">
+              <div aria-hidden="true" className="mt-4 flex items-center justify-center gap-3">
                 <span className="rule-gild w-7 sm:w-9" />
                 <span className="text-gilded font-script text-[2.75rem] leading-none sm:text-[3.25rem]">
                   {couple.bride.shortName.charAt(0)}
@@ -113,7 +113,7 @@ export default function Hero() {
 
               {/* the couple's names — the one place the script face appears at
                   full scale, gilded and slowly drifting */}
-              <h1 ref={title} className="mt-3 flex flex-col items-center leading-none">
+              <h1 ref={title} className="mt-2 flex flex-col items-center leading-none">
                 <span className="text-gilded text-gilded-drift font-script text-[clamp(3.2rem,20vw,5.5rem)] leading-[0.95]">
                   {couple.bride.shortName}
                 </span>
@@ -126,7 +126,7 @@ export default function Hero() {
               </h1>
 
               {/* date, set as three tracked numerals between hairlines */}
-              <div className="mt-7 flex items-center gap-4">
+              <div className="mt-5 flex items-center gap-4">
                 <span className="rule-gild w-10 sm:w-14" />
                 <p className="flex items-baseline gap-2.5 font-display text-lg font-normal tracking-[0.18em] text-on-maroon">
                   <span>{weddingDay}</span>
@@ -138,7 +138,7 @@ export default function Hero() {
                 <span className="rule-gild w-10 sm:w-14" />
               </div>
 
-              <div className="mt-9">
+              <div className="mt-6">
                 <Suspense fallback={<GuestGreetingFallback />}>
                   <GuestGreeting />
                 </Suspense>
