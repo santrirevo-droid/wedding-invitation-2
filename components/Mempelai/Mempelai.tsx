@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import AnimatedWords from "@/components/AnimatedWords";
-import { BrideAvatar, GroomAvatar } from "@/components/Avatars";
 import { SectionFloral } from "@/components/Botanical";
 import SectionCard from "@/components/SectionCard";
 import SectionHeading from "@/components/SectionHeading";
@@ -18,19 +18,25 @@ type Person = {
 };
 
 /**
- * Each half of the couple, introduced under an illustrated bust portrait
- * (see components/Avatars) — a faceless cartoon standing in for the photo
- * this invitation doesn't have, the same device the by.memonika.com
- * reference uses. Each person gets their own floating card rather than
- * sharing one, matching that reference's per-person cards.
+ * Each half of the couple, introduced under a bust portrait — an arch-
+ * framed photo (bride.png / groom.png) rather than the illustrated
+ * placeholder this invitation used before. Each person gets their own
+ * floating card rather than sharing one, matching the by.memonika.com
+ * reference's per-person cards.
  */
 function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
-  const Avatar = role === "putra" ? GroomAvatar : BrideAvatar;
-
   return (
     <SectionCard shape="arch" className="w-full max-w-[19rem] px-6 pb-9 pt-6">
       <div data-reveal className="flex flex-col items-center text-center">
-        <Avatar className="mx-auto w-[12.5rem] drop-shadow-[0_14px_26px_rgba(58,46,30,0.28)] sm:w-[14rem]" />
+        <div className="relative mx-auto aspect-[2/3] w-[12.5rem] overflow-hidden rounded-t-full drop-shadow-[0_14px_26px_rgba(58,46,30,0.28)] sm:w-[14rem]">
+          <Image
+            src={role === "putra" ? "/images/groom.png" : "/images/bride.png"}
+            alt={`Foto ${person.shortName}`}
+            fill
+            sizes="(min-width: 640px) 14rem, 12.5rem"
+            className="object-cover object-top"
+          />
+        </div>
 
         {/* the nickname, big and in the script face — the by.memonika.com
             reference's move: a large cursive first name doing the actual

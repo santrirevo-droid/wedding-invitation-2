@@ -38,14 +38,14 @@ export default function Hero() {
         className="relative min-h-svh w-full overflow-hidden bg-maroon-deep"
       >
         <div ref={coverInner} className="absolute inset-0">
-          {/* the curtain-parting arch — a real filmed/rendered clip
-              (Motion-Ivory-Romance), trimmed to just its opening beat:
-              curtains part, flowers bloom into the archway, ~3s, then
-              holds on its last frame. Paused on frame one (poster) until
-              open() plays it — replaces the old CSS corner-floral-parting
-              tween with the real thing instead of imitating it.
-              Wrapped in `background` so it still gets the same subtle
-              scroll-out zoom useScrollReveal already applies to this ref. */}
+          {/* the curtain-parting arch — a real rendered clip (~10s):
+              curtains part by ~3s, then the archway keeps blooming with
+              falling petals through to its own natural end, played in
+              full rather than cut short — only a user scroll (see
+              useScrollReveal) fades it out early. Paused on frame one
+              (poster) until open() plays it. Wrapped in `background` so
+              it still gets the same subtle scroll-out zoom
+              useScrollReveal already applies to this ref. */}
           <div ref={background} className="absolute inset-0 overflow-hidden">
             <video
               ref={video}
