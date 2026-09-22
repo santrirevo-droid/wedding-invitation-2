@@ -59,6 +59,23 @@ export function useOpenInvitation(refs: CoverRefs) {
     gsap.set(lines, { opacity: 0, y: 22 });
   }, [refs.title]);
 
+  // the curtain-parting clip (public/video/cover-open.mp4) plays once and
+  // holds on its last frame — the arch in full bloom, petals mid-fall. The
+  // moment it actually finishes, hand off to cover-loop.mp4 (same arch,
+  // shot to loop seamlessly) so the petals keep drifting for as long as
+  // the visitor lingers on the cover, instead of freezing there.
+  useEffect(() => {
+    const video = refs.video.current;
+    if (!video) return;
+    const onEnded = () => {
+      video.loop = true;
+      video.src = "/video/cover-loop.mp4";
+      video.play().catch(() => {});
+    };
+    video.addEventListener("ended", onEnded);
+    return () => video.removeEventListener("ended", onEnded);
+  }, [refs.video]);
+
   // React Compiler can't reconcile this callback's refs.title.current read
   // with the mount effect above also reading refs.title.current, and skips
   // optimizing it — harmless here since `refs` (from useCoverRefs) is a new
