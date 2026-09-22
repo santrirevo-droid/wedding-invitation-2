@@ -14,6 +14,14 @@ export function useCoverRefs() {
     coverInner: useRef<HTMLDivElement>(null),
     background: useRef<HTMLDivElement>(null),
     video: useRef<HTMLVideoElement>(null),
+    // a second, separate <video> for the seamless ambient loop that takes
+    // over once `video` (the curtain-parting clip) finishes — see
+    // useOpenInvitation's ended-handler. Kept as its own element (rather
+    // than reusing `video` and swapping its `src`) so the swap is a plain
+    // opacity crossfade between two already-decoded frames instead of a
+    // src change, which briefly falls back to `video`'s poster image
+    // while the new source buffers.
+    loopVideo: useRef<HTMLVideoElement>(null),
     glow: useRef<HTMLDivElement>(null),
     content: useRef<HTMLDivElement>(null),
     title: useRef<HTMLHeadingElement>(null),

@@ -60,21 +60,33 @@ export function useOpenInvitation(refs: CoverRefs) {
   }, [refs.title]);
 
   // the curtain-parting clip (public/video/cover-open.mp4) plays once and
-  // holds on its last frame — the arch in full bloom, petals mid-fall. The
-  // moment it actually finishes, hand off to cover-loop.mp4 (same arch,
-  // shot to loop seamlessly) so the petals keep drifting for as long as
-  // the visitor lingers on the cover, instead of freezing there.
+  // would otherwise hold on its last frame — the arch in full bloom,
+  // petals mid-fall. The moment it actually finishes, crossfade to
+  // loopVideo (cover-loop.mp4, the same arch shot to loop seamlessly) so
+  // the petals keep drifting for as long as the visitor lingers on the
+  // cover, instead of freezing there.
+  //
+  // This swaps between two separate <video> elements rather than
+  // reassigning `video.src` to the loop clip in place: mutating `src` on
+  // an already-`ended` element made the browser briefly fall back to
+  // `video`'s own `poster` image (a frame from the *opening* clip) while
+  // the new source buffered — a visible flash back to the start that
+  // looked like the intro clip restarting/looping itself. loopVideo is
+  // preloaded the whole time behind the scenes, so this is just an
+  // opacity crossfade between two frames that are already decoded.
   useEffect(() => {
     const video = refs.video.current;
-    if (!video) return;
+    const loopVideo = refs.loopVideo.current;
+    if (!video || !loopVideo) return;
     const onEnded = () => {
-      video.loop = true;
-      video.src = "/video/cover-loop.mp4";
-      video.play().catch(() => {});
+      loopVideo.currentTime = 0;
+      loopVideo.play().catch(() => {});
+      video.style.opacity = "0";
+      loopVideo.style.opacity = "1";
     };
     video.addEventListener("ended", onEnded);
     return () => video.removeEventListener("ended", onEnded);
-  }, [refs.video]);
+  }, [refs.video, refs.loopVideo]);
 
   // React Compiler can't reconcile this callback's refs.title.current read
   // with the mount effect above also reading refs.title.current, and skips

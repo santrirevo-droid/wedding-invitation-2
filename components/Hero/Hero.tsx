@@ -20,8 +20,19 @@ export default function Hero() {
   const { isOpened, open, scrollToNext } = useOpenInvitation(refs);
   useScrollReveal(refs);
 
-  const { section, coverInner, background, video, glow, content, title, button, scrollCue, music } =
-    refs;
+  const {
+    section,
+    coverInner,
+    background,
+    video,
+    loopVideo,
+    glow,
+    content,
+    title,
+    button,
+    scrollCue,
+    music,
+  } = refs;
 
   return (
     // MusicPlayer and NavDock render as siblings of #cover, not descendants
@@ -50,9 +61,24 @@ export default function Hero() {
           <div ref={background} className="absolute inset-0 overflow-hidden">
             <video
               ref={video}
-              className="h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
               src="/video/cover-open.mp4"
               poster="/video/cover-open-poster.jpg"
+              muted
+              playsInline
+              preload="auto"
+              aria-hidden="true"
+            />
+            {/* the ambient loop that takes over once the clip above ends —
+                preloaded and stacked underneath (opacity-0) the whole time
+                so useOpenInvitation's ended-handler can just crossfade to
+                an already-decoded frame instead of loading a new source
+                on demand */}
+            <video
+              ref={loopVideo}
+              className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500"
+              src="/video/cover-loop.mp4"
+              loop
               muted
               playsInline
               preload="auto"
