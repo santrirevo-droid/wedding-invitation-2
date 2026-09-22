@@ -63,7 +63,7 @@ export default function Moments() {
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(150deg, rgba(255,255,255,.3), transparent 42%), radial-gradient(ellipse at 32% 72%, #e8bcb5 0%, transparent 52%), radial-gradient(ellipse at 72% 26%, #d9a9a8 0%, transparent 52%), linear-gradient(165deg, #83585e, #c98a95 55%, #674049)",
+                  "linear-gradient(150deg, rgba(255,255,255,.3), transparent 42%), radial-gradient(ellipse at 32% 72%, #c5cfa8 0%, transparent 52%), radial-gradient(ellipse at 72% 26%, #a8b888 0%, transparent 52%), linear-gradient(165deg, #4a5738, #8a9968 55%, #3a2e1e)",
               }}
             />
             <div

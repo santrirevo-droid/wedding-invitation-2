@@ -3,7 +3,6 @@
 import { useEffect, useState, type JSX } from "react";
 import { useLenis } from "lenis/react";
 import { easeInOutCubic } from "@/lib/easing";
-import { stopAutoScrollTour } from "@/hooks/useOpenInvitation";
 
 type NavItem = {
   id: string;
@@ -130,10 +129,6 @@ export default function NavDock({ enabled }: NavDockProps) {
   }, []);
 
   function goTo(id: string) {
-    // a direct jump always wins over the cover's autoplay tour, so the two
-    // scrolls never fight over lenis mid-hop
-    stopAutoScrollTour();
-
     const el = document.getElementById(id);
     if (!el) return;
 

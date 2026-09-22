@@ -1,6 +1,6 @@
 /**
  * The page's material: four fixed layers stacked behind all content —
- * base gradient, a blush and a sage wash for depth, paper grain, then a
+ * base gradient, a gold and a sage wash for depth, paper grain, then a
  * soft vignette. Rendered once in the root layout.
  *
  * Inverted from the dark build, and not just in colour: the grain blends
@@ -23,12 +23,12 @@ export default function BackgroundPattern() {
       {/* base — brightest at the top, settling warmer toward the foot */}
       <div className="absolute inset-0 bg-gradient-to-b from-maroon-light via-maroon to-maroon-deep" />
 
-      {/* blush and sage washes: the ivory never looks like a flat fill */}
+      {/* gold and sage washes: the ivory never looks like a flat fill */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(62% 42% at 80% 6%, rgba(216,140,150,0.3), transparent 72%)",
+            "radial-gradient(62% 42% at 80% 6%, rgba(194,162,103,0.28), transparent 72%)",
         }}
       />
       <div
@@ -42,7 +42,7 @@ export default function BackgroundPattern() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(48% 34% at 88% 88%, rgba(184,120,134,0.24), transparent 72%)",
+            "radial-gradient(48% 34% at 88% 88%, rgba(77,92,58,0.22), transparent 72%)",
         }}
       />
 
@@ -60,7 +60,7 @@ export default function BackgroundPattern() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(120% 78% at 50% 42%, transparent 48%, rgba(105,65,73,0.14) 100%)",
+            "radial-gradient(120% 78% at 50% 42%, transparent 48%, rgba(58,46,30,0.14) 100%)",
         }}
       />
     </div>

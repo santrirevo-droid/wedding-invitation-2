@@ -1,54 +1,55 @@
 @import "tailwindcss";
 
 :root {
-  /* ── "Rose garden" ────────────────────────────────────────────────────
-     Rebuilt from the herewego/ reference: a warm blush ground, dusty rose
-     and berry for ornament, deep plum-brown ink for type — photographic
-     rose bouquets instead of hairline gold botanicals.
+  /* ── "Woodland garden" ────────────────────────────────────────────────
+     Rebuilt again to match the mossy-arch/sage-curtain cover video: warm
+     parchment ground, sage-to-forest green for ornament, bark brown for
+     type, antique-bronze foil instead of rose-gold.
 
-     This is a second re-theme of the same token set (the previous one was
-     the "blush garden" ivory/gold pass — see git history), so every role
-     kept its NAME but not its hue: "gold-*" reads as "ink inside a card"
-     regardless of whether that ink is actually gold- or berry-toned this
-     time. Variable NAMES stay because ~15 components reference these
-     Tailwind tokens; read "maroon-*" as "the page ground", "accent" as
-     "ornament colour on the ground", "gold-*" as "ink inside a card",
-     "on-maroon-*" as "text on the ground".  */
+     Third re-theme of the same token set (rose-garden before this, blush
+     garden before that — see git history), so every role again keeps its
+     NAME but not its hue: "maroon-*" is "the page ground" (now cream, not
+     pink), "accent" is "ornament colour on the ground" (now green, not
+     rose), "gold-*" is "ink inside a card" (now brown/bronze, not
+     berry), "on-maroon-*" is "text on the ground". Renaming ~15
+     components' worth of Tailwind token references isn't worth it for a
+     hue swap. */
 
   /* the ground, lightest at the top of the page */
-  --maroon-light: #fdf6f5;
-  --maroon: #f8e8e6;
-  --maroon-deep: #f1d7d6;
+  --maroon-light: #faf7ec;
+  --maroon: #f1edd8;
+  --maroon-deep: #e1decb;
 
   /* card surfaces — a touch brighter than the ground so cards lift off it */
-  --paper: #fffaf6;
+  --paper: #fdfbf3;
 
   /* ornament + text ON the ground */
-  --accent: #b87886;
-  --accent-dark: #7c4e58;
-  --on-maroon: #49363a;
-  --on-maroon-soft: #80666a;
+  --accent: #7c8a5c;
+  --accent-dark: #4d5c3a;
+  --on-maroon: #453824;
+  --on-maroon-soft: #7c6d54;
 
-  /* gold + ink INSIDE card surfaces — berry-toned this pass, not gold */
-  --gold: #7c4e58;
-  --gold-light: #b87886;
-  --gold-dark: #674049;
-  --ink: #49363a;
-  --ink-soft: #80666a;
-  --border: #e8d5d0;
+  /* gold + ink INSIDE card surfaces — bark/bronze-toned this pass */
+  --gold: #6b5637;
+  --gold-light: #9c8058;
+  --gold-dark: #4a3826;
+  --ink: #453824;
+  --ink-soft: #7c6d54;
+  --border: #ded9bf;
 
-  /* foil gradient stops — rose/berry-weighted so gilded type reads as a
-     soft shimmer against blush instead of washing out */
-  --gild-1: #c98a95;
-  --gild-2: #a2606c;
-  --gild-3: #6f414a;
+  /* foil gradient stops — antique-bronze so gilded type reads as
+     brushed metal on wood/leaf rather than washing out */
+  --gild-1: #c2a267;
+  --gild-2: #8f7440;
+  --gild-3: #5c4726;
 
-  /* functional signal only (RSVP "hadir") — a warmer, muted sage than the
-     previous pass: sage-and-blush is the classic pairing for this palette,
-     so it stays a real green rather than folding into the rose family */
-  --sage: #6b7d52;
-  --sage-light: #82936a;
-  --sage-dark: #4f5e3a;
+  /* functional signal only (RSVP "hadir") — kept a distinctly brighter,
+     fresher green than the ambient sage/olive ornament colour above, so
+     it still reads as an affirmative signal rather than blending into
+     the rest of the now-green palette */
+  --sage: #5c8a3f;
+  --sage-light: #79a35a;
+  --sage-dark: #3e5c2a;
 }
 
 @theme inline {
@@ -189,9 +190,9 @@ html.scroll-locked {
   /* warm, wide and faint — a near-black shadow reads as a smudge against
      a bright ground, where the dark theme needed it to carve the card out */
   box-shadow:
-    0 0 0 1px rgba(124, 78, 88, 0.16),
-    0 22px 48px -30px rgba(105, 65, 73, 0.4),
-    0 2px 8px -6px rgba(105, 65, 73, 0.22);
+    0 0 0 1px rgba(74, 56, 38, 0.16),
+    0 22px 48px -30px rgba(58, 46, 30, 0.4),
+    0 2px 8px -6px rgba(58, 46, 30, 0.22);
 }
 
 .card-stock::after {
@@ -229,9 +230,27 @@ html.scroll-locked {
   animation: gild-drift 5.5s ease-in-out infinite alternate;
 }
 
+/* ── Scroll-down cue (Hero, post-open) ────────────────────────────────
+   A gentle bob, not a spin or pulse — reads as "this nudges downward"
+   rather than just "this is alive". */
+.scroll-cue-bounce {
+  animation: scroll-cue-bounce 2s ease-in-out infinite;
+}
+
+@keyframes scroll-cue-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .text-gilded-drift,
-  .gild-sweep {
+  .gild-sweep,
+  .scroll-cue-bounce {
     animation: none;
   }
 }

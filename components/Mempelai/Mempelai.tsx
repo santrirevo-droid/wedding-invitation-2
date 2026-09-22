@@ -30,7 +30,7 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
   return (
     <SectionCard shape="arch" className="w-full max-w-[19rem] px-6 pb-9 pt-6">
       <div data-reveal className="flex flex-col items-center text-center">
-        <Avatar className="mx-auto w-[12.5rem] drop-shadow-[0_14px_26px_rgba(105,65,73,0.28)] sm:w-[14rem]" />
+        <Avatar className="mx-auto w-[12.5rem] drop-shadow-[0_14px_26px_rgba(58,46,30,0.28)] sm:w-[14rem]" />
 
         {/* the nickname, big and in the script face — the by.memonika.com
             reference's move: a large cursive first name doing the actual

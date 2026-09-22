@@ -4,111 +4,20 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLenis } from "lenis/react";
-import type Lenis from "lenis";
 import { easeInOutCubic } from "@/lib/easing";
 import { notifyScrollUnlocked } from "./scrollLock";
 import type { CoverRefs } from "./useCoverRefs";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// every section below the cover, in page order — the autoscroll hops
-// between these one at a time instead of gliding the whole document
-// length in one continuous (and far too rushed) motion
-const AUTOSCROLL_STOPS = [
-  "#ayat-pembuka",
-  "#mempelai",
-  "#kisah-kami",
-  "#acara",
-  "#momen",
-  "#rsvp",
-  "#ucapan",
-  "#penutup",
-];
-
-const AUTOSCROLL_HOP_DURATION = 1.6; // s — glide between two sections
-const AUTOSCROLL_PAUSE = 1800; // ms — dwell time to actually read a section
-
-// at most one tour instance ever runs at a time, so a single module-level
-// slot (rather than React state/context) is enough to let something
-// outside this hook — NavDock's jump-to-section — cancel it on demand
-let activeTourCancel: (() => void) | null = null;
-
-/** Stops the autoscroll tour if one is in flight; a no-op otherwise. Call
- * this before any other programmatic scroll (see NavDock), or the tour's
- * next scheduled hop will fight it for control of lenis. */
-export function stopAutoScrollTour() {
-  activeTourCancel?.();
-}
-
-/**
- * Carries the visitor down through the invitation one section at a time:
- * glide, pause to read, glide to the next. Cancels itself the instant the
- * visitor scrolls/touches/presses a key themselves, so it never fights
- * manual scrolling.
- */
-function autoScrollThroughInvitation(lenis: Lenis) {
-  let cancelled = false;
-  let pauseTimer: ReturnType<typeof setTimeout>;
-
-  const cleanup = () => {
-    window.removeEventListener("wheel", cancel);
-    window.removeEventListener("touchstart", cancel);
-    window.removeEventListener("keydown", cancel);
-    if (activeTourCancel === cancel) activeTourCancel = null;
-  };
-
-  const cancel = () => {
-    if (cancelled) return;
-    cancelled = true;
-    clearTimeout(pauseTimer);
-    cleanup();
-  };
-
-  // exposed via stopAutoScrollTour() so a direct jump (NavDock) can call
-  // this same cancel path instead of fighting the tour for control of lenis
-  activeTourCancel = cancel;
-
-  window.addEventListener("wheel", cancel, { passive: true, once: true });
-  window.addEventListener("touchstart", cancel, { passive: true, once: true });
-  window.addEventListener("keydown", cancel, { once: true });
-
-  let index = 0;
-  const advance = () => {
-    if (cancelled) return;
-
-    const target = AUTOSCROLL_STOPS[index];
-    index += 1;
-
-    if (!target || !document.querySelector(target)) {
-      if (index < AUTOSCROLL_STOPS.length) advance();
-      else cleanup();
-      return;
-    }
-
-    lenis.scrollTo(target, {
-      duration: AUTOSCROLL_HOP_DURATION,
-      easing: easeInOutCubic,
-      onComplete: () => {
-        if (cancelled) return;
-        if (index < AUTOSCROLL_STOPS.length) {
-          pauseTimer = setTimeout(advance, AUTOSCROLL_PAUSE);
-        } else {
-          cleanup();
-        }
-      },
-    });
-  };
-
-  advance();
-}
-
 /**
  * Orchestrates the "Buka Undangan" cover animation (Tahap 2): scroll
- * locks, music starts, a soft glow blooms and the title lifts with a
- * gentle zoom — then scroll unlocks and, once unlocked,
- * autoScrollThroughInvitation carries the visitor down through the rest
- * of the page at a readable pace. Skipped under reduced-motion so those
- * visitors keep manual control.
+ * locks, music starts, the curtain video plays, a soft glow blooms and
+ * the title lifts with a gentle zoom — then scroll unlocks and a "scroll
+ * down" cue fades in, matching the by.memonika.com reference: the
+ * visitor is invited to continue rather than carried through the whole
+ * page automatically. Skipped under reduced-motion so those visitors
+ * keep manual control throughout.
  *
  * Kept separate from the Hero markup so the animation timeline can
  * be tuned without touching layout/JSX.
@@ -177,27 +86,7 @@ export function useOpenInvitation(refs: CoverRefs) {
     refs.video.current?.play().catch(() => {});
 
     gsap
-      .timeline({
-        defaults: { ease: "power3.out" },
-        onComplete: () => {
-          document.documentElement.classList.remove("scroll-locked");
-          lenis?.start();
-
-          // Tell every reveal hook waiting on whenScrollUnlocked() (see
-          // hooks/scrollLock.ts) that it's now safe to create its
-          // ScrollTrigger — the page genuinely has scrollable range to
-          // calculate a trigger position against. Refresh first in case
-          // anything already-created needs its cached positions redone.
-          ScrollTrigger.refresh();
-          notifyScrollUnlocked();
-
-          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-            return;
-          }
-
-          if (lenis) autoScrollThroughInvitation(lenis);
-        },
-      })
+      .timeline({ defaults: { ease: "power3.out" } })
       .set(refs.button.current, { pointerEvents: "none" }, 0)
       .to(refs.button.current, { opacity: 0, y: 12, duration: 0.35 }, 0)
       .to(refs.glow.current, { opacity: 1, duration: 0.6, ease: "power1.out" }, 0)
@@ -214,12 +103,44 @@ export function useOpenInvitation(refs: CoverRefs) {
         0.15
       )
       .to(refs.glow.current, { opacity: 0, duration: 0.55, ease: "power1.in" }, 0.75)
-      // hold the lock open through the rest of the curtain clip (it runs
-      // to ~2.9s — see public/video/cover-open.mp4) rather than releasing
-      // scroll the instant the text has popped in, so the visitor actually
-      // gets to watch the curtain finish parting before being carried on
-      .to({}, { duration: 0 }, 2.9);
+      // hold through the rest of the curtain clip (parts by ~3s — see
+      // public/video/cover-open.mp4) before inviting the visitor onward,
+      // rather than releasing the instant the text has popped in
+      .to({}, { duration: 0 }, 3)
+      // the by.memonika.com reference's move: once the cover has settled,
+      // a "scroll down" cue fades in and the visitor continues on their
+      // own terms — see scrollToNext below — instead of being carried
+      // through the whole page by an autoscroll tour.
+      //
+      // The unlock itself runs via .call() at this same position (3),
+      // not the timeline's onComplete (which wouldn't fire until the
+      // opacity fade-in tween below finishes ~0.6s later) — otherwise
+      // the cue sits there looking tappable (pointer-events already on)
+      // while lenis is still stopped, so an early tap silently does
+      // nothing.
+      .set(refs.scrollCue.current, { pointerEvents: "auto" }, 3)
+      .call(
+        () => {
+          document.documentElement.classList.remove("scroll-locked");
+          lenis?.start();
+
+          // Tell every reveal hook waiting on whenScrollUnlocked() (see
+          // hooks/scrollLock.ts) that it's now safe to create its
+          // ScrollTrigger — the page genuinely has scrollable range to
+          // calculate a trigger position against. Refresh first in case
+          // anything already-created needs its cached positions redone.
+          ScrollTrigger.refresh();
+          notifyScrollUnlocked();
+        },
+        [],
+        3
+      )
+      .to(refs.scrollCue.current, { opacity: 1, duration: 0.6, ease: "power1.out" }, 3);
   }, [refs, lenis]);
 
-  return { isOpened, open };
+  const scrollToNext = useCallback(() => {
+    lenis?.scrollTo("#ayat-pembuka", { duration: 1.4, easing: easeInOutCubic });
+  }, [lenis]);
+
+  return { isOpened, open, scrollToNext };
 }

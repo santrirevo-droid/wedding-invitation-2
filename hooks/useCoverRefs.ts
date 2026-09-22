@@ -19,6 +19,8 @@ export function useCoverRefs() {
     title: useRef<HTMLHeadingElement>(null),
     // wraps the button + "tap to open" hint so both fade together on open
     button: useRef<HTMLDivElement>(null),
+    // the "scroll down" cue that replaces it once the cover has opened
+    scrollCue: useRef<HTMLButtonElement>(null),
     music: useRef<MusicPlayerHandle>(null),
   };
 }

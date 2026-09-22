@@ -106,7 +106,7 @@ export default function Acara() {
             text="bahagia kami."
             variant="popUp"
             groupSize={2}
-            className="font-script text-[1.35em] leading-none text-[#e8b0b9]"
+            className="font-script text-[1.35em] leading-none text-[#e3d9a8]"
           />
         </h2>
 

@@ -16,10 +16,11 @@ import { weddingDay, weddingMonth, weddingYear } from "@/lib/weddingDate";
 export default function Hero() {
   const refs = useCoverRefs();
   const idle = useIdleMotion(refs);
-  const { isOpened, open } = useOpenInvitation(refs);
+  const { isOpened, open, scrollToNext } = useOpenInvitation(refs);
   useScrollReveal(refs);
 
-  const { section, coverInner, background, video, glow, content, title, button, music } = refs;
+  const { section, coverInner, background, video, glow, content, title, button, scrollCue, music } =
+    refs;
 
   return (
     // MusicPlayer and NavDock render as siblings of #cover, not descendants
@@ -167,6 +168,41 @@ export default function Hero() {
               </p>
             </div>
           </div>
+
+          {/* the "scroll down" cue that replaces the button once the cover
+              has opened — see useOpenInvitation's scrollToNext. Anchored to
+              coverInner (which is absolute inset-0, so its box always
+              equals the section's real height) rather than nested inside
+              the content flex column above: that column's own content can
+              be taller than min-h-svh on shorter viewports, which pushed
+              an earlier version of this button below the visible, clipped
+              (overflow-hidden) area and out of tap reach.
+              bottom-24 (not bottom-9): NavDock is a `fixed inset-x-0
+              bottom-0 z-20` bar that fades in the moment "Buka Undangan"
+              is tapped (isOpened flips true immediately, before this cue
+              even appears) and sits above this cue's z-10 — bottom-9 put
+              the cue directly underneath that bar's tap area, so it was
+              visible but silently unclickable. bottom-24 clears NavDock's
+              band (its own height plus iOS safe-area-inset-bottom) with
+              margin. Starts invisible and non-interactive (opacity-0
+              pointer-events-none); the open() timeline turns both on. */}
+          <button
+            ref={scrollCue}
+            type="button"
+            onClick={scrollToNext}
+            aria-label="Gulir ke bawah"
+            className="scroll-cue-bounce pointer-events-none absolute inset-x-0 bottom-24 z-10 mx-auto flex h-11 w-8 cursor-pointer items-center justify-center rounded-full border border-accent-dark/50 text-accent-dark opacity-0"
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M5 9l7 7 7-7"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
         </div>
       </section>
 

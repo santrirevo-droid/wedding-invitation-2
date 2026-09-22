@@ -28,7 +28,7 @@ export default async function Image() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #fdf6f5 0%, #f8e8e6 55%, #f1d7d6 100%)",
+          background: "linear-gradient(135deg, #faf7ec 0%, #f1edd8 55%, #e1decb 100%)",
           position: "relative",
         }}
       >
@@ -44,7 +44,7 @@ export default async function Image() {
             height: 420,
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(184,120,134,0.35) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(124,138,92,0.35) 0%, transparent 70%)",
           }}
         />
         <div
@@ -56,7 +56,7 @@ export default async function Image() {
             height: 460,
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(124,78,88,0.3) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(77,92,58,0.3) 0%, transparent 70%)",
           }}
         />
 
@@ -65,7 +65,7 @@ export default async function Image() {
           style={{
             position: "absolute",
             inset: 28,
-            border: "1.5px solid rgba(124,78,88,0.35)",
+            border: "1.5px solid rgba(77,92,58,0.35)",
           }}
         />
 
@@ -84,7 +84,7 @@ export default async function Image() {
               fontWeight: 500,
               letterSpacing: 10,
               textTransform: "uppercase",
-              color: "#7c4e58",
+              color: "#6b5637",
             }}
           >
             The Wedding Of
@@ -98,7 +98,7 @@ export default async function Image() {
               fontFamily: "Cormorant Garamond",
               fontSize: 168,
               fontWeight: 600,
-              color: "#49363a",
+              color: "#453824",
             }}
           >
             <span>{couple.bride.shortName}</span>
@@ -107,7 +107,7 @@ export default async function Image() {
                 fontStyle: "italic",
                 fontWeight: 500,
                 fontSize: 92,
-                color: "#7c4e58",
+                color: "#6b5637",
               }}
             >
               &amp;
@@ -130,7 +130,7 @@ export default async function Image() {
                 fontWeight: 500,
                 letterSpacing: 6,
                 textTransform: "uppercase",
-                color: "#7c4e58",
+                color: "#6b5637",
               }}
             >
               Ahad
@@ -140,7 +140,7 @@ export default async function Image() {
                 fontFamily: "Cormorant Garamond",
                 fontSize: 150,
                 fontWeight: 600,
-                color: "#49363a",
+                color: "#453824",
                 marginTop: -10,
               }}
             >
@@ -153,7 +153,7 @@ export default async function Image() {
               fontFamily: "Cormorant Garamond",
               fontSize: 22,
               fontWeight: 500,
-              color: "#80666a",
+              color: "#7c6d54",
               marginTop: -6,
             }}
           >
