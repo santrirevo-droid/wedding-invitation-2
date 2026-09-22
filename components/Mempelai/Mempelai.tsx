@@ -32,13 +32,25 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
       <div data-reveal className="flex flex-col items-center text-center">
         <Avatar className="mx-auto w-[12.5rem] drop-shadow-[0_14px_26px_rgba(105,65,73,0.28)] sm:w-[14rem]" />
 
+        {/* the nickname, big and in the script face — the by.memonika.com
+            reference's move: a large cursive first name doing the actual
+            "who is this" work, with the full legal name underneath reading
+            more like a caption than the headline */}
+        <AnimatedWords
+          as="p"
+          text={person.shortName}
+          variant="popIn"
+          groupSize={1}
+          className="mt-5 font-script text-[3.6rem] font-normal leading-none sm:text-[4.2rem]"
+          wordClassName="text-gilded inline-block"
+        />
+
         <AnimatedWords
           as="h3"
           text={person.name}
           variant="popIn"
           groupSize={1}
-          className="mt-6 font-display text-[28px] font-normal leading-tight"
-          wordClassName="text-gilded inline-block"
+          className="mt-3 font-display text-[19px] font-normal uppercase tracking-[0.12em] text-on-maroon-soft"
         />
 
         <p className="mt-3 font-accent text-[11px] font-normal uppercase tracking-[0.38em] text-accent-dark">
