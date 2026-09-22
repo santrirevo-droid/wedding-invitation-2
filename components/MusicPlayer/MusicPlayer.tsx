@@ -18,7 +18,7 @@ type MusicPlayerProps = {
 };
 
 const MusicPlayer = forwardRef<MusicPlayerHandle, MusicPlayerProps>(
-  ({ src = "/music/rab-ne.mp3", className = "" }, ref) => {
+  ({ src = "/music/kal-ho-na-ho.mp3", className = "" }, ref) => {
     const audioRef = useRef<HTMLAudioElement>(null);
     const [isPlaying, setIsPlaying] = useState(false);
     // tracks whether the tab itself paused playback (vs. the visitor
