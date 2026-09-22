@@ -76,18 +76,7 @@ export default function Hero() {
           />
 
           <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-md flex-col items-center justify-center gap-8 px-8 py-20 text-center">
-            {/* the cover-card — a bordered plate holding the invitation's own
-                content, distinct from the full-bleed frame around it, echoing
-                herewego's boxed cover-card rather than type floating free */}
-            <div
-              ref={content}
-              className="relative flex flex-col items-center border border-accent/30 bg-paper/45 px-7 py-10 backdrop-blur-[2px] sm:px-10"
-            >
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-[7px] border border-accent/22"
-              />
-
+            <div ref={content} className="relative flex flex-col items-center px-7 py-10 sm:px-10">
               <AnimatedWords
                 as="p"
                 text="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"
