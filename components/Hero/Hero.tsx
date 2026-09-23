@@ -104,8 +104,8 @@ export default function Hero() {
             }}
           />
 
-          <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-md flex-col items-center justify-center gap-4 px-8 py-6 text-center">
-            <div ref={content} className="relative flex flex-col items-center px-7 py-4 sm:px-10">
+          <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-md flex-col items-center justify-center gap-4 px-8 py-5 text-center">
+            <div ref={content} className="relative flex flex-col items-center px-7 py-3 sm:px-10">
               {/* the white arch card — a gateway silhouette echoing the
                   video's own wooden arch, materialising behind the text
                   once every line above has popped in (see
@@ -143,6 +143,14 @@ export default function Hero() {
                 className="font-arabic text-xl leading-relaxed text-accent-dark"
               />
 
+              <AnimatedWords
+                as="p"
+                text="The Wedding Of"
+                variant="popIn"
+                groupSize={1}
+                className="mt-4 font-accent text-[11px] font-normal uppercase tracking-[0.5em] text-on-maroon-soft"
+              />
+
               {/* monogram — a drawn mark (the initials genuinely interwoven,
                   with the botanical flourishes the theme is built around)
                   rather than two script capitals set side by side, which is
@@ -158,37 +166,30 @@ export default function Hero() {
                 alt=""
                 aria-hidden="true"
                 data-monogram
-                width={800}
-                height={565}
+                width={1000}
+                height={704}
                 priority
-                sizes="(min-width: 640px) 13rem, 11rem"
-                className="mt-3 h-auto w-[9rem] sm:w-[11rem]"
-              />
-
-              <AnimatedWords
-                as="p"
-                text="The Wedding Of"
-                variant="popIn"
-                groupSize={1}
-                className="mt-3 font-accent text-[11px] font-normal uppercase tracking-[0.5em] text-on-maroon-soft"
+                sizes="(min-width: 640px) 16rem, 13.5rem"
+                className="mt-1 h-auto w-[min(13.5rem,60vw)] sm:w-[16rem]"
               />
 
               {/* the couple's names — the one place the script face appears at
-                  full scale, gilded and slowly drifting. A formal roundhand
-                  runs wider and carries taller ascenders/deeper descenders
-                  than the old thin script, so this is set a step smaller
-                  (17vw, max 4.6rem) with room to breathe between the lines
-                  rather than the negative leading that used to clamp them —
-                  at 20vw/leading-0.95 the swashes collided and "Nufus" ran
-                  past the card's edge. */}
-              <h1 ref={title} className="mt-2 flex flex-col items-center leading-none">
-                <span className="text-gilded text-gilded-drift font-script text-[clamp(2.9rem,17vw,4.6rem)] leading-[1.12]">
+                  full scale, gilded and slowly drifting. Set on one line so
+                  the monogram above can carry the vertical weight instead:
+                  stacking these three across three lines cost ~150px of a
+                  cover that has to end with a tappable CTA still on screen.
+                  items-baseline, so the ampersand sits on the script's own
+                  baseline rather than being centred against its deep
+                  descenders. */}
+              <h1
+                ref={title}
+                className="mt-3 flex items-baseline justify-center gap-2.5 leading-none"
+              >
+                <span className="text-gilded text-gilded-drift font-script text-[clamp(2.2rem,12.5vw,3.6rem)] leading-[1.15]">
                   {couple.bride.shortName}
                 </span>
-                <span className="font-display text-2xl font-light leading-none text-accent-dark">
-                  &amp;
-                </span>
-                <span className="text-gilded text-gilded-drift font-script text-[clamp(2.9rem,17vw,4.6rem)] leading-[1.12]">
+                <span className="font-display text-xl font-light text-accent-dark">&amp;</span>
+                <span className="text-gilded text-gilded-drift font-script text-[clamp(2.2rem,12.5vw,3.6rem)] leading-[1.15]">
                   {couple.groom.shortName}
                 </span>
               </h1>
