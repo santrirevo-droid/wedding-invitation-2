@@ -51,9 +51,14 @@ export function useOpenInvitation(refs: CoverRefs) {
   // The couple's name is three parts (bride / "&" / groom) and the monogram
   // is the mark that introduces them — hide all of it immediately so open()'s
   // timeline below can bring each in, instead of the block sitting there
-  // pre-set and only scale-popping as a single fused unit. The monogram
-  // starts small rather than merely transparent: its reveal grows it out of
-  // its own centre, which needs somewhere to grow from.
+  // pre-set and only scale-popping as a single fused unit.
+  //
+  // The monogram hides differently from the names, and deliberately: it is
+  // clipped to a zero-width slit on its own centre line rather than made
+  // transparent. It is meant to read as a thing that was always hanging
+  // there behind the curtain, so it stays fully opaque and simply isn't
+  // uncovered yet — the curtain in the clip is what's in front of it. Fading
+  // or scaling it in would say the opposite, that it materialised on cue.
   //
   // Left visible under reduced-motion, same as the names: those visitors
   // never get the open() choreography, so anything hidden here would stay
@@ -65,7 +70,7 @@ export function useOpenInvitation(refs: CoverRefs) {
     if (lines?.length) gsap.set(lines, { opacity: 0, y: 22 });
 
     if (refs.monogram.current) {
-      gsap.set(refs.monogram.current, { opacity: 0, scale: 0.55 });
+      gsap.set(refs.monogram.current, { clipPath: "inset(0% 50%)" });
     }
   }, [refs.title, refs.monogram]);
 
@@ -130,19 +135,35 @@ export function useOpenInvitation(refs: CoverRefs) {
       .to(refs.button.current, { opacity: 0, y: 12, duration: 0.35 }, 0)
       .to(refs.glow.current, { opacity: 1, duration: 0.6, ease: "power1.out" }, 0)
       .to(refs.glow.current, { opacity: 0, duration: 0.55, ease: "power1.in" }, 0.75)
-      // The monogram opens the same beat as the names but half a second
-      // ahead of them (2.5 vs 3.0), so the mark lands first and the names
-      // read as its caption rather than the two arriving together.
-      // Scale from the small value the mount effect parked it at, with the
-      // same overshoot-then-settle the names use — GSAP scales about the
-      // element's centre by default, so it grows outward from the middle
-      // instead of unfolding from a corner.
-      .to(
-        refs.monogram.current,
-        { opacity: 1, scale: 1.04, duration: 0.5, ease: "power2.out" },
-        2.5
-      )
-      .to(refs.monogram.current, { scale: 1, duration: 0.45, ease: "power2.inOut" }, 3)
+      // The monogram is uncovered by the curtain rather than revealed on its
+      // own: the clip slit the mount effect left it at widens from its
+      // centre line outwards, in step with the fabric drawing back, so the
+      // mark reads as something that was hanging there all along.
+      //
+      // The window is measured off the clip itself, not guessed. Sampling a
+      // bright-pixel scanline across public/video/cover-open.mp4 frame by
+      // frame: the curtains sit shut through t=1.25, the first gap appears at
+      // t=1.50 spanning px 338–383 of a 720px frame (centre = 360, so it
+      // parts from dead centre), widens symmetrically, and is done by t=2.55,
+      // after which the openness figure plateaus and only the flowers keep
+      // blooming. 1.5 + 1.1 lands the wipe on that same span, allowing for
+      // the video running ~0.12s ahead of this timeline (play() is called
+      // before the first tick).
+      //
+      // ease "none" because the fabric travels at a near-constant rate once
+      // it starts; the same scanline run against the live page puts the wipe
+      // within 8 points of the curtain's own openness at every sample across
+      // the parting, and within 5 for most of it. An eased curve drifted
+      // visibly against it.
+      //
+      // Both ends are written in the same two-value `inset(v h)` form on
+      // purpose. GSAP interpolates a shape like this by pairing up the
+      // numbers it finds in the start and end strings, and it reads the
+      // start from the computed style — which Chrome collapses from the
+      // four values set above to two. Ending on a four-value string left it
+      // pairing two numbers against four, and the clip jumped straight to
+      // ~53% open on the tween's first tick instead of easing from nothing.
+      .to(refs.monogram.current, { clipPath: "inset(0% 0%)", duration: 1.1, ease: "none" }, 1.5)
       // The couple's names stay hidden (see the mount effect above) until
       // the curtain clip has finished parting (~3s — see
       // public/video/cover-open.mp4), then pop in — matching the
