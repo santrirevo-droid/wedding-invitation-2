@@ -1,3 +1,4 @@
+import { venue } from "@/lib/weddingData";
 import type { ProgressData } from "./types";
 
 // Data awal contoh — sunting/hapus sesuai kebutuhan setelah situs berjalan.
@@ -8,8 +9,11 @@ export const DEFAULT_DATA: ProgressData = {
     nameSecond: "Nufus Nurcholisoh",
     weddingDate: "2026-11-01",
     ceremonyTime: "09:00",
-    venue: "Kediaman Mempelai Wanita, Kp. Talaga, Karaton, Pandeglang",
-    venueMapUrl: "https://maps.app.goo.gl/bebzMQ4xbJHFx1DZ9",
+    // diturunkan dari lib/weddingData, bukan ditulis ulang: dulu baris ini
+    // menyimpan salinan alamatnya sendiri yang lebih singkat, dan salinan
+    // itulah yang ketinggalan saat alamat undangannya diperbarui
+    venue: `${venue.name}, ${venue.location}`,
+    venueMapUrl: venue.mapsUrl,
     totalBudget: 0,
   },
   tasks: [
