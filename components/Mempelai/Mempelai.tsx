@@ -47,23 +47,27 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
           text={person.shortName}
           variant="popIn"
           groupSize={1}
-          className="mt-5 font-script text-[3.6rem] font-normal leading-none sm:text-[4.2rem]"
+          className="mt-5 font-script text-[3.1rem] font-normal leading-[1.15] sm:text-[3.6rem]"
           wordClassName="text-gilded inline-block"
         />
 
+        {/* the full legal name reads as a caption under the script, so it
+            gets the text face at caption weight, not the display cut —
+            uppercase at 15px is exactly where a display Garamond's
+            hairlines start to disappear */}
         <AnimatedWords
           as="h3"
           text={person.name}
           variant="popIn"
           groupSize={1}
-          className="mt-3 font-display text-[19px] font-normal uppercase tracking-[0.12em] text-on-maroon-soft"
+          className="mt-2.5 font-body text-[14px] font-medium uppercase tracking-[0.14em] text-on-maroon-soft"
         />
 
         <p className="mt-3 font-accent text-[11px] font-normal uppercase tracking-[0.38em] text-accent-dark">
           {role === "putra" ? "Putra" : "Putri"} dari
         </p>
 
-        <div className="mx-auto mt-3 max-w-[17rem] font-display text-[17px] font-normal italic leading-[1.7] text-on-maroon-soft">
+        <div className="mx-auto mt-3 max-w-[17rem] font-body text-[15px] font-normal italic leading-[1.7] text-on-maroon-soft">
           <AnimatedWords as="p" text={`${person.father} &`} variant="slideLeft" groupSize={2} />
           <AnimatedWords as="p" text={person.mother} variant="slideLeft" groupSize={2} />
         </div>
@@ -73,7 +77,7 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
             href={`https://instagram.com/${person.instagram.replace(/^@/, "")}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-5 inline-flex items-center gap-2 border border-accent/32 px-4 py-2 font-handle text-[11px] font-normal lowercase tracking-[0.22em] text-accent-dark transition-colors hover:border-accent-dark hover:text-on-maroon"
+            className="mt-5 inline-flex items-center gap-2 border border-accent/32 px-4 py-2 font-accent text-[11px] font-normal lowercase tracking-[0.18em] text-accent-dark transition-colors hover:border-accent-dark hover:text-on-maroon"
           >
             <svg
               width="12"
@@ -116,7 +120,7 @@ export default function Mempelai() {
           text="Dengan memohon rahmat dan ridha Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami:"
           variant="slideLeft"
           groupSize={3}
-          className="mx-auto mt-7 max-w-sm font-display text-[18px] font-normal italic leading-[1.75] text-on-maroon-soft"
+          className="mx-auto mt-7 max-w-sm font-body text-[15px] font-normal italic leading-[1.85] text-on-maroon-soft"
         />
 
         <div className="mt-12 flex flex-col items-center gap-10">
@@ -124,7 +128,7 @@ export default function Mempelai() {
 
           <div data-reveal className="flex items-center gap-5">
             <span className="rule-gild w-12" />
-            <span className="text-gilded font-script text-[3.2rem] leading-none">
+            <span className="text-gilded font-script text-[2.9rem] leading-[1.15]">
               &amp;
             </span>
             <span className="rule-gild w-12" />

@@ -1,44 +1,71 @@
 import type { Metadata, Viewport } from "next";
-import { Amiri, DM_Sans, Italiana, Parisienne } from "next/font/google";
+import { Amiri, Cormorant_Garamond, Great_Vibes, Jost, Lora } from "next/font/google";
 import BackgroundPattern from "@/components/BackgroundPattern";
 import { couple, events, venue } from "@/lib/weddingData";
 import "./globals.css";
 
-/* Four families, and only four — every other --font-* token in globals.css
-   aliases one of these. Re-themed from the previous Cormorant/Italianno/Jost
-   set to match the herewego/ reference (see globals.css for the rest of
-   that re-theme). */
+/* ── The type system ──────────────────────────────────────────────────────
+   Five families, one job each, and every --font-* token in globals.css
+   aliases one of them. The split that matters is display-vs-text: a
+   Garamond cut for large sizes and a separate screen-first serif for
+   running copy, which is what the previous single-family setup (Italiana
+   doing both) could not do — see each note below. */
 
-// headings + all running copy. Italiana ships only weight 400/normal (no
-// italic, no other weights) — any font-light/font-semibold/italic classes
-// that reach font-display fall back to the browser's faux-bold/-italic,
-// same trade-off herewego itself makes for the same font.
-const italiana = Italiana({
+// DISPLAY — section mastheads, card headings, dates, large numerals.
+// An old-style Garamond: organic, hand-cut warmth that suits the botanical
+// ground far better than a cold high-contrast Didone would. It also ships a
+// real 300, so the airy `font-light` mastheads finally resolve to an actual
+// weight instead of silently rendering at 400 (a font-weight the browser
+// cannot synthesize — unlike bold/italic, light has no faux fallback).
+// Already the face app/opengraph-image.tsx renders in, so the share card
+// and the page it links to are now finally the same typeface.
+const cormorant = Cormorant_Garamond({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["300", "400", "500"],
+  style: ["normal", "italic"],
 });
 
-// the couple's names, and nothing else — a true calligraphic face, used
-// only at large sizes where its thin strokes and long swashes work
-const parisienne = Parisienne({
+// TEXT — every paragraph of running copy, and form fields.
+// A screen-first text serif: moderate stroke contrast that survives at
+// 15px where a display face's hairlines break up, and — the reason this
+// family is here at all — a TRUE italic. This invitation sets a lot of
+// prose in italic, all of which was previously a browser-synthesized
+// slant of an upright display face.
+const lora = Lora({
+  variable: "--font-text",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["normal", "italic"],
+});
+
+// META — eyebrows, buttons, field labels, nav, countdown units.
+// Geometric/Futura-descended. This whole layer is uppercase, so the small
+// x-height costs nothing, while the uniform strokes and circular bowls
+// carry the quiet luxury-fashion register the layer wants at 10–11px with
+// wide tracking.
+const jost = Jost({
+  variable: "--font-meta",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+});
+
+// SCRIPT — the couple's names and the monogram initials, nothing else.
+// Formal roundhand with enough stroke weight to actually carry the
+// .text-gilded foil gradient; a hairline script leaves the gradient almost
+// nothing to paint, which is what made the old foil read as flat colour.
+const greatVibes = Great_Vibes({
   variable: "--font-script",
   subsets: ["latin"],
   weight: "400",
 });
 
-// tiny wide-tracked labels ("The Wedding Of", section eyebrows, IG handles).
-// Kept geometric and quiet so it never competes with the serif.
-const dmSans = DM_Sans({
-  variable: "--font-meta",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-});
-
+// ARABIC — the Qur'anic passage. A scholarly Naskh with proper support for
+// the full diacritic stack, which general-purpose faces mangle.
 const amiri = Amiri({
   variable: "--font-arabic",
   subsets: ["arabic", "latin"],
-  weight: ["400", "700"],
+  weight: ["400"],
 });
 
 const siteUrl = "https://nufus-amri.vercel.app";
@@ -80,7 +107,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${italiana.variable} ${parisienne.variable} ${dmSans.variable} ${amiri.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${lora.variable} ${jost.variable} ${greatVibes.variable} ${amiri.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-maroon-deep font-body text-on-maroon">
         <BackgroundPattern />

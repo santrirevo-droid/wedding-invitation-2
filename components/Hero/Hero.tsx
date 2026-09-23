@@ -143,16 +143,23 @@ export default function Hero() {
               />
 
               {/* monogram — the couple's initials, not a generic sprig, so it
-                  stays correct automatically if shortName ever changes */}
-              <div aria-hidden="true" className="mt-5 flex items-center justify-center gap-3">
+                  stays correct automatically if shortName ever changes.
+                  The leading here is load-bearing, not taste: .text-gilded
+                  paints the foil through background-clip:text, so any part
+                  of a glyph overflowing its line box falls outside the
+                  background box and renders transparent. A roundhand cap
+                  carries its flourish well above the cap line, so a cropped
+                  line box (leading < 1) silently beheads these two letters
+                  rather than merely tightening them. */}
+              <div aria-hidden="true" className="mt-5 flex items-center justify-center gap-3.5">
                 <span className="rule-gild w-7 sm:w-9" />
-                <span className="text-gilded font-script text-[2.75rem] leading-none sm:text-[3.25rem]">
+                <span className="text-gilded font-script text-[2.6rem] leading-[1.15] sm:text-[3rem]">
                   {couple.bride.shortName.charAt(0)}
                 </span>
-                <span className="font-display text-lg font-normal leading-none text-accent-dark sm:text-xl">
+                <span className="font-display text-xl font-light leading-none text-accent-dark sm:text-2xl">
                   &amp;
                 </span>
-                <span className="text-gilded font-script text-[2.75rem] leading-none sm:text-[3.25rem]">
+                <span className="text-gilded font-script text-[2.6rem] leading-[1.15] sm:text-[3rem]">
                   {couple.groom.shortName.charAt(0)}
                 </span>
                 <span className="rule-gild w-7 sm:w-9" />
@@ -167,15 +174,21 @@ export default function Hero() {
               />
 
               {/* the couple's names — the one place the script face appears at
-                  full scale, gilded and slowly drifting */}
+                  full scale, gilded and slowly drifting. A formal roundhand
+                  runs wider and carries taller ascenders/deeper descenders
+                  than the old thin script, so this is set a step smaller
+                  (17vw, max 4.6rem) with room to breathe between the lines
+                  rather than the negative leading that used to clamp them —
+                  at 20vw/leading-0.95 the swashes collided and "Nufus" ran
+                  past the card's edge. */}
               <h1 ref={title} className="mt-2 flex flex-col items-center leading-none">
-                <span className="text-gilded text-gilded-drift font-script text-[clamp(3.2rem,20vw,5.5rem)] leading-[0.95]">
+                <span className="text-gilded text-gilded-drift font-script text-[clamp(2.9rem,17vw,4.6rem)] leading-[1.12]">
                   {couple.bride.shortName}
                 </span>
-                <span className="my-1 font-display text-2xl font-normal leading-none text-accent-dark">
+                <span className="font-display text-2xl font-light leading-none text-accent-dark">
                   &amp;
                 </span>
-                <span className="text-gilded text-gilded-drift font-script text-[clamp(3.2rem,20vw,5.5rem)] leading-[0.95]">
+                <span className="text-gilded text-gilded-drift font-script text-[clamp(2.9rem,17vw,4.6rem)] leading-[1.12]">
                   {couple.groom.shortName}
                 </span>
               </h1>
@@ -183,7 +196,7 @@ export default function Hero() {
               {/* date, set as three tracked numerals between hairlines */}
               <div className="mt-5 flex items-center gap-4">
                 <span className="rule-gild w-10 sm:w-14" />
-                <p className="flex items-baseline gap-2.5 font-display text-lg font-normal tracking-[0.18em] text-on-maroon">
+                <p className="flex items-baseline gap-2.5 font-display text-[21px] font-normal tracking-[0.16em] text-on-maroon">
                   <span>{weddingDay}</span>
                   <span className="text-accent-dark">·</span>
                   <span>{weddingMonth}</span>

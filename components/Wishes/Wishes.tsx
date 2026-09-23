@@ -89,7 +89,7 @@ export default function Wishes() {
                 text="Jadilah yang pertama mengirimkan ucapan & doa."
                 variant="rise"
                 groupSize={3}
-                className="font-display text-[19px] font-normal italic text-on-maroon-soft"
+                className="font-body text-[15px] font-normal italic text-on-maroon-soft"
               />
             ) : (
               <div className="flex max-h-[28rem] flex-col gap-3.5 overflow-y-auto pr-1.5 text-left">
@@ -100,11 +100,11 @@ export default function Wishes() {
                     className="border-y border-r border-accent/25 border-l-2 border-l-accent/60 bg-paper/70 px-6 py-5"
                   >
                     <div className="flex items-center gap-3.5">
-                      <span className="flex h-11 w-9 shrink-0 items-center justify-center rounded-t-full border border-accent/42 font-display text-lg font-normal text-accent">
+                      <span className="flex h-11 w-9 shrink-0 items-center justify-center rounded-t-full border border-accent/42 font-display text-[20px] font-normal text-accent">
                         {wish.name.trim().charAt(0).toUpperCase() || "?"}
                       </span>
                       <div className="min-w-0">
-                        <div className="truncate font-display text-[18px] font-normal text-on-maroon">
+                        <div className="truncate font-display text-[20px] font-medium text-on-maroon">
                           {wish.name}
                         </div>
                         <div
@@ -124,7 +124,7 @@ export default function Wishes() {
                       </div>
                     </div>
                     {wish.message && (
-                      <p className="mt-4 font-display text-[16.5px] font-normal italic leading-[1.7] text-on-maroon-soft">
+                      <p className="mt-4 font-body text-[14.5px] font-normal italic leading-[1.75] text-on-maroon-soft">
                         {wish.message}
                       </p>
                     )}

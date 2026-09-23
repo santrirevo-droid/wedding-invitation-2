@@ -49,16 +49,16 @@ function EventCard({
           : "border-border bg-paper/75"
       }`}
     >
-      <span className="absolute right-5 top-5 font-display text-lg font-normal text-accent">
+      <span className="absolute right-5 top-5 font-display text-[19px] font-normal text-accent">
         {index}
       </span>
       <p className="font-accent text-[11px] font-normal uppercase tracking-[0.32em] text-accent-dark">
         {title}
       </p>
-      <h3 className="mt-6 font-display text-[22px] font-normal leading-tight text-ink">
+      <h3 className="mt-6 font-display text-[25px] font-medium leading-tight text-ink">
         {time}
       </h3>
-      <p className="mt-2 font-display text-[15px] font-normal italic leading-[1.6] text-ink-soft">
+      <p className="mt-2 font-body text-[13.5px] font-normal italic leading-[1.6] text-ink-soft">
         {date}
       </p>
     </div>
@@ -98,7 +98,7 @@ export default function Acara() {
         <p className="font-accent text-[11px] font-normal uppercase tracking-[0.4em] text-paper/65">
           Save the Date
         </p>
-        <h2 className="mt-3 font-display text-[clamp(2rem,7vw,2.9rem)] font-normal leading-[1.1]">
+        <h2 className="mt-3 font-display text-[clamp(2.2rem,7.5vw,3.1rem)] font-light leading-[1.12]">
           <AnimatedWords as="span" text="Menuju hari" variant="popUp" groupSize={2} />
           <br />
           <AnimatedWords
@@ -106,7 +106,7 @@ export default function Acara() {
             text="bahagia kami."
             variant="popUp"
             groupSize={2}
-            className="font-script text-[1.35em] leading-none text-[#e3d9a8]"
+            className="font-script text-[1.25em] leading-[1.2] [word-spacing:0.16em] text-[#e3d9a8]"
           />
         </h2>
 
@@ -115,7 +115,7 @@ export default function Acara() {
             <div key={cell.label} className="border-r border-paper/25 px-1">
               <div
                 suppressHydrationWarning
-                className="font-display text-[clamp(1.7rem,6vw,2.4rem)] font-normal leading-none tabular-nums"
+                className="font-display text-[clamp(1.9rem,6.5vw,2.6rem)] font-normal leading-none tabular-nums lining-nums"
               >
                 {String(cell.value).padStart(2, "0")}
               </div>
@@ -142,7 +142,7 @@ export default function Acara() {
             <span className="text-right font-accent text-[11px] font-normal uppercase leading-[1.7] tracking-[0.16em] text-on-maroon-soft">
               {weddingDayName}
             </span>
-            <strong className="text-gilded font-display text-[clamp(3.6rem,14vw,5.2rem)] font-normal leading-[0.75]">
+            <strong className="text-gilded font-display text-[clamp(3.9rem,15vw,5.6rem)] font-light leading-[0.78]">
               {weddingDay}
             </strong>
             <span className="text-left font-accent text-[11px] font-normal uppercase leading-[1.7] tracking-[0.16em] text-on-maroon-soft">
@@ -167,7 +167,7 @@ export default function Acara() {
             <p className="font-accent text-[11px] font-normal uppercase tracking-[0.4em] text-ink-soft">
               Bertempat di
             </p>
-            <h4 className="mt-3 font-display text-[25px] font-normal leading-tight text-ink">
+            <h4 className="mt-3 font-display text-[28px] font-medium leading-tight text-ink">
               {venue.name}
             </h4>
             <AnimatedWords
@@ -175,7 +175,7 @@ export default function Acara() {
               text={venue.location}
               variant="popUp"
               groupSize={3}
-              className="mx-auto mt-2.5 max-w-[19rem] font-display text-[16px] font-normal leading-[1.6] text-ink-soft"
+              className="mx-auto mt-3 max-w-[19rem] font-body text-[14px] font-normal leading-[1.7] text-ink-soft"
             />
 
             <div className="mt-8 flex flex-col items-stretch gap-3">

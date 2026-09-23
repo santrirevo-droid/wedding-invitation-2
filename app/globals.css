@@ -79,28 +79,28 @@
   --font-body: var(--font-body);
   --font-arabic: var(--font-arabic);
   --font-script: var(--font-script);
-  --font-mempelai: var(--font-mempelai);
-  --font-fullname: var(--font-fullname);
-  --font-handle: var(--font-handle);
-  --font-rsvp: var(--font-rsvp);
-  --font-title-mempelai: var(--font-title-mempelai);
 }
 
 :root {
-  /* Only FOUR families are actually loaded (see app/layout.tsx):
-       --font-display  Italiana   — every heading and all running copy
-       --font-script   Parisienne — the couple's names, nothing else
-       --font-meta     DM Sans    — tiny tracked labels, IG handles
-       --font-arabic   Amiri      — the Qur'anic passage
-     Every other token below is an alias, so components can keep their
-     existing font-* classes while the type system stays this small. */
-  --font-body: var(--font-display);
+  /* Five families, one job each (see app/layout.tsx for why each was
+     picked). Four are loaded under their own name; --font-body and
+     --font-accent are the two aliases, kept because every component
+     already writes `font-body` / `font-accent`:
+
+       font-display  Cormorant Garamond  headings, dates, large numerals
+       font-body     Lora                all running copy, form fields
+       font-accent   Jost                eyebrows, buttons, labels, nav
+       font-script   Great Vibes         couple's names + monogram only
+       font-arabic   Amiri               the Qur'anic passage
+
+     USE THE RIGHT ONE. The rule that keeps this readable: font-display is
+     a display cut and starts to break up below ~19px, so anything smaller
+     than that — and anything set in italic — belongs to font-body. The
+     four dead aliases that used to live here (--font-mempelai,
+     --font-fullname, --font-title-mempelai, --font-rsvp) had no remaining
+     callers and are gone. */
+  --font-body: var(--font-text);
   --font-accent: var(--font-meta);
-  --font-mempelai: var(--font-display);
-  --font-fullname: var(--font-display);
-  --font-title-mempelai: var(--font-display);
-  --font-handle: var(--font-meta);
-  --font-rsvp: var(--font-script);
 }
 
 html {

@@ -70,10 +70,10 @@ export default function OurStory() {
                 <p className="font-accent text-[11px] font-normal uppercase tracking-[0.35em] text-accent-dark">
                   {m.year}
                 </p>
-                <p className="mt-1.5 font-display text-[22px] font-normal italic leading-tight text-on-maroon">
+                <p className="mt-1.5 font-display text-[25px] font-medium italic leading-tight text-on-maroon">
                   {m.label}
                 </p>
-                <p className="mt-1 font-display text-[16px] font-normal leading-[1.6] text-on-maroon-soft">
+                <p className="mt-1.5 font-body text-[14px] font-normal leading-[1.7] text-on-maroon-soft">
                   {m.desc}
                 </p>
               </div>

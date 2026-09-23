@@ -22,7 +22,7 @@ function GreetingCardShell({ guestName }: { guestName: string }) {
       {guestName && (
         <>
           <span className="rule-gild mx-auto mt-4 block w-12" />
-          <p className="mt-3.5 font-display text-[26px] font-light leading-tight text-on-maroon">
+          <p className="mt-3.5 font-display text-[29px] font-light leading-tight text-on-maroon">
             {guestName}
           </p>
         </>

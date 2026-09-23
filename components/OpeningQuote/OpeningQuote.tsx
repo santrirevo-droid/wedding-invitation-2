@@ -50,7 +50,7 @@ export default function OpeningQuote() {
           text={AYAT_TRANSLATION}
           variant="blurZoom"
           groupSize={3}
-          className="mt-8 font-display text-[15px] font-normal italic leading-[1.75] text-on-maroon-soft"
+          className="mt-8 font-body text-[15px] font-normal italic leading-[1.8] text-on-maroon-soft"
         />
 
         <p

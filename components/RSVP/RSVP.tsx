@@ -16,8 +16,12 @@ type SentWish = {
   message: string;
 };
 
+// the one place the sans carries lowercase running text: a form field is
+// UI, not stationery, and what a guest types (their own name, a message)
+// has to stay unambiguous while they type it — the display serif's
+// hairlines at input size were the weakest text on the page
 const fieldClass =
-  "min-h-12 w-full border border-accent/32 bg-paper/75 px-4 py-3.5 font-display text-[17px] font-normal text-on-maroon outline-none transition-colors placeholder:text-on-maroon-soft/55 focus:border-accent/75";
+  "min-h-12 w-full border border-accent/32 bg-paper/75 px-4 py-3.5 font-accent text-[15px] font-normal text-on-maroon outline-none transition-colors placeholder:text-on-maroon-soft/55 focus:border-accent/75";
 const labelClass =
   "mb-2.5 block font-accent text-[11px] font-normal uppercase tracking-[0.38em] text-accent-dark";
 
@@ -65,11 +69,11 @@ function RSVPFormContent() {
         </p>
         <div className="mt-5 border-y border-r border-accent/28 border-l-2 border-l-accent/65 bg-paper/75 px-6 py-5">
           <div className="flex items-center gap-3.5">
-            <span className="flex h-11 w-9 shrink-0 items-center justify-center rounded-t-full border border-accent/45 font-display text-lg font-normal text-accent">
+            <span className="flex h-11 w-9 shrink-0 items-center justify-center rounded-t-full border border-accent/45 font-display text-[20px] font-normal text-accent">
               {sentWish.name.trim().charAt(0).toUpperCase() || "?"}
             </span>
             <div className="min-w-0">
-              <div className="truncate font-display text-[18px] font-normal text-on-maroon">
+              <div className="truncate font-display text-[20px] font-medium text-on-maroon">
                 {sentWish.name}
               </div>
               <div
@@ -87,12 +91,12 @@ function RSVPFormContent() {
             </div>
           </div>
           {sentWish.message && (
-            <p className="mt-4 font-display text-[16px] font-normal leading-[1.7] text-on-maroon-soft">
+            <p className="mt-4 font-body text-[14.5px] font-normal leading-[1.75] text-on-maroon-soft">
               {sentWish.message}
             </p>
           )}
         </div>
-        <p className="mt-5 text-center font-display text-[15px] font-normal italic text-on-maroon-soft">
+        <p className="mt-5 text-center font-body text-[14px] font-normal italic text-on-maroon-soft">
           Terima kasih — {wishes.length} ucapan telah masuk.
         </p>
       </div>
@@ -175,7 +179,7 @@ function RSVPFormContent() {
       </div>
 
       {errorMessage && (
-        <p className="font-display text-[15px] italic text-red-700">{errorMessage}</p>
+        <p className="font-body text-[14px] italic text-red-700">{errorMessage}</p>
       )}
 
       <button
@@ -213,7 +217,7 @@ export default function RSVP() {
             and AnimatedWords' inline-block word spans are a separate box
             from their ancestor, so a gradient on the h2 alone renders the
             words invisible */}
-        <h2 className="mt-3 font-display text-[clamp(2.4rem,9vw,3.2rem)] font-normal leading-[1.08]">
+        <h2 className="mt-3 font-display text-[clamp(2.35rem,8.6vw,3.2rem)] font-light leading-[1.1]">
           <AnimatedWords
             as="span"
             text="Kehadiran Anda adalah"
@@ -227,7 +231,7 @@ export default function RSVP() {
             text="hadiah terindah."
             variant="slideRight"
             groupSize={2}
-            className="font-script text-[1.2em] leading-none"
+            className="font-script text-[1.15em] leading-[1.18] [word-spacing:0.16em]"
             wordClassName="text-gilded inline-block"
           />
         </h2>
@@ -236,12 +240,12 @@ export default function RSVP() {
           text="Merupakan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu."
           variant="slideRight"
           groupSize={3}
-          className="mx-auto mt-6 max-w-sm font-display text-[17px] font-normal leading-[1.75] text-on-maroon-soft"
+          className="mx-auto mt-6 max-w-sm font-body text-[15px] font-normal leading-[1.8] text-on-maroon-soft"
         />
 
         <div data-reveal className="mt-9 flex items-stretch justify-center gap-10">
           <div>
-            <div className="text-gilded font-display text-[34px] font-normal leading-none tabular-nums">
+            <div className="text-gilded font-display text-[38px] font-light leading-none tabular-nums lining-nums">
               {wishes.length}
             </div>
             <div className="mt-2.5 font-accent text-[11px] font-normal uppercase tracking-[0.3em] text-on-maroon-soft">
@@ -250,7 +254,7 @@ export default function RSVP() {
           </div>
           <div className="w-px bg-accent/20" />
           <div>
-            <div className="text-gilded font-display text-[34px] font-normal leading-none tabular-nums">
+            <div className="text-gilded font-display text-[38px] font-light leading-none tabular-nums lining-nums">
               {hadirCount}
             </div>
             <div className="mt-2.5 font-accent text-[11px] font-normal uppercase tracking-[0.3em] text-on-maroon-soft">
@@ -264,10 +268,12 @@ export default function RSVP() {
         <p className="text-center font-accent text-[11px] font-normal uppercase tracking-[0.38em] text-accent-dark">
           RSVP
         </p>
-        <h2 className="text-gilded mt-3 text-center font-display text-[2.1rem] font-normal leading-[1.05]">
+        <h2 className="text-gilded mt-3 text-center font-display text-[2.3rem] font-light leading-[1.06]">
           Konfirmasi
           <br />
-          <span className="font-script text-[1.15em] leading-none">kehadiran Anda.</span>
+          <span className="font-script text-[1.1em] leading-[1.18] [word-spacing:0.16em]">
+            kehadiran Anda.
+          </span>
         </h2>
         <RSVPFormContent />
       </SectionCard>

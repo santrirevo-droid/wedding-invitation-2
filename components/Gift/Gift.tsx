@@ -67,12 +67,12 @@ export default function GiftModalContent() {
       <p className="font-accent text-[11px] font-normal uppercase tracking-[0.38em] text-accent-dark">
         A token of love
       </p>
-      <h2 className="text-gilded mt-3 font-display text-[2.3rem] font-normal leading-[1.05]">
+      <h2 className="text-gilded mt-3 font-display text-[2.5rem] font-light leading-[1.06]">
         Tanda kasih
         <br />
-        <span className="font-script text-[1.15em] leading-none">untuk kami.</span>
+        <span className="font-script text-[1.1em] leading-[1.18] [word-spacing:0.16em]">untuk kami.</span>
       </h2>
-      <p className="mx-auto mt-5 max-w-[19rem] font-display text-[16px] font-normal leading-[1.7] text-on-maroon-soft">
+      <p className="mx-auto mt-5 max-w-[19rem] font-body text-[14.5px] font-normal leading-[1.8] text-on-maroon-soft">
         Kehadiran dan doa restu Anda sudah lebih dari cukup. Bila berkenan,
         tanda kasih dapat dikirim melalui:
       </p>
@@ -85,16 +85,16 @@ export default function GiftModalContent() {
             <p className="font-accent text-[11px] font-normal uppercase tracking-[0.4em] text-ink-soft">
               Transfer Bank
             </p>
-            <div className="mt-3 font-display text-[24px] font-normal leading-tight text-ink">
+            <div className="mt-3 font-display text-[27px] font-medium leading-tight text-ink">
               {account.bank}
             </div>
 
             <Botanical variant="garland" className="mx-auto my-4 w-32 text-gold/60" />
 
-            <div className="font-display text-[22px] font-normal tabular-nums tracking-[0.18em] text-gold-dark">
+            <div className="font-accent text-[21px] font-medium tabular-nums tracking-[0.2em] text-gold-dark">
               {account.number}
             </div>
-            <div className="mt-2 font-display text-[15px] font-normal text-ink-soft">
+            <div className="mt-2 font-body text-[14px] font-normal text-ink-soft">
               a.n. {account.holder}
             </div>
 
@@ -119,16 +119,16 @@ export default function GiftModalContent() {
           <p className="font-accent text-[11px] font-normal uppercase tracking-[0.4em] text-ink-soft">
             Kirim Hadiah
           </p>
-          <div className="mt-3 font-display text-[24px] font-normal leading-tight text-ink">
+          <div className="mt-3 font-display text-[27px] font-medium leading-tight text-ink">
             Alamat Pengiriman
           </div>
 
           <Botanical variant="garland" className="mx-auto my-4 w-32 text-gold/60" />
 
-          <div className="mx-auto max-w-[18rem] font-display text-[16px] font-normal leading-[1.65] text-gold-dark">
+          <div className="mx-auto max-w-[18rem] font-body text-[14.5px] font-normal leading-[1.7] text-gold-dark">
             {giftAddress.address}
           </div>
-          <div className="mt-2 font-display text-[15px] font-normal text-ink-soft">
+          <div className="mt-2 font-body text-[14px] font-normal text-ink-soft">
             a.n. {giftAddress.recipient}
           </div>
 

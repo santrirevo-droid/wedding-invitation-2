@@ -26,7 +26,7 @@ export default function Footer() {
           text="Merupakan suatu kebahagiaan dan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kedua mempelai."
           variant="drift"
           groupSize={3}
-          className="font-display text-[19px] font-normal leading-[1.8] text-paper/85"
+          className="font-body text-[15px] font-normal leading-[1.85] text-paper/85"
         />
 
         <AnimatedWords
@@ -34,7 +34,7 @@ export default function Footer() {
           text="Atas kehadiran serta doa restunya, kami sekeluarga mengucapkan terima kasih yang sebesar-besarnya."
           variant="drift"
           groupSize={3}
-          className="mt-5 font-display text-[19px] font-normal leading-[1.8] text-paper/85"
+          className="mt-5 font-body text-[15px] font-normal leading-[1.85] text-paper/85"
         />
 
         <Crest className="mx-auto mt-14 w-11 text-paper/55" />
@@ -58,16 +58,16 @@ export default function Footer() {
         <h2 className="mt-6 flex flex-col items-center leading-none">
           <span
             data-reveal
-            className="font-script text-[clamp(3.4rem,21vw,6rem)] leading-[0.95] text-[#e3d9a8]"
+            className="font-script text-[clamp(3rem,18vw,5rem)] leading-[1.12] text-[#e3d9a8]"
           >
             {couple.bride.shortName}
           </span>
-          <span data-reveal className="my-1.5 font-display text-2xl font-normal text-paper/70">
+          <span data-reveal className="font-display text-2xl font-light text-paper/70">
             &amp;
           </span>
           <span
             data-reveal
-            className="font-script text-[clamp(3.4rem,21vw,6rem)] leading-[0.95] text-[#e3d9a8]"
+            className="font-script text-[clamp(3rem,18vw,5rem)] leading-[1.12] text-[#e3d9a8]"
           >
             {couple.groom.shortName}
           </span>
