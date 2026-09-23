@@ -30,6 +30,7 @@ export default function Hero() {
     glow,
     content,
     coverCard,
+    monogram,
     title,
     button,
     scrollCue,
@@ -162,6 +163,7 @@ export default function Hero() {
                   Decorative only (aria-hidden): the same two names are
                   right below it in real text. */}
               <Image
+                ref={monogram}
                 src="/images/monogram.webp"
                 alt=""
                 aria-hidden="true"

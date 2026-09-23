@@ -48,16 +48,26 @@ export function useOpenInvitation(refs: CoverRefs) {
     };
   }, [lenis]);
 
-  // the couple's name is three lines (groom / "&" / bride) — hide each one
-  // immediately so open()'s timeline below can bring them in one at a time
-  // instead of the whole block appearing pre-set and only scale-popping
-  // as a single fused unit
+  // The couple's name is three parts (bride / "&" / groom) and the monogram
+  // is the mark that introduces them — hide all of it immediately so open()'s
+  // timeline below can bring each in, instead of the block sitting there
+  // pre-set and only scale-popping as a single fused unit. The monogram
+  // starts small rather than merely transparent: its reveal grows it out of
+  // its own centre, which needs somewhere to grow from.
+  //
+  // Left visible under reduced-motion, same as the names: those visitors
+  // never get the open() choreography, so anything hidden here would stay
+  // hidden for them.
   useEffect(() => {
-    const lines = refs.title.current?.children;
-    if (!lines?.length) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    gsap.set(lines, { opacity: 0, y: 22 });
-  }, [refs.title]);
+
+    const lines = refs.title.current?.children;
+    if (lines?.length) gsap.set(lines, { opacity: 0, y: 22 });
+
+    if (refs.monogram.current) {
+      gsap.set(refs.monogram.current, { opacity: 0, scale: 0.55 });
+    }
+  }, [refs.title, refs.monogram]);
 
   // the curtain-parting clip (public/video/cover-open.mp4) plays once and
   // would otherwise hold on its last frame — the arch in full bloom,
@@ -120,6 +130,19 @@ export function useOpenInvitation(refs: CoverRefs) {
       .to(refs.button.current, { opacity: 0, y: 12, duration: 0.35 }, 0)
       .to(refs.glow.current, { opacity: 1, duration: 0.6, ease: "power1.out" }, 0)
       .to(refs.glow.current, { opacity: 0, duration: 0.55, ease: "power1.in" }, 0.75)
+      // The monogram opens the same beat as the names but half a second
+      // ahead of them (2.5 vs 3.0), so the mark lands first and the names
+      // read as its caption rather than the two arriving together.
+      // Scale from the small value the mount effect parked it at, with the
+      // same overshoot-then-settle the names use — GSAP scales about the
+      // element's centre by default, so it grows outward from the middle
+      // instead of unfolding from a corner.
+      .to(
+        refs.monogram.current,
+        { opacity: 1, scale: 1.04, duration: 0.5, ease: "power2.out" },
+        2.5
+      )
+      .to(refs.monogram.current, { scale: 1, duration: 0.45, ease: "power2.inOut" }, 3)
       // The couple's names stay hidden (see the mount effect above) until
       // the curtain clip has finished parting (~3s — see
       // public/video/cover-open.mp4), then pop in — matching the

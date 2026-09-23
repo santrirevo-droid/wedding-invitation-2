@@ -24,6 +24,10 @@ export function useCoverRefs() {
     loopVideo: useRef<HTMLVideoElement>(null),
     glow: useRef<HTMLDivElement>(null),
     content: useRef<HTMLDivElement>(null),
+    // the drawn N&A mark above the couple's names — hidden on mount and
+    // scaled up out of its own centre by open(), half a second ahead of
+    // the names it introduces
+    monogram: useRef<HTMLImageElement>(null),
     // the white arch-shaped card that appears behind `content` once every
     // line of cover text has popped in — see useOpenInvitation's open()
     coverCard: useRef<HTMLDivElement>(null),
