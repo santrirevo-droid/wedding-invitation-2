@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense } from "react";
+import Image from "next/image";
 import AnimatedWords from "@/components/AnimatedWords";
 import GuestGreeting, { GuestGreetingFallback } from "@/components/GuestGreeting";
 import InvitationButton from "@/components/InvitationButton";
@@ -103,7 +104,7 @@ export default function Hero() {
             }}
           />
 
-          <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-md flex-col items-center justify-center gap-4 px-8 py-8 text-center">
+          <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-md flex-col items-center justify-center gap-4 px-8 py-6 text-center">
             <div ref={content} className="relative flex flex-col items-center px-7 py-4 sm:px-10">
               {/* the white arch card — a gateway silhouette echoing the
                   video's own wooden arch, materialising behind the text
@@ -142,35 +143,34 @@ export default function Hero() {
                 className="font-arabic text-xl leading-relaxed text-accent-dark"
               />
 
-              {/* monogram — the couple's initials, not a generic sprig, so it
-                  stays correct automatically if shortName ever changes.
-                  The leading here is load-bearing, not taste: .text-gilded
-                  paints the foil through background-clip:text, so any part
-                  of a glyph overflowing its line box falls outside the
-                  background box and renders transparent. A roundhand cap
-                  carries its flourish well above the cap line, so a cropped
-                  line box (leading < 1) silently beheads these two letters
-                  rather than merely tightening them. */}
-              <div aria-hidden="true" className="mt-5 flex items-center justify-center gap-3.5">
-                <span className="rule-gild w-7 sm:w-9" />
-                <span className="text-gilded font-script text-[2.6rem] leading-[1.15] sm:text-[3rem]">
-                  {couple.bride.shortName.charAt(0)}
-                </span>
-                <span className="font-display text-xl font-light leading-none text-accent-dark sm:text-2xl">
-                  &amp;
-                </span>
-                <span className="text-gilded font-script text-[2.6rem] leading-[1.15] sm:text-[3rem]">
-                  {couple.groom.shortName.charAt(0)}
-                </span>
-                <span className="rule-gild w-7 sm:w-9" />
-              </div>
+              {/* monogram — a drawn mark (the initials genuinely interwoven,
+                  with the botanical flourishes the theme is built around)
+                  rather than two script capitals set side by side, which is
+                  what a text face can't do: a font can only ever place
+                  glyphs next to each other, never interlace their strokes.
+                  No flanking rule-gild hairlines here, unlike the date line
+                  below — the artwork carries its own sprays out to left and
+                  right, and rules on top of those read as clutter.
+                  Decorative only (aria-hidden): the same two names are
+                  right below it in real text. */}
+              <Image
+                src="/images/monogram.webp"
+                alt=""
+                aria-hidden="true"
+                data-monogram
+                width={800}
+                height={565}
+                priority
+                sizes="(min-width: 640px) 13rem, 11rem"
+                className="mt-3 h-auto w-[9rem] sm:w-[11rem]"
+              />
 
               <AnimatedWords
                 as="p"
                 text="The Wedding Of"
                 variant="popIn"
                 groupSize={1}
-                className="mt-4 font-accent text-[11px] font-normal uppercase tracking-[0.5em] text-on-maroon-soft"
+                className="mt-3 font-accent text-[11px] font-normal uppercase tracking-[0.5em] text-on-maroon-soft"
               />
 
               {/* the couple's names — the one place the script face appears at
@@ -194,7 +194,7 @@ export default function Hero() {
               </h1>
 
               {/* date, set as three tracked numerals between hairlines */}
-              <div className="mt-5 flex items-center gap-4">
+              <div className="mt-4 flex items-center gap-4">
                 <span className="rule-gild w-10 sm:w-14" />
                 <p className="flex items-baseline gap-2.5 font-display text-[21px] font-normal tracking-[0.16em] text-on-maroon">
                   <span>{weddingDay}</span>
@@ -206,7 +206,7 @@ export default function Hero() {
                 <span className="rule-gild w-10 sm:w-14" />
               </div>
 
-              <div className="mt-6">
+              <div className="mt-5">
                 <Suspense fallback={<GuestGreetingFallback />}>
                   <GuestGreeting />
                 </Suspense>
