@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Amiri, Cormorant_Garamond, Great_Vibes, Jost, Lora } from "next/font/google";
+import { Amiri, Bodoni_Moda, EB_Garamond, Italianno, Jost } from "next/font/google";
 import BackgroundPattern from "@/components/BackgroundPattern";
 import { couple, events, venue } from "@/lib/weddingData";
 import "./globals.css";
@@ -12,27 +12,29 @@ import "./globals.css";
    doing both) could not do — see each note below. */
 
 // DISPLAY — section mastheads, card headings, dates, large numerals.
-// An old-style Garamond: organic, hand-cut warmth that suits the botanical
-// ground far better than a cold high-contrast Didone would. It also ships a
-// real 300, so the airy `font-light` mastheads finally resolve to an actual
-// weight instead of silently rendering at 400 (a font-weight the browser
-// cannot synthesize — unlike bold/italic, light has no faux fallback).
-// Already the face app/opengraph-image.tsx renders in, so the share card
-// and the page it links to are now finally the same typeface.
-const cormorant = Cormorant_Garamond({
+// A true Didone, and the reason the page reads as editorial rather than
+// merely pretty: hairline serifs against heavy stems is the fashion-
+// masthead contrast, which an old-style Garamond (the previous choice)
+// deliberately avoids. Its optical-size axis keeps that contrast from
+// getting spindly as the mastheads scale up.
+//
+// Note it starts at 400 — there is no 300 here, unlike Cormorant. Nothing
+// may set `font-light` on this face: browsers synthesize bold and italic
+// but never light, so it would silently render 400 and the class would be
+// a lie. The mastheads say font-normal for that reason.
+const bodoni = Bodoni_Moda({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: ["400", "500"],
   style: ["normal", "italic"],
 });
 
 // TEXT — every paragraph of running copy, and form fields.
-// A screen-first text serif: moderate stroke contrast that survives at
-// 15px where a display face's hairlines break up, and — the reason this
-// family is here at all — a TRUE italic. This invitation sets a lot of
-// prose in italic, all of which was previously a browser-synthesized
-// slant of an upright display face.
-const lora = Lora({
+// A Garamond for the small sizes, where the display face's hairlines would
+// break up. Quieter and lower-contrast than the Didone above on purpose:
+// two high-contrast faces at once makes a page shimmer. Carries a TRUE
+// italic, which this invitation leans on heavily.
+const ebGaramond = EB_Garamond({
   variable: "--font-text",
   subsets: ["latin"],
   weight: ["400", "500"],
@@ -50,11 +52,17 @@ const jost = Jost({
   weight: ["400", "500"],
 });
 
-// SCRIPT — the couple's names and the monogram initials, nothing else.
-// Formal roundhand with enough stroke weight to actually carry the
-// .text-gilded foil gradient; a hairline script leaves the gradient almost
-// nothing to paint, which is what made the old foil read as flat colour.
-const greatVibes = Great_Vibes({
+// SCRIPT — the couple's names, nothing else.
+// A flowing engraver's italic rather than a round copperplate: its own
+// thick/thin contrast answers the Didone above, where a roundhand sits in
+// a noticeably different register beside one. Still carries enough stroke
+// weight to hold the .text-gilded foil gradient, which the very fine
+// scripts (Pinyon, Tangerine) could not.
+//
+// It sets small on the body — roughly 1.3x the point size of a roundhand
+// for the same apparent size — so every font-script size is scaled up to
+// match, not left at the old values.
+const italianno = Italianno({
   variable: "--font-script",
   subsets: ["latin"],
   weight: "400",
@@ -107,7 +115,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${cormorant.variable} ${lora.variable} ${jost.variable} ${greatVibes.variable} ${amiri.variable} h-full antialiased`}
+      className={`${bodoni.variable} ${ebGaramond.variable} ${jost.variable} ${italianno.variable} ${amiri.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-maroon-deep font-body text-on-maroon">
         <BackgroundPattern />

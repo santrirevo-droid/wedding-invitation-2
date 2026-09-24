@@ -67,10 +67,10 @@ export default function GiftModalContent() {
       <p className="font-accent text-[11px] font-normal uppercase tracking-[0.38em] text-accent-dark">
         A token of love
       </p>
-      <h2 className="text-gilded mt-3 font-display text-[2.5rem] font-light leading-[1.06]">
+      <h2 className="text-gilded mt-3 font-display text-[2.25rem] font-normal leading-[1.08]">
         Tanda kasih
         <br />
-        <span className="font-script text-[1.1em] leading-[1.18] [word-spacing:0.16em]">untuk kami.</span>
+        <span className="font-script text-[1.45em] leading-[1.05] [word-spacing:0.16em]">untuk kami.</span>
       </h2>
       <p className="mx-auto mt-5 max-w-[19rem] font-body text-[14.5px] font-normal leading-[1.8] text-on-maroon-soft">
         Kehadiran dan doa restu Anda sudah lebih dari cukup. Bila berkenan,

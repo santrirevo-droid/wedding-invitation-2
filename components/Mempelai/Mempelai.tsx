@@ -47,7 +47,7 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
           text={person.shortName}
           variant="popIn"
           groupSize={1}
-          className="mt-5 font-script text-[3.1rem] font-normal leading-[1.15] sm:text-[3.6rem]"
+          className="mt-5 font-script text-[4.1rem] font-normal leading-[1.05] sm:text-[4.8rem]"
           wordClassName="text-gilded inline-block"
         />
 
@@ -128,7 +128,7 @@ export default function Mempelai() {
 
           <div data-reveal className="flex items-center gap-5">
             <span className="rule-gild w-12" />
-            <span className="text-gilded font-script text-[2.9rem] leading-[1.15]">
+            <span className="text-gilded font-script text-[3.8rem] leading-[1.05]">
               &amp;
             </span>
             <span className="rule-gild w-12" />

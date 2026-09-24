@@ -98,7 +98,7 @@ export default function Acara() {
         <p className="font-accent text-[11px] font-normal uppercase tracking-[0.4em] text-paper/65">
           Save the Date
         </p>
-        <h2 className="mt-3 font-display text-[clamp(2.2rem,7.5vw,3.1rem)] font-light leading-[1.12]">
+        <h2 className="mt-3 font-display text-[clamp(2rem,6.8vw,2.8rem)] font-normal leading-[1.14]">
           <AnimatedWords as="span" text="Menuju hari" variant="popUp" groupSize={2} />
           <br />
           <AnimatedWords
@@ -106,7 +106,7 @@ export default function Acara() {
             text="bahagia kami."
             variant="popUp"
             groupSize={2}
-            className="font-script text-[1.25em] leading-[1.2] [word-spacing:0.16em] text-[#e3d9a8]"
+            className="font-script text-[1.6em] leading-[1.05] [word-spacing:0.16em] text-[#e3d9a8]"
           />
         </h2>
 
@@ -142,7 +142,7 @@ export default function Acara() {
             <span className="text-right font-accent text-[11px] font-normal uppercase leading-[1.7] tracking-[0.16em] text-on-maroon-soft">
               {weddingDayName}
             </span>
-            <strong className="text-gilded font-display text-[clamp(3.9rem,15vw,5.6rem)] font-light leading-[0.78]">
+            <strong className="text-gilded font-display text-[clamp(3.5rem,13.5vw,5rem)] font-normal leading-[0.82]">
               {weddingDay}
             </strong>
             <span className="text-left font-accent text-[11px] font-normal uppercase leading-[1.7] tracking-[0.16em] text-on-maroon-soft">

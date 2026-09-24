@@ -187,11 +187,11 @@ export default function Hero() {
                 ref={title}
                 className="mt-3 flex items-baseline justify-center gap-2.5 leading-none"
               >
-                <span className="text-gilded text-gilded-drift font-script text-[clamp(2.2rem,12.5vw,3.6rem)] leading-[1.15]">
+                <span className="text-gilded text-gilded-drift font-script text-[clamp(2.9rem,16vw,4.7rem)] leading-[1.05]">
                   {couple.bride.shortName}
                 </span>
-                <span className="font-display text-xl font-light text-accent-dark">&amp;</span>
-                <span className="text-gilded text-gilded-drift font-script text-[clamp(2.2rem,12.5vw,3.6rem)] leading-[1.15]">
+                <span className="font-display text-xl font-normal text-accent-dark">&amp;</span>
+                <span className="text-gilded text-gilded-drift font-script text-[clamp(2.9rem,16vw,4.7rem)] leading-[1.05]">
                   {couple.groom.shortName}
                 </span>
               </h1>

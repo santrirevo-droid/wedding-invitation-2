@@ -58,16 +58,16 @@ export default function Footer() {
         <h2 className="mt-6 flex flex-col items-center leading-none">
           <span
             data-reveal
-            className="font-script text-[clamp(3rem,18vw,5rem)] leading-[1.12] text-[#e3d9a8]"
+            className="font-script text-[clamp(3.9rem,23vw,6.5rem)] leading-[1.02] text-[#e3d9a8]"
           >
             {couple.bride.shortName}
           </span>
-          <span data-reveal className="font-display text-2xl font-light text-paper/70">
+          <span data-reveal className="font-display text-2xl font-normal text-paper/70">
             &amp;
           </span>
           <span
             data-reveal
-            className="font-script text-[clamp(3rem,18vw,5rem)] leading-[1.12] text-[#e3d9a8]"
+            className="font-script text-[clamp(3.9rem,23vw,6.5rem)] leading-[1.02] text-[#e3d9a8]"
           >
             {couple.groom.shortName}
           </span>

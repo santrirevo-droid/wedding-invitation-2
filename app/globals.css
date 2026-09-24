@@ -87,15 +87,17 @@
      --font-accent are the two aliases, kept because every component
      already writes `font-body` / `font-accent`:
 
-       font-display  Cormorant Garamond  headings, dates, large numerals
-       font-body     Lora                all running copy, form fields
-       font-accent   Jost                eyebrows, buttons, labels, nav
-       font-script   Great Vibes         couple's names + monogram only
-       font-arabic   Amiri               the Qur'anic passage
+       font-display  Bodoni Moda   headings, dates, large numerals
+       font-body     EB Garamond   all running copy, form fields
+       font-accent   Jost          eyebrows, buttons, labels, nav
+       font-script   Italianno     the couple's names only
+       font-arabic   Amiri         the Qur'anic passage
 
      USE THE RIGHT ONE. The rule that keeps this readable: font-display is
-     a display cut and starts to break up below ~19px, so anything smaller
-     than that — and anything set in italic — belongs to font-body. The
+     a Didone and starts to break up below ~19px, so anything smaller than
+     that — and anything set in italic — belongs to font-body. Nothing may
+     set font-light on font-display either: Bodoni Moda has no 300, and a
+     light weight is the one thing browsers will not synthesize. The
      four dead aliases that used to live here (--font-mempelai,
      --font-fullname, --font-title-mempelai, --font-rsvp) had no remaining
      callers and are gone. */

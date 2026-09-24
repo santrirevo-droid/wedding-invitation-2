@@ -13,9 +13,9 @@ export const contentType = "image/png";
 // preview reads as the same invitation, not a generic site card.
 export default async function Image() {
   const [medium, semibold, mediumItalic] = await Promise.all([
-    readFile(join(process.cwd(), "assets/fonts/CormorantGaramond-Medium.ttf")),
-    readFile(join(process.cwd(), "assets/fonts/CormorantGaramond-SemiBold.ttf")),
-    readFile(join(process.cwd(), "assets/fonts/CormorantGaramond-MediumItalic.ttf")),
+    readFile(join(process.cwd(), "assets/fonts/BodoniModa-Medium.ttf")),
+    readFile(join(process.cwd(), "assets/fonts/BodoniModa-SemiBold.ttf")),
+    readFile(join(process.cwd(), "assets/fonts/BodoniModa-MediumItalic.ttf")),
   ]);
 
   return new ImageResponse(
@@ -79,10 +79,10 @@ export default async function Image() {
         >
           <div
             style={{
-              fontFamily: "Cormorant Garamond",
-              fontSize: 26,
+              fontFamily: "Bodoni Moda",
+              fontSize: 22,
               fontWeight: 500,
-              letterSpacing: 10,
+              letterSpacing: 9,
               textTransform: "uppercase",
               color: "#6b5637",
             }}
@@ -94,9 +94,9 @@ export default async function Image() {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 34,
-              fontFamily: "Cormorant Garamond",
-              fontSize: 168,
+              gap: 26,
+              fontFamily: "Bodoni Moda",
+              fontSize: 112,
               fontWeight: 600,
               color: "#453824",
             }}
@@ -106,7 +106,7 @@ export default async function Image() {
               style={{
                 fontStyle: "italic",
                 fontWeight: 500,
-                fontSize: 92,
+                fontSize: 62,
                 color: "#6b5637",
               }}
             >
@@ -125,8 +125,8 @@ export default async function Image() {
           >
             <div
               style={{
-                fontFamily: "Cormorant Garamond",
-                fontSize: 50,
+                fontFamily: "Bodoni Moda",
+                fontSize: 34,
                 fontWeight: 500,
                 letterSpacing: 6,
                 textTransform: "uppercase",
@@ -137,11 +137,11 @@ export default async function Image() {
             </div>
             <div
               style={{
-                fontFamily: "Cormorant Garamond",
-                fontSize: 150,
+                fontFamily: "Bodoni Moda",
+                fontSize: 96,
                 fontWeight: 600,
                 color: "#453824",
-                marginTop: -10,
+                marginTop: -4,
               }}
             >
               {`${weddingDay} ${weddingMonthName} ${weddingYear}`}
@@ -150,11 +150,11 @@ export default async function Image() {
 
           <div
             style={{
-              fontFamily: "Cormorant Garamond",
+              fontFamily: "Bodoni Moda",
               fontSize: 22,
               fontWeight: 500,
               color: "#7c6d54",
-              marginTop: -6,
+              marginTop: 4,
             }}
           >
             {venue.name}
@@ -165,9 +165,9 @@ export default async function Image() {
     {
       ...size,
       fonts: [
-        { name: "Cormorant Garamond", data: medium, weight: 500, style: "normal" },
-        { name: "Cormorant Garamond", data: semibold, weight: 600, style: "normal" },
-        { name: "Cormorant Garamond", data: mediumItalic, weight: 500, style: "italic" },
+        { name: "Bodoni Moda", data: medium, weight: 500, style: "normal" },
+        { name: "Bodoni Moda", data: semibold, weight: 600, style: "normal" },
+        { name: "Bodoni Moda", data: mediumItalic, weight: 500, style: "italic" },
       ],
     }
   );

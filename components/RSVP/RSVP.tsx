@@ -217,7 +217,7 @@ export default function RSVP() {
             and AnimatedWords' inline-block word spans are a separate box
             from their ancestor, so a gradient on the h2 alone renders the
             words invisible */}
-        <h2 className="mt-3 font-display text-[clamp(2.35rem,8.6vw,3.2rem)] font-light leading-[1.1]">
+        <h2 className="mt-3 font-display text-[clamp(2.1rem,7.7vw,2.9rem)] font-normal leading-[1.12]">
           <AnimatedWords
             as="span"
             text="Kehadiran Anda adalah"
@@ -231,7 +231,7 @@ export default function RSVP() {
             text="hadiah terindah."
             variant="slideRight"
             groupSize={2}
-            className="font-script text-[1.15em] leading-[1.18] [word-spacing:0.16em]"
+            className="font-script text-[1.5em] leading-[1.05] [word-spacing:0.16em]"
             wordClassName="text-gilded inline-block"
           />
         </h2>
@@ -245,7 +245,7 @@ export default function RSVP() {
 
         <div data-reveal className="mt-9 flex items-stretch justify-center gap-10">
           <div>
-            <div className="text-gilded font-display text-[38px] font-light leading-none tabular-nums lining-nums">
+            <div className="text-gilded font-display text-[38px] font-normal leading-none tabular-nums lining-nums">
               {wishes.length}
             </div>
             <div className="mt-2.5 font-accent text-[11px] font-normal uppercase tracking-[0.3em] text-on-maroon-soft">
@@ -254,7 +254,7 @@ export default function RSVP() {
           </div>
           <div className="w-px bg-accent/20" />
           <div>
-            <div className="text-gilded font-display text-[38px] font-light leading-none tabular-nums lining-nums">
+            <div className="text-gilded font-display text-[38px] font-normal leading-none tabular-nums lining-nums">
               {hadirCount}
             </div>
             <div className="mt-2.5 font-accent text-[11px] font-normal uppercase tracking-[0.3em] text-on-maroon-soft">
@@ -268,10 +268,10 @@ export default function RSVP() {
         <p className="text-center font-accent text-[11px] font-normal uppercase tracking-[0.38em] text-accent-dark">
           RSVP
         </p>
-        <h2 className="text-gilded mt-3 text-center font-display text-[2.3rem] font-light leading-[1.06]">
+        <h2 className="text-gilded mt-3 text-center font-display text-[2.1rem] font-normal leading-[1.08]">
           Konfirmasi
           <br />
-          <span className="font-script text-[1.1em] leading-[1.18] [word-spacing:0.16em]">
+          <span className="font-script text-[1.45em] leading-[1.05] [word-spacing:0.16em]">
             kehadiran Anda.
           </span>
         </h2>

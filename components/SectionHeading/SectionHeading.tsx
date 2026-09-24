@@ -14,7 +14,7 @@ type SectionHeadingProps = {
   kickerOnly?: boolean;
   /** overrides the title's font family — for one-off headings that break
    * from the shared font-display treatment (e.g. RSVP's script).
-   * font-light is a real 300 in Cormorant Garamond, which is what gives
+   * font-normal is a real 300 in Cormorant Garamond, which is what gives
    * the masthead its airiness; it was a no-op under the previous
    * single-weight display face (browsers synthesize bold and italic, but
    * never light). */
@@ -36,7 +36,7 @@ export default function SectionHeading({
   title,
   className = "",
   kickerOnly = false,
-  titleClassName = "font-display font-light",
+  titleClassName = "font-display font-normal",
 }: SectionHeadingProps) {
   const ref = useRef<HTMLDivElement>(null);
   useHeadingReveal(ref);
@@ -61,7 +61,7 @@ export default function SectionHeading({
       {!kickerOnly && (
         <h2
           data-heading-title
-          className={`${titleClassName} mt-3 text-[clamp(2.45rem,8.8vw,3.5rem)] leading-[1.05]`}
+          className={`${titleClassName} mt-3 text-[clamp(2.2rem,7.9vw,3.15rem)] leading-[1.08]`}
         >
           {/* text-gilded per word, not on the h2 — its background-clip:text
               gradient only paints the box it's set on, and each word needs
