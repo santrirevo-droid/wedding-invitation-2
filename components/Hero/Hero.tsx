@@ -105,8 +105,8 @@ export default function Hero() {
             }}
           />
 
-          <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-md flex-col items-center justify-center gap-4 px-8 py-5 text-center">
-            <div ref={content} className="relative flex flex-col items-center px-7 py-3 sm:px-10">
+          <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-md flex-col items-center justify-center gap-3 px-8 py-5 text-center">
+            <div ref={content} className="relative flex flex-col items-center px-7 py-2 sm:px-10">
               {/* the white arch card — a gateway silhouette echoing the
                   video's own wooden arch, materialising behind the text
                   once every line above has popped in (see
@@ -141,7 +141,7 @@ export default function Hero() {
                 groupSize={2}
                 dir="rtl"
                 lang="ar"
-                className="font-arabic text-xl leading-relaxed text-accent-dark"
+                className="font-arabic text-xl leading-snug text-accent-dark"
               />
 
               <AnimatedWords
@@ -149,7 +149,7 @@ export default function Hero() {
                 text="The Wedding Of"
                 variant="popIn"
                 groupSize={1}
-                className="mt-4 font-accent text-[11px] font-normal uppercase tracking-[0.5em] text-on-maroon-soft"
+                className="mt-2 font-accent text-[11px] font-normal uppercase tracking-[0.5em] text-on-maroon-soft"
               />
 
               {/* monogram — a drawn mark (the initials genuinely interwoven,
@@ -172,7 +172,7 @@ export default function Hero() {
                 height={704}
                 priority
                 sizes="(min-width: 640px) 16rem, 13.5rem"
-                className="mt-1 h-auto w-[min(13.5rem,60vw)] sm:w-[16rem]"
+                className="-mt-1 h-auto w-[min(13.5rem,60vw)] sm:w-[16rem]"
               />
 
               {/* the couple's names — the one place the script face appears at
@@ -185,7 +185,7 @@ export default function Hero() {
                   descenders. */}
               <h1
                 ref={title}
-                className="mt-3 flex items-baseline justify-center gap-2.5 leading-none"
+                className="mt-1 flex items-baseline justify-center gap-2.5 leading-none"
               >
                 <span className="text-gilded text-gilded-drift font-script text-[clamp(2.9rem,16vw,4.7rem)] leading-[1.05]">
                   {couple.bride.shortName}
@@ -197,7 +197,7 @@ export default function Hero() {
               </h1>
 
               {/* date, set as three tracked numerals between hairlines */}
-              <div className="mt-4 flex items-center gap-4">
+              <div className="mt-2.5 flex items-center gap-4">
                 <span className="rule-gild w-10 sm:w-14" />
                 <p className="flex items-baseline gap-2.5 font-display text-[21px] font-normal tracking-[0.16em] text-on-maroon">
                   <span>{weddingDay}</span>
@@ -209,14 +209,14 @@ export default function Hero() {
                 <span className="rule-gild w-10 sm:w-14" />
               </div>
 
-              <div className="mt-5">
+              <div className="mt-3.5">
                 <Suspense fallback={<GuestGreetingFallback />}>
                   <GuestGreeting />
                 </Suspense>
               </div>
             </div>
 
-            <div ref={button} className="flex flex-col items-center gap-4">
+            <div ref={button} className="flex flex-col items-center gap-3">
               <InvitationButton
                 onClick={() => {
                   idle.stop();
