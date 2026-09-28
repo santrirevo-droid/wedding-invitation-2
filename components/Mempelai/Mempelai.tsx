@@ -11,6 +11,7 @@ import { couple, type CoupleRole } from "@/lib/weddingData";
 type Person = {
   name: string;
   shortName: string;
+  birthOrder: string;
   father: string;
   mother: string;
   instagram: string;
@@ -63,7 +64,7 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
         />
 
         <p className="mt-3 font-accent text-[11px] font-normal uppercase tracking-[0.38em] text-accent-dark">
-          {role === "putra" ? "Putra" : "Putri"} dari
+          {role === "putra" ? "Putra" : "Putri"} {person.birthOrder} dari
         </p>
 
         <div className="mx-auto mt-3 max-w-[17rem] font-body text-[15px] font-normal italic leading-[1.7] text-on-maroon-soft">

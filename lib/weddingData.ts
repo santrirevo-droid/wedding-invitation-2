@@ -8,6 +8,8 @@ export const couple: Record<
     name: string;
     shortName: string;
     role: CoupleRole;
+    /** urutan lahir, disambung ke "Putra/Putri … dari" */
+    birthOrder: string;
     father: string;
     mother: string;
     instagram: string;
@@ -17,6 +19,7 @@ export const couple: Record<
     name: "Saiful Amri Tanjung",
     shortName: "Amri",
     role: "putra",
+    birthOrder: "ketiga",
     father: "Bapak Mahmuddin Tanjung",
     mother: "Ibu Rahimah Dalimunthe",
     instagram: "@amri_tanjung03",
@@ -25,6 +28,7 @@ export const couple: Record<
     name: "Nufus Nurcholisoh",
     shortName: "Nufus",
     role: "putri",
+    birthOrder: "pertama",
     father: "Bapak Dudin Sadudin",
     mother: "Ibu Resa Aryanti",
     instagram: "@nufus.nch",
