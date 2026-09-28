@@ -5,7 +5,6 @@ import Image from "next/image";
 import AnimatedWords from "@/components/AnimatedWords";
 import { SectionFloral } from "@/components/Botanical";
 import SectionCard from "@/components/SectionCard";
-import SectionHeading from "@/components/SectionHeading";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
 import { couple, type CoupleRole } from "@/lib/weddingData";
 
@@ -113,14 +112,20 @@ export default function Mempelai() {
       <SectionFloral />
 
       <div className="relative mx-auto max-w-md text-center">
-        <SectionHeading eyebrow="Mempelai" title="Kedua Mempelai" />
+        <AnimatedWords
+          as="p"
+          text="Assalamualaikum Wr. Wb."
+          variant="slideLeft"
+          groupSize={3}
+          className="mx-auto max-w-sm font-body text-[15px] font-normal italic leading-[1.85] text-on-maroon-soft"
+        />
 
         <AnimatedWords
           as="p"
-          text="Dengan memohon rahmat dan ridha Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami:"
+          text="Dengan memohon Rahmat & Ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:"
           variant="slideLeft"
           groupSize={3}
-          className="mx-auto mt-7 max-w-sm font-body text-[15px] font-normal italic leading-[1.85] text-on-maroon-soft"
+          className="mx-auto mt-3 max-w-sm font-body text-[15px] font-normal italic leading-[1.85] text-on-maroon-soft"
         />
 
         <div className="mt-12 flex flex-col items-center gap-10">

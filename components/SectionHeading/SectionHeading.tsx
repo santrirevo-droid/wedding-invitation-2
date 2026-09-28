@@ -19,6 +19,9 @@ type SectionHeadingProps = {
    * single-weight display face (browsers synthesize bold and italic, but
    * never light). */
   titleClassName?: string;
+  /** overrides the title's size — script faces like Italianno read small at
+   * the shared serif size and need more room to feel like a masthead */
+  titleSizeClassName?: string;
 };
 
 /**
@@ -37,6 +40,7 @@ export default function SectionHeading({
   className = "",
   kickerOnly = false,
   titleClassName = "font-display font-normal",
+  titleSizeClassName = "text-[clamp(2.2rem,7.9vw,3.15rem)] leading-[1.08]",
 }: SectionHeadingProps) {
   const ref = useRef<HTMLDivElement>(null);
   useHeadingReveal(ref);
@@ -61,7 +65,7 @@ export default function SectionHeading({
       {!kickerOnly && (
         <h2
           data-heading-title
-          className={`${titleClassName} mt-3 text-[clamp(2.2rem,7.9vw,3.15rem)] leading-[1.08]`}
+          className={`${titleClassName} ${titleSizeClassName} mt-3`}
         >
           {/* text-gilded per word, not on the h2 — its background-clip:text
               gradient only paints the box it's set on, and each word needs

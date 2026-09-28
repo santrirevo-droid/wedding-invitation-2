@@ -28,16 +28,12 @@ function getTimeLeft() {
 }
 
 function EventCard({
-  index,
   title,
   time,
-  date,
   emphasis = false,
 }: {
-  index: string;
   title: string;
   time: string;
-  date: string;
   emphasis?: boolean;
 }) {
   return (
@@ -49,18 +45,12 @@ function EventCard({
           : "border-border bg-paper/75"
       }`}
     >
-      <span className="absolute right-5 top-5 font-display text-[19px] font-normal text-accent">
-        {index}
-      </span>
-      <p className="font-accent text-[11px] font-normal uppercase tracking-[0.32em] text-accent-dark">
+      <p className="font-accent text-[16px] font-normal uppercase tracking-[0.26em] text-accent-dark">
         {title}
       </p>
-      <h3 className="mt-6 font-display text-[25px] font-medium leading-tight text-ink">
+      <h3 className="mt-5 font-display text-[25px] font-medium leading-tight text-ink">
         {time}
       </h3>
-      <p className="mt-2 font-body text-[13.5px] font-normal italic leading-[1.6] text-ink-soft">
-        {date}
-      </p>
     </div>
   );
 }
@@ -134,7 +124,19 @@ export default function Acara() {
         <SectionFloral />
 
         <div className="relative mx-auto max-w-md">
-          <SectionHeading eyebrow="Acara" title="Rayakan Bersama Kami" />
+          <SectionHeading
+            eyebrow="Wedding Event"
+            titleClassName="font-script font-normal"
+            titleSizeClassName="text-[clamp(3.6rem,15vw,5rem)] leading-[1]"
+          />
+
+          <AnimatedWords
+            as="p"
+            text="Insya Allah akan dilaksanakan pada:"
+            variant="slideLeft"
+            groupSize={3}
+            className="mx-auto mt-6 max-w-sm font-body text-[15px] font-normal italic leading-[1.85] text-on-maroon-soft"
+          />
 
           {/* the day itself, set as one large callout — day name, a big
               numeral, then month/year, echoing herewego's event-date block */}
@@ -153,14 +155,8 @@ export default function Acara() {
           </div>
 
           <div data-reveal className="mt-10 flex flex-col gap-3.5 sm:flex-row">
-            <EventCard index="01" title={akad.title} time={akad.time} date={akad.date} />
-            <EventCard
-              index="02"
-              title={resepsi.title}
-              time={resepsi.time}
-              date={resepsi.date}
-              emphasis
-            />
+            <EventCard title={akad.title} time={akad.time} />
+            <EventCard title={resepsi.title} time={resepsi.time} emphasis />
           </div>
 
           <SectionCard shape="arch" className="mt-8 px-7 pb-9 pt-8">
