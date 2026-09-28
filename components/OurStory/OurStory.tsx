@@ -36,9 +36,8 @@ const milestones: Milestone[] = [
 ];
 
 /**
- * The love story, told as a dated timeline — placed between Mempelai and
- * Acara so the narrative reads in order: who they are, how they came to
- * be a "they", then the logistics of the day itself.
+ * The love story, told as a dated timeline — placed right after Tanda
+ * Kasih, ahead of the RSVP form and guestbook at the bottom.
  */
 export default function OurStory() {
   const sectionRef = useRef<HTMLElement>(null);

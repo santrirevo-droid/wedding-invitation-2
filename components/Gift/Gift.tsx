@@ -41,8 +41,8 @@ function EnvelopeFlap() {
 }
 
 /**
- * "Tanda Kasih" — rendered directly inside its own card in RSVP.tsx,
- * right under the RSVP form, so guests see it without an extra tap.
+ * "Tanda Kasih" — rendered directly inside its own card in GiftSection,
+ * so guests see it without an extra tap.
  */
 export default function GiftModalContent() {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);

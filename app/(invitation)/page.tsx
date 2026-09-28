@@ -1,5 +1,6 @@
 import Acara from "@/components/Acara";
 import Footer from "@/components/Footer";
+import { GiftSection } from "@/components/Gift";
 import Hero from "@/components/Hero";
 import Mempelai from "@/components/Mempelai";
 import OpeningQuote from "@/components/OpeningQuote";
@@ -13,8 +14,9 @@ import Wishes from "@/components/Wishes";
  * used to stack between them just doubled the ornament. The rhythm comes
  * from the shared py-28 and the repeated masthead instead.
  *
- * RSVP and Gift both render directly in RSVP.tsx (no modal tap needed to
- * see either).
+ * Gift (Tanda Kasih) and RSVP each render directly as their own section —
+ * no modal tap needed to see either. RSVP sits last, right before the
+ * guestbook it feeds.
  */
 export default function Home() {
   return (
@@ -23,9 +25,10 @@ export default function Home() {
       <OpeningQuote />
       <Mempelai />
       <Acara />
+      <GiftSection />
+      <OurStory />
       <RSVP />
       <Wishes />
-      <OurStory />
       <Footer />
     </main>
   );

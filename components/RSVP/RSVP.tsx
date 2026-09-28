@@ -3,7 +3,6 @@
 import { Suspense, useRef, useState, type FormEvent } from "react";
 import AnimatedWords from "@/components/AnimatedWords";
 import { SectionFloral } from "@/components/Botanical";
-import GiftModalContent from "@/components/Gift";
 import { GuestNameAutofill } from "@/components/GuestGreeting";
 import SectionCard from "@/components/SectionCard";
 import { useRevealOnScroll } from "@/hooks/useRevealOnScroll";
@@ -276,10 +275,6 @@ export default function RSVP() {
           </span>
         </h2>
         <RSVPFormContent />
-      </SectionCard>
-
-      <SectionCard shape="rounded" className="relative mx-auto mt-8 max-w-md px-7 py-10 sm:px-9">
-        <GiftModalContent />
       </SectionCard>
     </section>
   );
