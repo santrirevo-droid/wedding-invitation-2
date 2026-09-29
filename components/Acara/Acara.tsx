@@ -140,14 +140,14 @@ export default function Acara() {
 
           {/* the day itself, set as one large callout — day name, a big
               numeral, then month/year, echoing herewego's event-date block */}
-          <div data-reveal className="mt-9 flex items-center justify-center gap-5">
-            <span className="text-right font-accent text-[15px] font-normal uppercase leading-[1.6] tracking-[0.16em] text-on-maroon-soft sm:text-[17px]">
+          <div data-reveal className="mt-9 flex items-center justify-center gap-4">
+            <span className="text-right font-accent text-[clamp(1.15rem,5vw,1.5rem)] font-normal uppercase leading-[1.45] tracking-[0.1em] text-on-maroon-soft">
               {weddingDayName}
             </span>
-            <strong className="text-gilded font-display text-[clamp(5rem,21vw,7rem)] font-normal leading-[0.82]">
+            <strong className="text-gilded font-display text-[clamp(4.5rem,19vw,7rem)] font-normal leading-[0.82]">
               {weddingDay}
             </strong>
-            <span className="text-left font-accent text-[15px] font-normal uppercase leading-[1.6] tracking-[0.16em] text-on-maroon-soft sm:text-[17px]">
+            <span className="text-left font-accent text-[clamp(1.15rem,5vw,1.5rem)] font-normal uppercase leading-[1.45] tracking-[0.1em] text-on-maroon-soft">
               {weddingMonthName}
               <br />
               {weddingYear}
