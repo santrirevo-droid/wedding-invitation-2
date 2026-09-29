@@ -135,19 +135,19 @@ export default function Acara() {
             text="Insya Allah akan dilaksanakan pada:"
             variant="slideLeft"
             groupSize={3}
-            className="mx-auto mt-6 max-w-sm font-body text-[15px] font-normal italic leading-[1.85] text-on-maroon-soft"
+            className="mx-auto mt-6 max-w-sm font-body text-[18px] font-normal italic leading-[1.75] text-on-maroon-soft"
           />
 
           {/* the day itself, set as one large callout — day name, a big
               numeral, then month/year, echoing herewego's event-date block */}
-          <div data-reveal className="mt-9 flex items-center justify-center gap-4">
-            <span className="text-right font-accent text-[11px] font-normal uppercase leading-[1.7] tracking-[0.16em] text-on-maroon-soft">
+          <div data-reveal className="mt-9 flex items-center justify-center gap-5">
+            <span className="text-right font-accent text-[15px] font-normal uppercase leading-[1.6] tracking-[0.16em] text-on-maroon-soft sm:text-[17px]">
               {weddingDayName}
             </span>
-            <strong className="text-gilded font-display text-[clamp(3.5rem,13.5vw,5rem)] font-normal leading-[0.82]">
+            <strong className="text-gilded font-display text-[clamp(5rem,21vw,7rem)] font-normal leading-[0.82]">
               {weddingDay}
             </strong>
-            <span className="text-left font-accent text-[11px] font-normal uppercase leading-[1.7] tracking-[0.16em] text-on-maroon-soft">
+            <span className="text-left font-accent text-[15px] font-normal uppercase leading-[1.6] tracking-[0.16em] text-on-maroon-soft sm:text-[17px]">
               {weddingMonthName}
               <br />
               {weddingYear}
