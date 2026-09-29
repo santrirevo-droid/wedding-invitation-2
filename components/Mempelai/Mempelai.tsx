@@ -11,6 +11,7 @@ import { couple, type CoupleRole } from "@/lib/weddingData";
 type Person = {
   name: string;
   shortName: string;
+  degree?: string;
   birthOrder: string;
   father: string;
   mother: string;
@@ -55,13 +56,29 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
             gets the text face at caption weight, not the display cut —
             uppercase at 15px is exactly where a display Garamond's
             hairlines start to disappear */}
-        <AnimatedWords
-          as="h3"
-          text={person.name}
-          variant="popIn"
-          groupSize={1}
-          className="mt-2.5 font-body text-[14px] font-medium uppercase tracking-[0.14em] text-on-maroon-soft"
-        />
+        <h3 className="mt-3 font-body text-[18px] font-medium leading-[1.45] text-on-maroon-soft sm:text-[19px]">
+          <AnimatedWords
+            as="span"
+            text={person.degree ? `${person.name},` : person.name}
+            variant="popIn"
+            groupSize={1}
+            className="uppercase tracking-[0.12em]"
+          />
+          {/* academic titles keep their own casing — "S.Hum." set in caps
+              would read as an acronym */}
+          {person.degree && (
+            <>
+              {" "}
+              <AnimatedWords
+                as="span"
+                text={person.degree}
+                variant="popIn"
+                groupSize={1}
+                className="tracking-[0.04em]"
+              />
+            </>
+          )}
+        </h3>
 
         <p className="mt-3 font-accent text-[11px] font-normal uppercase tracking-[0.38em] text-accent-dark">
           {role === "putra" ? "Putra" : "Putri"} {person.birthOrder} dari

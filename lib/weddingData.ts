@@ -7,6 +7,8 @@ export const couple: Record<
   {
     name: string;
     shortName: string;
+    /** gelar akademik, tampil setelah nama lengkap di section Mempelai */
+    degree?: string;
     role: CoupleRole;
     /** urutan lahir, disambung ke "Putra/Putri … dari" */
     birthOrder: string;
@@ -18,6 +20,7 @@ export const couple: Record<
   groom: {
     name: "Saiful Amri Tanjung",
     shortName: "Amri",
+    degree: "S.Hum.",
     role: "putra",
     birthOrder: "ketiga",
     father: "Bapak Mahmuddin Tanjung",
@@ -27,6 +30,7 @@ export const couple: Record<
   bride: {
     name: "Nufus Nurcholisoh",
     shortName: "Nufus",
+    degree: "S.Hum., Gr.",
     role: "putri",
     birthOrder: "pertama",
     father: "Bapak Dudin Sadudin",
