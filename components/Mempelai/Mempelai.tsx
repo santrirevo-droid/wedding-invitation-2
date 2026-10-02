@@ -27,7 +27,7 @@ type Person = {
  */
 function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
   return (
-    <SectionCard shape="arch" className="w-full max-w-[19rem] px-6 pb-9 pt-6">
+    <SectionCard shape="arch" className="w-full max-w-[21rem] px-4 pb-9 pt-6">
       <div data-reveal className="flex flex-col items-center text-center">
         <div className="relative mx-auto aspect-[2/3] w-[12.5rem] overflow-hidden rounded-t-full drop-shadow-[0_14px_26px_rgba(58,46,30,0.28)] sm:w-[14rem]">
           <Image
@@ -54,15 +54,17 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
 
         {/* the full legal name reads as a caption under the script, so it
             gets the text face at caption weight, not the display cut —
+            kept to one line (nowrap, tight tracking, a vw-scaled size) so the
+            name and its titles never break mid-name on a phone;
             uppercase at 15px is exactly where a display Garamond's
             hairlines start to disappear */}
-        <h3 className="mt-3 font-body text-[18px] font-medium leading-[1.45] text-on-maroon-soft sm:text-[19px]">
+        <h3 className="mt-3 whitespace-nowrap font-body text-[clamp(13px,4.1vw,17px)] font-medium leading-[1.45] text-on-maroon-soft">
           <AnimatedWords
             as="span"
             text={person.degree ? `${person.name},` : person.name}
             variant="popIn"
             groupSize={1}
-            className="uppercase tracking-[0.12em]"
+            className="uppercase tracking-[0.03em]"
           />
           {/* academic titles keep their own casing — "S.Hum." set in caps
               would read as an acronym */}
@@ -74,7 +76,7 @@ function PersonBlock({ person, role }: { person: Person; role: CoupleRole }) {
                 text={person.degree}
                 variant="popIn"
                 groupSize={1}
-                className="tracking-[0.04em]"
+                className="tracking-[0.01em]"
               />
             </>
           )}
