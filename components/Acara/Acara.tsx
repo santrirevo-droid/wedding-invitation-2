@@ -59,21 +59,25 @@ export default function Acara() {
   const sectionRef = useRef<HTMLElement>(null);
   useRevealOnScroll(sectionRef, { stagger: 0.1, y: 26 });
 
-  // lazy init so the first paint already shows real numbers instead of
-  // "--"; the value legitimately differs between server and client render
-  // (it's a live clock), so the digits below carry suppressHydrationWarning
-  const [timeLeft, setTimeLeft] = useState(getTimeLeft);
+  // null until mounted, then computed on the guest's own clock. A lazy
+  // useState(getTimeLeft) looked like it showed real numbers on first
+  // paint, but this page is prerendered at build time: hydration kept the
+  // build-time digits in the DOM while React believed it held the client's
+  // values, so any cell whose value didn't change on the next tick (days,
+  // hours) stayed frozen at the build-time number until it next rolled over.
+  const [timeLeft, setTimeLeft] = useState<ReturnType<typeof getTimeLeft> | null>(null);
 
   useEffect(() => {
+    setTimeLeft(getTimeLeft());
     const id = setInterval(() => setTimeLeft(getTimeLeft()), 1000);
     return () => clearInterval(id);
   }, []);
 
   const cells = [
-    { label: "Hari", value: timeLeft.days },
-    { label: "Jam", value: timeLeft.hours },
-    { label: "Menit", value: timeLeft.minutes },
-    { label: "Detik", value: timeLeft.seconds },
+    { label: "Hari", value: timeLeft?.days },
+    { label: "Jam", value: timeLeft?.hours },
+    { label: "Menit", value: timeLeft?.minutes },
+    { label: "Detik", value: timeLeft?.seconds },
   ];
 
   return (
@@ -103,11 +107,8 @@ export default function Acara() {
         <div className="mx-auto mt-10 grid max-w-sm grid-cols-4 border-l border-paper/25">
           {cells.map((cell) => (
             <div key={cell.label} className="border-r border-paper/25 px-1">
-              <div
-                suppressHydrationWarning
-                className="font-display text-[clamp(1.9rem,6.5vw,2.6rem)] font-normal leading-none tabular-nums lining-nums"
-              >
-                {String(cell.value).padStart(2, "0")}
+              <div className="font-display text-[clamp(1.9rem,6.5vw,2.6rem)] font-normal leading-none tabular-nums lining-nums">
+                {cell.value === undefined ? "--" : String(cell.value).padStart(2, "0")}
               </div>
               <div className="mt-2 font-accent text-[9px] font-normal uppercase tracking-[0.24em] text-paper/70">
                 {cell.label}
